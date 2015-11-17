@@ -20,6 +20,7 @@ public class Room {
     // stores exits of this room.
     private HashMap<String, Room> exits;
     private String imageName;
+    private int size;
 
     /*
      * Create a new room described "description" with a given image. Firstly, it

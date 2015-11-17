@@ -1,8 +1,8 @@
-package zuul;
+package PrisonBreak;
 
 import model.Game;
 
-public class Zuul {
+public class PrisonBreak {
 
     //The game started from the method
     public static void main(String[] args) {

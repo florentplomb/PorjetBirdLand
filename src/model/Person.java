@@ -14,4 +14,11 @@ public class Person {
 
     private int number;
     private String culotte;
+
+    public Person() {
+        culotte = "grand-mere";
+    }
+    
+    
+    
 }

@@ -19,6 +19,5 @@ public class Person {
         culotte = "grand-mere";
     }
     
-    
-    
+
 }

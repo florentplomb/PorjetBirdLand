@@ -14,10 +14,10 @@ public class Person {
 
     private int number;
     private String culotte;
+    private String Nom;
 
     public Person() {
         culotte = "grand-mere";
     }
-    
 
 }

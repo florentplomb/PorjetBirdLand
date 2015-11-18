@@ -11,5 +11,5 @@ package model;
  *@author Florent Plomb <plombf at gmail.com>
  */
 public class Person {
-
+private String Nom
 }

@@ -13,4 +13,5 @@ package model;
 public class Person {
 
     private int number;
+    private String culotte;
 }

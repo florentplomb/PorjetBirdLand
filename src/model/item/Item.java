@@ -20,4 +20,11 @@ public abstract class Item {
     }
     
     public abstract void action();
+
+    @Override
+    public String toString() {
+        return NAME; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

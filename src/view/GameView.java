@@ -18,11 +18,7 @@ import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.item.Alarm;
 import model.item.BananaPeel;
-import model.item.Item;
 import model.item.Transportable;
 
 /**
@@ -113,6 +109,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     
     private void setItem(String url){
         URL itemImage = getClass().getResource(url);
+        System.out.println(url);
         items.add(itemImage);
     }
     private void deleteItem(){
@@ -221,7 +218,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      */
     private void checkTouches(){
         if (itemsKeys.isEmpty()){
-        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,"banana.jpg"));
+        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,"/images/banana.jpg"));
         itemsKeys.put("J",null);
         itemsKeys.put("K",null);
         }
@@ -339,7 +336,9 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         playerInformationPanel.setLayout(new GridBagLayout());
         for (String key : itemsKeys.keySet()) {
             if(itemsKeys.get(key)!=null){
-                setItem(itemsKeys.get(key).getURL()); 
+                setItem(itemsKeys.get(key).getURL());
+            }else{
+               setItem("/images/blanc.gif"); 
             }
         }
         
@@ -531,6 +530,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
             System.out.println("Image found");
             System.out.println(items.size());
             for (URL url : items) {
+                System.out.println(url);
                 ImageIcon icon = new ImageIcon(url);
                 Image image = icon.getImage();
                 Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);

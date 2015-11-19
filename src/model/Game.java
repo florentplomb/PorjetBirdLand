@@ -58,35 +58,54 @@ public class Game {
 
     // Create all the rooms and link their exits together.
     private void createRooms() {
-        Room outside, theatre, pub, lab, office;
+        Room mainCell, cellEast1, cellEast2, cellWest1, cellWest2, mainCorridorBegin, mainCorridorMiddle, endCorridor, alarmRoom, outside;
 
         /*
          * Create all the rooms
          * The first parameter is the description of the room and the second parameter is the path of the picture of the room.
          * If you want to have your own pictures, you should put them in the Resource Packages/images folder.
          */
-        outside = new Room("outside the main entrance of the university", "/images/outside.gif");
-        theatre = new Room("in a lecture theatre", "/images/castle.gif");
-        pub = new Room("in the campus pub", "/images/courtyard.gif");
-        lab = new Room("in a computing lab", "/images/stairs.gif");
-        office = new Room("the computing admin office", "/images/dungeon.gif");
+        mainCell = new Room("Player's cell, the cell where the escape starts", "/images/outside.gif");
+        cellEast1 = new Room("First east cell", "/images/castle.gif");
+        cellEast2 = new Room("Second east cell", "/images/courtyard.gif");
+        cellWest1 = new Room("First west cell", "/images/stairs.gif");
+        cellWest2 = new Room("Second west cell", "/images/dungeon.gif");
+        mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/dungeon.gif");
+        mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/prison.png");
+        endCorridor = new Room("The end of the corridor, almost outside", "/images/dungeon.gif");
+        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/dungeon.gif");
+        outside = new Room("Outside, the place for escaping!", "/images/dungeon.gif");
 
         // Link exits of romms together
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        mainCell.setExit("North", mainCorridorBegin);
 
-        theatre.setExit("west", outside);
+        mainCorridorBegin.setExit("north", mainCorridorMiddle);
+        mainCorridorBegin.setExit("south", mainCell);
+        mainCorridorBegin.setExit("east", cellEast1);
+        mainCorridorBegin.setExit("west", cellEast2);
+        
+        mainCorridorMiddle.setExit("north", endCorridor);
+        mainCorridorMiddle.setExit("south", mainCorridorBegin);
+        mainCorridorMiddle.setExit("east", cellEast2);
+        mainCorridorMiddle.setExit("west", cellWest2);
+        
+        cellEast1.setExit("west", mainCorridorBegin);
+        cellEast2.setExit("west", mainCorridorMiddle);
+        cellWest1.setExit("east", mainCorridorBegin);
+        cellWest2.setExit("east", mainCorridorMiddle);
+        
+        endCorridor.setExit("south", mainCorridorMiddle);
+        endCorridor.setExit("east", alarmRoom);
+        endCorridor.setExit("west", outside);
+        
+        alarmRoom.setExit("west", endCorridor);
+        
+        outside.setExit("east", endCorridor);
 
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
+    
 
         // the player starts from room **outside**.
-        player.setCurrentRoom(outside);
+        player.setCurrentRoom(mainCell);
     }
 
     // Initialize the first room.

@@ -10,6 +10,15 @@ package model.item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class Scale {
+public class Scale extends Transportable{
+
+    public Scale(String name, String description, int weight) {
+        super(name, description, weight);
+    }
+
+    @Override
+    public void action() {
+    
+    }
 
 }

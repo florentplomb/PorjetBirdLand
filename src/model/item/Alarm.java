@@ -30,4 +30,9 @@ public class Alarm extends Fixed {
     public void switchOn(){
        state = true;
     }
+
+    @Override
+    public void action() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

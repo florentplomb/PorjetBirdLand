@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,13 +15,16 @@ import javax.swing.*;
 import model.GameEngine;
 import java.awt.Image;
 import java.awt.Insets;
-import view.GameListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class implements a simple graphical user interface with a text entry
  * area, a text output area and an optional image.
  */
-public class GameView implements ActionListener, GameListener {
+public class GameView implements ActionListener, GameListener,KeyListener {
 
     /*
      * Lists of Strings holding the data to be displayed.
@@ -114,9 +116,10 @@ public class GameView implements ActionListener, GameListener {
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
-        // no need to check the type of action at the moment.
-        // there is only one possible action: text entry
-        processCommand();
+            // no need to check the type of action at the moment.
+            // there is only one possible action: text entry
+            processCommand();
+
     }
 
     /**
@@ -126,6 +129,9 @@ public class GameView implements ActionListener, GameListener {
     private void processCommand() {
         String input = inputBox.getText();
         inputBox.setText("");
+        if(input.equals("Alarme")){
+            alarme();
+        }
         engine.interpretCommand(input);
     }
 
@@ -214,6 +220,7 @@ public class GameView implements ActionListener, GameListener {
     
     private void createGUI() {
         myFrame = new JFrame("PRISON BREAK");
+
         //background panel
         mainPanel = new JPanel();
 
@@ -376,7 +383,7 @@ public class GameView implements ActionListener, GameListener {
         listScroller.setMinimumSize(new Dimension(300, 100));
 
         inputBox = new JTextField(34);
-
+        inputBox.addKeyListener(this);
         dialogPanel.setLayout(new BorderLayout());
         dialogPanel.add(listScroller, BorderLayout.NORTH);
         dialogPanel.add(inputBox, BorderLayout.CENTER);
@@ -499,7 +506,6 @@ public class GameView implements ActionListener, GameListener {
         if (mapImage == null) {
             System.out.println("image not found");
         } else {
-            System.err.println(mapImage.toString());
             ImageIcon icon = new ImageIcon(mapImage);
             globalMapLabel.setIcon(icon);
             myFrame.pack();
@@ -512,7 +518,6 @@ public class GameView implements ActionListener, GameListener {
         } else {
             System.out.println("Image found");
             for (URL url : items) {
-                System.err.println(url.toString());
                 ImageIcon icon = new ImageIcon(url);
                 Image image = icon.getImage();
                 Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
@@ -560,4 +565,40 @@ public class GameView implements ActionListener, GameListener {
         log.setCaretPosition(0);
     }
 //==============================================================================
+    public void alarme() {
+        System.out.println("Je sonne");
+        mainPanel.setBackground(Color.red);
+        //GameViewAlert alert = new GameViewAlert(mainPanel);
+        //alert.start();
+    }
+    public void keyTyped(KeyEvent e) {
+    }
+
+    public void keyPressed(KeyEvent e) {
+        String input;
+        System.out.println(e.getKeyCode());
+        switch(e.getKeyCode()){
+            case 37: input = "go west";
+                     break;
+            case 38: input = "go north";
+                     break;
+            case 39: input = "go east";
+                     break;
+            case 40: input = "go south";
+                     break;
+            case 72: input = "go south";
+                     break;
+            case 74: input = "go south";
+                     break;
+            case 75: input = "go south";
+                     break;
+            default: input = "";
+                     break;
+        }
+        engine.interpretCommand(input);
+    }
+
+    public void keyReleased(KeyEvent e) {
+        
+    }
 }

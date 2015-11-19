@@ -10,10 +10,10 @@ package model.item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class BananaPeel extends Transportable{
+public class Uniform extends Transportable{
 
-    public BananaPeel(String name, String description,int weight) {
-        super(name, description,weight);
+    public Uniform(String name, String description, int weight) {
+        super(name, description, weight);
     }
 
     @Override

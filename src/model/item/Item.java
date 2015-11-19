@@ -11,12 +11,12 @@ package model.item;
  */
 public abstract class Item {
 
-    private String name;
-    private String description;
+    private final String NAME;
+    private final String DESCRIPTION;
 
     public Item (String name,String description) {
-        this.name = name;
-        this.description = description;
+        this.NAME = name;
+        this.DESCRIPTION = description;
     }
     
     public abstract void action();

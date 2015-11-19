@@ -10,9 +10,9 @@ package model.item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class BananaPeel extends Transportable{
+public class Blanket extends Transportable{
 
-    public BananaPeel(String name, String description,int weight) {
+    public Blanket(String name, String description,int weight) {
         super(name, description,weight);
     }
 

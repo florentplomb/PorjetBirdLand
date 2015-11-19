@@ -9,6 +9,25 @@ package model.item;
  *
  * @author Bryan
  */
-public class Alarm {
+public class Alarm extends Fixed {
     
+     private boolean state = false;
+    
+       private Alarm(String nom, String description) {
+        super(nom, description);
+    }
+
+    private static Alarm instance = new Alarm("Alarme1","Une alarme de la prison" );
+
+    public boolean getState(){
+        return this.state;
+    }
+    
+    public void switchOff(){
+        state = false;
+    }
+           
+    public void switchOn(){
+       state = true;
+    }
 }

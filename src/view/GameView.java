@@ -1,17 +1,23 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
+import java.time.Clock;
 import java.util.ArrayList;
 import javax.swing.*;
 import model.GameEngine;
+import java.awt.Image;
+import java.awt.Insets;
+import view.GameListener;
 
 /**
  * This class implements a simple graphical user interface with a text entry
@@ -26,8 +32,10 @@ public class GameView implements ActionListener, GameListener {
      *
      */
     private ArrayList<String> myRoomItems, myPlayerItems, myPlayerStats;
-    private URL roomImage, playerImage;
+    private URL roomImage, playerImage, mapImage;
+    private ArrayList<URL> items = new ArrayList<URL>();
     private GameEngine engine;
+    private ArrayList<String> touches = new ArrayList<String>();
 
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
@@ -91,6 +99,15 @@ public class GameView implements ActionListener, GameListener {
     private void setPlayerImage() {
         playerImage = getClass().getResource("/images/knight.gif");
     }
+    
+    private void setMapImage() {
+        mapImage = getClass().getResource("/images/map.gif");
+    }
+    
+    private void setItems(String url){
+        URL itemImage = getClass().getResource(url);
+        items.add(itemImage);
+    }
 
 // ==================LISTENERS' METHODS==============================
     /**
@@ -134,12 +151,18 @@ public class GameView implements ActionListener, GameListener {
         setPlayerStats();
         setRoomImage(roomImageName);
         setPlayerImage();
+        setMapImage();
 
         // Updates images and lists displayed in the GUI.
         // IMPORTANT: Fields of the GUI must have been set to new values before.
+        
         updateRoomImage();
+        
         updatePlayerImage();
+        updateMapImage();
+
         updateLists();
+        
     }
 //==============================================================================
 //  << NO NEED TO READ THE FOLLOWING CODE >> << MODIFY AT YOUR OWN RISK >>
@@ -151,7 +174,8 @@ public class GameView implements ActionListener, GameListener {
     //sub panels and their components.
     //ROOM
     private JPanel roomPanel;
-    private JLabel mapLabel;
+    private JLabel mapLabel,globalMapLabel;
+    private ArrayList<JLabel> itemsLabel = new ArrayList<JLabel>();
     private JPanel roomlistPanel;
     private JScrollPane listScroller3;
     private JList roomItems;
@@ -165,6 +189,9 @@ public class GameView implements ActionListener, GameListener {
     private JPanel listPanel;
     private JScrollPane listScroller4;
     private JList playerItems;
+
+    private JPanel playerInformationPanel;
+    private JPanel playerInformationDetaiPanel;
     //WIZARD
     private JPanel dialogPanel;
     private JTextField inputBox;
@@ -178,8 +205,16 @@ public class GameView implements ActionListener, GameListener {
     /**
      * initializes all components of the GUI
      */
+    private void checkTouches(){
+        if (touches.isEmpty()){
+            touches.add("H");
+            touches.add("J");
+            touches.add("K");
+        }
+    }
+    
     private void createGUI() {
-        myFrame = new JFrame("THE WORLD OF ZUUL");
+        myFrame = new JFrame("PRISON BREAK");
         //background panel
         mainPanel = new JPanel();
 
@@ -192,7 +227,7 @@ public class GameView implements ActionListener, GameListener {
         statPanel = new JPanel();
 
 
-
+        checkTouches();
 
 
         //---------------------------------------------------------------------
@@ -204,6 +239,12 @@ public class GameView implements ActionListener, GameListener {
         mapLabel = new JLabel();
         mapLabel.setPreferredSize(new Dimension(400, 300));
         mapLabel.setMinimumSize(new Dimension(200, 100));
+        
+        //Global MAP
+        globalMapLabel = new JLabel();
+        globalMapLabel.setPreferredSize(new Dimension(150, 150));
+        globalMapLabel.setMinimumSize(new Dimension(150, 150));
+        
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();
@@ -230,21 +271,26 @@ public class GameView implements ActionListener, GameListener {
         //adds padding around the components
         //c.ipadx=2;
         //c.ipady=2;
-
+        c.anchor = GridBagConstraints.NORTH;
         roomPanel.setLayout(new GridBagLayout());
         roomPanel.add(mapLabel, c);
-        c.gridx = 1;
+        c.gridx=1;
+        
+        roomPanel.add(globalMapLabel, c);
+        c.gridy=1;
+        roomPanel.add(roomlistPanel, c);
+        c.gridy=0;
+        
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.NORTH;
-        roomPanel.add(roomlistPanel, c);
+        
         c.anchor = GridBagConstraints.CENTER;
 
         //-----------------------------------------------------
         meLabel = new JLabel();
-//        meLabel.setIcon(new ImageIcon(this.getClass().getClassLoader().getResource("knight.gif")));
         meLabel.setPreferredSize(new Dimension(100, 100));
         meLabel.setMinimumSize(new Dimension(100, 100));
-
+        
         testLabel = new JLabel();
         testLabel.setPreferredSize(new Dimension(300, 300));
         testLabel.setMinimumSize(new Dimension(300, 300));
@@ -260,6 +306,7 @@ public class GameView implements ActionListener, GameListener {
                 BorderFactory.createTitledBorder("Items"),
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
+        
         //caracteristics
         playerStats = new JList();
         listScroller4 = new JScrollPane();
@@ -272,7 +319,33 @@ public class GameView implements ActionListener, GameListener {
                 BorderFactory.createTitledBorder("Stats"),
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
-
+        //Player detail 
+        playerInformationPanel = new JPanel();
+        playerInformationPanel.setLayout(new GridBagLayout());
+        for (int i = 0; i < 3; i++) {
+            setItems("/images/echelle.gif"); 
+        }
+        updateItemImage();
+        c.gridx=0;
+        for (String toucheString : touches) {
+            JLabel touche = new JLabel(toucheString);
+            touche.setHorizontalAlignment(JLabel.CENTER);
+            touche.setVerticalAlignment(JLabel.CENTER);
+            //touche.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            playerInformationPanel.add(touche,c);
+            c.gridx++;
+        }
+        c.gridy=1;
+        c.gridx=0;
+        c.insets = new Insets(1,2 , 1, 2);
+        for (JLabel item : itemsLabel) {
+            
+            item.setPreferredSize(new Dimension(50, 100));
+            item.setMinimumSize(new Dimension(50, 100));
+            item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            playerInformationPanel.add(item,c);
+            c.gridx++;
+        } 
         playerPanel.setLayout(new GridBagLayout());
 
         // c.insets=new Insets (5,5,5,5);
@@ -283,19 +356,17 @@ public class GameView implements ActionListener, GameListener {
         //c.ipadx=5;
         //c.ipady=5;
         //c.gridheight=2;
-        c.fill = GridBagConstraints.NONE;
         playerPanel.add(meLabel, c);
+        c.fill = GridBagConstraints.NONE;
 
         c.gridx = 1;
         //c.gridheight=2;
-
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        playerPanel.add(listPanel, c);
+        
+         
+        c.gridx = 1;
+        playerPanel.add(playerInformationPanel, c);
         c.gridx = 2;
         playerPanel.add(statPanel, c);
-        c.fill = GridBagConstraints.NONE;
-
 
         //text boxes
         log = new JTextArea();
@@ -324,11 +395,11 @@ public class GameView implements ActionListener, GameListener {
 
 
         //c.gridx=0;
-        c.gridy = 2;
+        c.gridy = 1;
         //c.gridwidth=1;
         mainPanel.add(playerPanel, c);
 
-        c.gridy = 3;
+        c.gridy = 2;
         //c.gridy=3;
         c.anchor = GridBagConstraints.NORTH;
         mainPanel.add(dialogPanel, c);
@@ -424,7 +495,35 @@ public class GameView implements ActionListener, GameListener {
             myFrame.pack();
         }
     }
-
+    
+    private void updateMapImage() {
+        if (mapImage == null) {
+            System.out.println("image not found");
+        } else {
+            System.err.println(mapImage.toString());
+            ImageIcon icon = new ImageIcon(mapImage);
+            globalMapLabel.setIcon(icon);
+            myFrame.pack();
+        }
+    }
+    
+    private void updateItemImage(){
+        if (items.isEmpty()) {
+            System.out.println("image not found");
+        } else {
+            System.out.println("Image found");
+            for (URL url : items) {
+                System.err.println(url.toString());
+                ImageIcon icon = new ImageIcon(url);
+                Image image = icon.getImage();
+                Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
+                JLabel itemLabel = new JLabel(new ImageIcon(newimg),JLabel.CENTER);
+                itemsLabel.add(itemLabel);
+            }
+            myFrame.pack();
+        }  
+    }
+    
     /**
      * Enable or disable input in the input field.
      * @param on

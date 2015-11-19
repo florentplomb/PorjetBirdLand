@@ -12,7 +12,7 @@ import model.item.Item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class Transportable extends Item{
+public abstract class  Transportable extends Item{
     
     private int weight;
    

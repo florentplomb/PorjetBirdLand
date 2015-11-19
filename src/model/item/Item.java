@@ -9,7 +9,7 @@ package model.item;
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-public  class Item {
+public abstract class Item {
 
     private String name;
     private String description;
@@ -18,4 +18,6 @@ public  class Item {
         this.name = name;
         this.description = description;
     }
+    
+    public abstract void action();
 }

@@ -10,11 +10,12 @@ package model.item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class BananaPeel extends Transportable{
+public class Switch extends Fixed{
 
-    public BananaPeel(String name, String description) {
-        super(name, description);
+    public Switch(String nom, String description) {
+        super(nom, description);
     }
+    
 
     @Override
     public void action() {

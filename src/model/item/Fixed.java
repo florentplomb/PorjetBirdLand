@@ -12,7 +12,7 @@ import model.item.Item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class Fixed extends Item{
+public abstract class Fixed extends Item{
 
     public Fixed(String nom, String description) {
         super(nom, description);

@@ -17,8 +17,9 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import model.item.BananaPeel;
+import model.item.Transportable;
 
 /**
  * This class implements a simple graphical user interface with a text entry
@@ -36,7 +37,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     private URL roomImage, playerImage, mapImage;
     private ArrayList<URL> items = new ArrayList<URL>();
     private GameEngine engine;
-    private ArrayList<String> touches = new ArrayList<String>();
+    private ArrayList<String> keys = new ArrayList<String>();
+    private HashMap<String,Transportable> itemsKeys= new HashMap<String, Transportable>();
 
     /**
      * Construct a UserInterface. As a parameter, a Game Engine
@@ -105,9 +107,13 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         mapImage = getClass().getResource("/images/map.gif");
     }
     
-    private void setItems(String url){
+    private void setItem(String url){
         URL itemImage = getClass().getResource(url);
+        System.out.println(url);
         items.add(itemImage);
+    }
+    private void deleteItem(){
+        //items.remove(c)
     }
 
 // ==================LISTENERS' METHODS==============================
@@ -211,11 +217,12 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      * initializes all components of the GUI
      */
     private void checkTouches(){
-        if (touches.isEmpty()){
-            touches.add("H");
-            touches.add("J");
-            touches.add("K");
+        if (itemsKeys.isEmpty()){
+        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,"/images/banana.jpg"));
+        itemsKeys.put("J",null);
+        itemsKeys.put("K",null);
         }
+
     }
     
     private void createGUI() {
@@ -234,7 +241,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
 
         checkTouches();
-
 
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
@@ -328,13 +334,18 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         //Player detail 
         playerInformationPanel = new JPanel();
         playerInformationPanel.setLayout(new GridBagLayout());
-        for (int i = 0; i < 3; i++) {
-            setItems("/images/echelle.gif"); 
+        for (String key : itemsKeys.keySet()) {
+            if(itemsKeys.get(key)!=null){
+                setItem(itemsKeys.get(key).getURL());
+            }else{
+               setItem("/images/blanc.gif"); 
+            }
         }
+        
         updateItemImage();
         c.gridx=0;
-        for (String toucheString : touches) {
-            JLabel touche = new JLabel(toucheString);
+        for (String key : itemsKeys.keySet()) {
+            JLabel touche = new JLabel(key);
             touche.setHorizontalAlignment(JLabel.CENTER);
             touche.setVerticalAlignment(JLabel.CENTER);
             //touche.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -517,7 +528,9 @@ public class GameView implements ActionListener, GameListener,KeyListener {
             System.out.println("image not found");
         } else {
             System.out.println("Image found");
+            System.out.println(items.size());
             for (URL url : items) {
+                System.out.println(url);
                 ImageIcon icon = new ImageIcon(url);
                 Image image = icon.getImage();
                 Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
@@ -575,27 +588,31 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        String input;
-        System.out.println(e.getKeyCode());
-        switch(e.getKeyCode()){
-            case 37: input = "go west";
-                     break;
-            case 38: input = "go north";
-                     break;
-            case 39: input = "go east";
-                     break;
-            case 40: input = "go south";
-                     break;
-            case 72: input = "go south";
-                     break;
-            case 74: input = "go south";
-                     break;
-            case 75: input = "go south";
-                     break;
-            default: input = "";
-                     break;
+        if(inputBox.getText().length()==0){
+            String input;
+            System.out.println(e.getKeyCode());
+            switch(e.getKeyCode()){
+                case 37: input = "go west";
+                         break;
+                case 38: input = "go north";
+                         break;
+                case 39: input = "go east";
+                         break;
+                case 40: input = "go south";
+                         break;
+                case 72: input = "drop "+itemsKeys.get("H").toString();
+                         
+                         break;
+                case 74: input = "drop "+itemsKeys.get("J").toString();
+                         break;
+                case 75: input = "drop "+itemsKeys.get("K").toString();
+                         break;
+                default: input = "";
+                         break;
+            }
+            engine.interpretCommand(input);
+            inputBox.setText("");
         }
-        engine.interpretCommand(input);
     }
 
     public void keyReleased(KeyEvent e) {

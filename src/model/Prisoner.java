@@ -9,6 +9,9 @@ package model;
  *
  * @author Bryan
  */
-public class Prisonner {
-    
+public class Prisoner extends Person {
+
+    public Prisoner(String name, Room currentRoom) {
+        super(name, currentRoom);
+    }
 }

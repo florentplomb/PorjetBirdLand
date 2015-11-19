@@ -3,21 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
+import java.util.ArrayList;
+import model.item.Item;
+
 /**
- * 
- *@author Florent Plomb <plombf at gmail.com>
+ *
+ * @author Bryan Cornelius
  */
-public class Person {
+public abstract class Person {
 
-    private int number;
-    private String culotte;
-    private String Nom;
+    private String name;
+    private ArrayList<Item> items;
+    private Room currentRoom;
 
-    public Person() {
-        culotte = "grand-mere";
+    public Person(String name, Room currentRoom) {
+        this.name = name;
+        this.currentRoom = currentRoom;
+        this.items = new ArrayList<Item>();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public ArrayList<Item> getItem() {
+        return this.items;
+    }
+
+    public Room getCurrentRoom() {
+        return this.currentRoom;
+    }
+
+    public void setItem(Item item) {
+        items.add(item);
     }
 
 }

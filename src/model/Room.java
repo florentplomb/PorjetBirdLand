@@ -1,7 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import model.item.Item;
 /*
  * Class Room - a room in an adventure game.
  *
@@ -20,7 +21,7 @@ public class Room {
     // stores exits of this room.
     private HashMap<String, Room> exits;
     private String imageName;
-    private int size;
+    private ArrayList<Item> items = new ArrayList<Item>();
 
     /*
      * Create a new room described "description" with a given image. Firstly, it

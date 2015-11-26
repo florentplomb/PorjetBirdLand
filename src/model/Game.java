@@ -77,7 +77,7 @@ public class Game {
         outside = new Room("Outside, the place for escaping!", "/images/dungeon.gif");
 
         // Link exits of romms together
-        mainCell.setExit("North", mainCorridorBegin);
+        mainCell.setExit("north", mainCorridorBegin);
 
         mainCorridorBegin.setExit("north", mainCorridorMiddle);
         mainCorridorBegin.setExit("south", mainCell);

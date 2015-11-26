@@ -18,6 +18,7 @@ import model.item.Item;
 public class Room {
 
     private String description;
+    private String id;
     // stores exits of this room.
     private HashMap<String, Room> exits;
     private String imageName;
@@ -27,9 +28,10 @@ public class Room {
      * Create a new room described "description" with a given image. Firstly, it
      * has no exits.
      */
-    public Room(String description, String imageName) {
+    public Room(String description, String imageName, String id) {
         this.description = description;
         this.imageName = imageName;
+        this.id = id;
         exits = new HashMap<String, Room>();
 
     }

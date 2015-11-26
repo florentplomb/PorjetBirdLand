@@ -25,7 +25,7 @@ public class DropCmd extends Command{
                 } else {
                     player.dropItem(item.getNAME());
                     player.getCurrentRoom().addItem(item);
-                    appendToOutputString("You drop " + item.toString() +" in "+player.getCurrentRoom() +".\n");
+                    appendToOutputString("You drop " + item.toString() +" in "+player.getCurrentRoom().getDescription() +".\n");
                 }
 
             } else {

@@ -5,6 +5,8 @@
  */
 package model;
 
+import Quizz.QuizzController;
+import Quizz.Result;
 import java.util.ArrayList;
 import model.item.Item;
 
@@ -42,6 +44,27 @@ public abstract class Person {
 
     public void setItem(Item item) {
         items.add(item);
+    }
+    
+    public void getQuizz(){
+        
+         int cpt = 0;
+         int nbQuestion = 3;
+
+        while (cpt < nbQuestion) {
+            Result r = QuizzController.getPrintQuestion();
+            if (r.isIsCorrect()) {
+                System.out.println("Correct! - Answer = " + r.getAnswer());
+               
+            } else {
+                System.out.println("Incorrect!");
+                System.out.println("The Correct answer = " + r.getAnswer());
+              
+            }
+            cpt++;
+        }
+       
+          System.out.println("***************YOU WIN******************");
     }
 
 }

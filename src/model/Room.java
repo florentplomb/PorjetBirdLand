@@ -21,7 +21,7 @@ public class Room {
     // stores exits of this room.
     private HashMap<String, Room> exits;
     private String imageName;
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private HashMap<String, Item>  items = new HashMap<String, Item>();
 
     /*
      * Create a new room described "description" with a given image. Firstly, it
@@ -61,4 +61,8 @@ public class Room {
     public String getImageName() {
         return imageName;
     }
+     public void addItem(Item item) {
+        items.put(item.getNAME(), item);
+    }
+    
 }

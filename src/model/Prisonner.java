@@ -14,4 +14,6 @@ public class Prisonner extends Person {
     public Prisonner(String name, Room currentRoom) {
         super(name, currentRoom);
     }
+    
+  
 }

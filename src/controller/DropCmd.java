@@ -23,9 +23,8 @@ public class DropCmd extends Command{
                 if ( item == null) {
                     appendToOutputString("Item not exist");
                 } else {
-                    player.dropItem(item);
-                    //Lier l'objet à la room
-                    //player.getCurrentRoom().
+                    player.dropItem(item.getNAME());
+                    player.getCurrentRoom().addItem(item);
                     appendToOutputString("You drop " + item.toString() +" in "+player.getCurrentRoom() +".\n");
                 }
 

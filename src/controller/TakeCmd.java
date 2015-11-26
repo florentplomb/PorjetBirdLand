@@ -7,6 +7,8 @@ package controller;
 
 import model.Player;
 import model.Room;
+import model.item.Item;
+import model.item.Transportable;
 
 /**
  *
@@ -18,8 +20,8 @@ public class TakeCmd extends Command {
     }
 
     /*
-     * Goes to the direction which is entered as the second word. If there is no
-     * exit for that direction, prints an error message. Returns always *false*.
+     * Take a object wich is in the room
+     * 
      * Take a object   
      */
     public boolean execute(Player player) {
@@ -27,8 +29,23 @@ public class TakeCmd extends Command {
         clearOutputString();
         if (hasSecondWord()) {
             String nameItem =  getSecondWord();
-          
-        //    Item item = player.getCurrentRoom(). 
+            Transportable item = (Transportable) player.getCurrentRoom().getItem(nameItem);
+            if (item == null) {
+                 appendToOutputString("This item doesn't exist!");
+            }else{
+                
+                if (item.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT  ) {
+                    appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
+                }else{
+                    player.addItem(item);
+                    player.getCurrentRoom().removeItem(item.getNAME());
+                    appendToOutputString("You just took " + item.getNAME() + " !");
+                }
+            }  
+            
+        }else{
+            appendToOutputString("Please specify the item what you want to take!");
+        
         }
         return false;
     }

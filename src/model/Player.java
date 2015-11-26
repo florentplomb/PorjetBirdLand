@@ -2,7 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import model.item.Item;
+import model.item.Transportable;
 
 /**
  * This class represents players in the game. Each player has a current location
@@ -12,7 +15,7 @@ public class Player {
 
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
-    private HashMap<String,Item> items;
+    private HashMap<String, Item> items;
 
     //This is Constructor.
     public Player() {
@@ -40,16 +43,26 @@ public class Player {
     public void addPreviousRoom(Room room) {
         previousRooms.add(room);
     }
-    
-    public void addItem(Item i){
-        items.put(i.toString(),i);
+
+    public void addItem(Item i) {
+        items.put(i.getNAME(), i);
     }
-    
-    public void dropItem(Item i){
-        items.remove(i);
+
+    public void dropItem(String itemName) {
+        items.remove(itemName);
     }
-    
-    public Item getItem(String name){
-        return items.get(name);
+
+    public Item getItem(String itemName) {
+        return items.get(itemName);
+    }
+
+    public Integer getWeightItems() {
+        int weight = 0;
+        
+        for (Map.Entry element : items.entrySet()) {
+            Transportable item = (Transportable) element.getValue();
+            weight += item.getWEIGHT();
+        }
+        return weight;
     }
 }

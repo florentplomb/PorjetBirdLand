@@ -31,6 +31,13 @@ public abstract class  Transportable extends Item{
     public String getURL() {
         return URL;
     }
+
+    /**
+     * @return the WEIGHT
+     */
+    public int getWEIGHT() {
+        return WEIGHT;
+    }
    
    
 

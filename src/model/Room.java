@@ -61,8 +61,18 @@ public class Room {
     public String getImageName() {
         return imageName;
     }
+    
+    public Item getItem(String it){
+       if(items.containsKey(it)){
+             return items.get(it);
+       }
+        return null;
+    }
      public void addItem(Item item) {
         items.put(item.getNAME(), item);
+    }
+     public void removeItem(String it) {
+        items.remove(it);
     }
     
 }

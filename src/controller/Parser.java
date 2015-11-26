@@ -5,7 +5,7 @@ package controller;
  *
  * This parser reads user input and tries to interpret it as an "Adventure"
  * command. Every time it is called it reads a line from the terminal and tries
- * to interpret the line as a two word command. It returns the command as an
+ * to interpret the line as a three words command. It returns the command as an
  * object of class Command.
  *
  * The parser has a set of known command words. It checks user input against the
@@ -25,6 +25,7 @@ public class Parser {
     public Command getCommand(String inputLine) {
         String word1 = null;
         String word2 = null;
+        String word3 = null;
 
         String[] words = inputLine.split(" ");
 
@@ -36,11 +37,16 @@ public class Parser {
             // get second word
             word2 = words[1];
         }
+        if (words.length > 2) {
+            // get second word
+            word3 = words[2];
+        }
         // note: we just ignore the rest of the input line.
 
         Command command = commands.get(word1);
         if (command != null) {
             command.setSecondWord(word2);
+            command.setThirdWord(word3);
         }
         return command;
     }

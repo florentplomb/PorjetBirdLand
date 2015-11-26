@@ -10,9 +10,9 @@ package model.item;
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public class Scale extends Transportable{
+public class Ladder extends Transportable{
 
-    public Scale(String name, String description, int weight) {
+    public Ladder(String name, String description, int weight) {
         super(name, description, weight);
     }
 

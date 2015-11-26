@@ -11,8 +11,8 @@ package model.item;
  */
 public abstract class Item {
 
-    private final String NAME;
-    private final String DESCRIPTION;
+    private String NAME;
+    private String DESCRIPTION;
 
     public Item (String name,String description) {
         this.NAME = name;
@@ -23,7 +23,35 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return NAME; //To change body of generated methods, choose Tools | Templates.
+        return getNAME(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the NAME
+     */
+    public String getNAME() {
+        return NAME;
+    }
+
+    /**
+     * @param NAME the NAME to set
+     */
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    /**
+     * @return the DESCRIPTION
+     */
+    public String getDESCRIPTION() {
+        return DESCRIPTION;
+    }
+
+    /**
+     * @param DESCRIPTION the DESCRIPTION to set
+     */
+    public void setDESCRIPTION(String DESCRIPTION) {
+        this.DESCRIPTION = DESCRIPTION;
     }
     
     

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.item.Item;
 
 /**
@@ -11,13 +12,13 @@ public class Player {
 
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
-    private ArrayList<Item> items;
+    private HashMap<String,Item> items;
 
     //This is Constructor.
     public Player() {
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
-        items = new ArrayList<Item>();
+        items = new HashMap<String, Item>();
     }
 
     // Return the current room for this player.
@@ -41,10 +42,14 @@ public class Player {
     }
     
     public void addItem(Item i){
-        items.add(i);
+        items.put(i.toString(),i);
     }
     
     public void dropItem(Item i){
         items.remove(i);
+    }
+    
+    public Item getItem(String name){
+        return items.get(name);
     }
 }

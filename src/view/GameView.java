@@ -611,6 +611,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                          break;
             }
             engine.interpretCommand(input);
+            updateItemImage();
             inputBox.setText("");
         }
     }

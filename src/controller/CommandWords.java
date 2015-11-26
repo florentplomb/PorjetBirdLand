@@ -19,7 +19,11 @@ public class CommandWords {
         commands = new HashMap<String, Command>();
         commands.put("go", new GoCmd());
         commands.put("quit", new QuitCmd());
-
+        commands.put("drop", new DropCmd());
+        /*Ajouter par la suite
+          commands.put("take", new TakeCmd());
+          commands.put("climb", new ClimbCmd());
+        */
         // The 'help' command is created differently since it needs to receive the list of command words
         HelpCmd helpCmd = new HelpCmd();
         commands.put("help", helpCmd);

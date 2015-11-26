@@ -1,0 +1,22 @@
+Install DataBase:
+
+1. Add the libraby " Java DB Driver " to your project:
+   - Right click on the repository "Libraries"-> Add Library -> Find & select Java DB Driver and click add library) 
+
+2. In the "Services" view (In the top left corner you can see "Project - Files - Services" Click on Services) 
+   - Double click on "DataBase" -> Click right on "Java DB" -> Create new Database -> Put the follow setting  :
+
+ 	Database Name:  quizz
+	User Name : quizz
+	password : 1234 
+	Confirm Password : 1234
+
+   - Press ok to create the new DB
+
+3. A new Data base connection was created : "jdbc:derby://localhost:1527/quizz[quizz on QUIZZ]"
+	
+   - Double click on it to connect. 
+
+4. Return in the view "Projects" on the Quizz repository click right on the "QuestionReponses.sql" -> Run files -> Choose the DB you just created.
+
+5. Run TestQuizz.java

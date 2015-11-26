@@ -5,18 +5,26 @@
  */
 package model;
 
+import java.util.HashMap;
+import java.util.Random;
 /**
  *
  * @author Matthieu
  */
-public class Guardian {
+public class Guardian extends Person {
 
-    public Guardian() {
-        
+    public Guardian(String name, Room room) {
+        super(name, room);
     }
     
-    public void setRoom(String direction){
-        
+    public void setNextRoom(){
+        Room room = this.getCurrentRoom();
+        HashMap<String, Room> exits = room.getExits();
+        Random random = new Random();
+        Object[] rooms = exits.values().toArray();
+        int randomInt = random.nextInt(rooms.length);
+        Room randomRoom = (Room)rooms[0];
+        this.setCurrentRoom(randomRoom);
     }
    
 

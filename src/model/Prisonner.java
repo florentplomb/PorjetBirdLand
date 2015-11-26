@@ -11,9 +11,9 @@ package model;
  */
 public class Prisonner extends Person {
 
-    public Prisonner(String name, Room currentRoom) {
-        super(name, currentRoom);
+    public Prisonner(String name, Room cell) {
+        super(name, cell);
     }
-    
+
   
 }

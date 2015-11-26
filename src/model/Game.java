@@ -101,7 +101,8 @@ public class Game {
         alarmRoom.setExit("west", endCorridor);
         
         outside.setExit("east", endCorridor);
-
+        
+      
     
 
         // the player starts from room **outside**.

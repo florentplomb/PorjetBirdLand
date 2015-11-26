@@ -31,6 +31,10 @@ public abstract class Person {
     public ArrayList<Item> getItem() {
         return this.items;
     }
+    
+    public void setCurrentRoom(Room room){
+        this.currentRoom = room; 
+    }
 
     public Room getCurrentRoom() {
         return this.currentRoom;

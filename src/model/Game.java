@@ -82,7 +82,7 @@ public class Game {
         mainCorridorBegin.setExit("north", mainCorridorMiddle);
         mainCorridorBegin.setExit("south", mainCell);
         mainCorridorBegin.setExit("east", cellEast1);
-        mainCorridorBegin.setExit("west", cellEast2);
+        mainCorridorBegin.setExit("west", cellWest1);
         
         mainCorridorMiddle.setExit("north", endCorridor);
         mainCorridorMiddle.setExit("south", mainCorridorBegin);
@@ -101,7 +101,8 @@ public class Game {
         alarmRoom.setExit("west", endCorridor);
         
         outside.setExit("east", endCorridor);
-
+        
+      
     
 
         // the player starts from room **outside**.

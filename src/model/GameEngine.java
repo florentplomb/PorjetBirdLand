@@ -84,6 +84,10 @@ public class GameEngine implements Model {
         } else {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
+            /*if command.getClass().getSimpleName().equals("CmdGo"){
+                player.getCurrentRoom().
+            }
+                    */
         }
         notifyGameListeners();
     }

@@ -15,7 +15,7 @@ public abstract class Item {
     private String DESCRIPTION;
 
     public Item (String name,String description) {
-        this.NAME = name;
+        this.NAME = name.toLowerCase();
         this.DESCRIPTION = description;
     }
     

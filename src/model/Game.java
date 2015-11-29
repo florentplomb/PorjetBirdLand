@@ -30,15 +30,19 @@ public class Game {
     private Player player;
     private GameEngine engine;
     private static ArrayList<Room> rooms;
+    private Guardian guardian01;
 
     // Create the Game and initialize its internal map.     
     public Game() {
         player = new Player();
         parser = new Parser();
-        engine = new GameEngine(parser, player);
         rooms = new ArrayList<Room>();
-        setFirstOutput();
         createRooms();
+        createGuardian();
+        engine = new GameEngine(parser, player,guardian01);
+        setFirstOutput();
+      
+      
 
         // GUI must be created last since it needs all above classes instances (engine, player, rooms) to display game.
         GameListener localView = new GameView(engine);
@@ -124,6 +128,13 @@ public class Game {
 
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
+        // Set start room of guardian
+        
+        
+    }
+    
+    private void createGuardian() {
+      guardian01 = new Guardian("Joe", rooms.get(2));
     }
 
     // Initialize the first room.
@@ -141,5 +152,7 @@ public class Game {
         Room rdmRoom = rooms.get(rdm.nextInt(listSize));
         return rdmRoom;
     }
+
+    
 
 }

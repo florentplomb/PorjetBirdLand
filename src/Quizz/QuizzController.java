@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
+import model.GameEngine;
 
 //import ch.modele.Question;
 //import ch.modele.Answer;

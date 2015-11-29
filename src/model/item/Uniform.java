@@ -12,8 +12,8 @@ package model.item;
  */
 public class Uniform extends Transportable{
 
-    public Uniform(String name, String description, int weight) {
-        super(name, description, weight);
+    public Uniform(String name,String description,int weight,boolean immortal,String URL) {
+        super(name, description,weight,immortal,URL);
     }
 
     @Override

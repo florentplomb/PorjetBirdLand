@@ -14,12 +14,10 @@ import java.net.URL;
  */
 public class BananaPeel extends Transportable{
 
-    public BananaPeel(String name, String description,int weight) {
-        super(name, description,weight);
-    }
+   
     
-    public BananaPeel(String name,String description,int weight,String URL){
-        super(name, description,weight,URL);
+    public BananaPeel(String name,String description,int weight,boolean immortal,String URL){
+        super(name, description,weight,immortal,URL);
     }
 
     @Override

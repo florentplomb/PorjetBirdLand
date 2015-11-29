@@ -218,7 +218,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      */
     private void checkTouches(){
         if (itemsKeys.isEmpty()){
-        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,"/images/banana.jpg"));
+        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,false,"/images/banana.jpg"));
         itemsKeys.put("J",null);
         itemsKeys.put("K",null);
         }
@@ -574,8 +574,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      * Clears out the text area.
      */
     private void clearLog() {
-        log.setText("");
-        log.setCaretPosition(0);
+       log.setText("");
+       log.setCaretPosition(0);
     }
 //==============================================================================
     public void alarme() {

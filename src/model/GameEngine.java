@@ -1,6 +1,7 @@
 package model;
 
 import controller.Command;
+import controller.GoCmd;
 import controller.Parser;
 import java.util.ArrayList;
 import view.GameListener;
@@ -20,13 +21,16 @@ public class GameEngine implements Model {
     private Parser parser;
     private Player player;
     private ArrayList<GameListener> gameListeners;
+    private Guardian guardian01;
 
     //Constructor
-    public GameEngine(Parser parser, Player player) {
+    public GameEngine(Parser parser, Player player,Guardian guardian01) {
         outputString = new String();
         finished = false;
         this.parser = parser;
         this.player = player;
+        this.guardian01 = guardian01;
+        
         gameListeners = new ArrayList<GameListener>();
     }
 
@@ -84,10 +88,15 @@ public class GameEngine implements Model {
         } else {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
-            /*if command.getClass().getSimpleName().equals("CmdGo"){
-                player.getCurrentRoom().
+            if(command instanceof GoCmd){
+                guardian01.setNextRoom();
+               // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+                
+                if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
+                    appendToOutputString("Guardian is HERE");
+                }
             }
-                    */
+                    
         }
         notifyGameListeners();
     }

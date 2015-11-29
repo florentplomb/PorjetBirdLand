@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import model.item.BananaPeel;
 import model.item.Item;
+import model.item.Ladder;
 import model.item.Transportable;
 
 /**
@@ -22,6 +24,8 @@ public class Player {
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();
+        this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
+        this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
     }
 
     // Return the current room for this player.
@@ -45,7 +49,7 @@ public class Player {
     }
 
     public void addItem(Item i) {
-        items.put(i.getNAME(), i);
+        items.put(i.getNAME().toLowerCase(), i);
     }
 
     public void dropItem(String itemName) {

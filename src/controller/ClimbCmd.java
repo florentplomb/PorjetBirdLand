@@ -21,29 +21,38 @@ public class ClimbCmd extends Command {
         clearOutputString();
 
         if (hasSecondWord()) {
-            String climbedObject = getSecondWord();
-            String action = getThirdWord();
 
-            if (climbedObject.equals("ladder")) {
-                if (action.equals("jump")) { 
-                    if (player.getCurrentRoom().getDescription().equals("outside")) {
+            if (hasThirdWord()) {
 
-                        appendToOutputString("You Win ! ");
-                        return true;
+                String climbedObject = getSecondWord();
+                String action = getThirdWord();
+
+                if (climbedObject.equals("ladder") && player.getCurrentRoom().getItem("ladder") != null) {
+
+                    if (action.equals("jump")) {
+                        if (player.getCurrentRoom().getId().equals("outside")) {
+                            appendToOutputString("You Win ! ");
+                            
+                            return true;
+                        } else {
+                            appendToOutputString("You are ejected in the random room ");
+                            player.setCurrentRoom(Game.getRandomRooms());
+                        }
+
                     } else {
-                        appendToOutputString("You are ejected in the random room ");
-                        player.setCurrentRoom(Game.getRandomRooms());
+                        appendToOutputString("If you climb on the ladder then, you have to jump. ");
                     }
-
                 } else {
-                    appendToOutputString("If you climb on the ladder then, you have to jump. 'climb ladder jump' ");
+                    appendToOutputString("There is no ladder to climb in this room, if you carry one , drop it and try again ");
                 }
+
             } else {
-                appendToOutputString("There is no ladder to climb in this room, if you carry one , drop it and try again ");
+                    appendToOutputString("You have to climb on a ladder and jump => 'climb ladder jump'");
             }
 
         } else {
             appendToOutputString("Climb on what?");
+            
         }
 
         return false;

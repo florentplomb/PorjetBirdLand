@@ -38,7 +38,6 @@ public class Parser {
             word2 = words[1];
         }
         if (words.length > 2) {
-            // get third word
             word3 = words[2];
         }
         // note: we just ignore the rest of the input line.

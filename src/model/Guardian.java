@@ -13,9 +13,10 @@ import java.util.Random;
  */
 public class Guardian extends Person {
 
-    public Guardian(String name, Room room) {
-        super(name, room);
+    public Guardian(String name, Room currentRoom) {
+        super(name, currentRoom);
     }
+   
     
     public void setNextRoom(){
         Room room = this.getCurrentRoom();
@@ -23,7 +24,7 @@ public class Guardian extends Person {
         Random random = new Random();
         Object[] rooms = exits.values().toArray();
         int randomInt = random.nextInt(rooms.length);
-        Room randomRoom = (Room)rooms[0];
+        Room randomRoom = (Room)rooms[randomInt];
         this.setCurrentRoom(randomRoom);
     }
    

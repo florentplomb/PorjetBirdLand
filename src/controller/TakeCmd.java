@@ -28,24 +28,32 @@ public class TakeCmd extends Command {
 
         clearOutputString();
         if (hasSecondWord()) {
-            String nameItem =  getSecondWord();
-            Transportable item = (Transportable) player.getCurrentRoom().getItem(nameItem);
+            String nameItem = getSecondWord();
+            Item item = player.getCurrentRoom().getItem(nameItem);
             if (item == null) {
-                 appendToOutputString("This item doesn't exist!");
-            }else{
-                
-                if (item.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT  ) {
-                    appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
-                }else{
-                    player.addItem(item);
-                    player.getCurrentRoom().removeItem(item.getNAME());
-                    appendToOutputString("You just took " + item.getNAME() + " !");
+                appendToOutputString("This item doesn't exist in this room!");
+            } else {
+
+                if (player.getCurrentRoom().getItem(nameItem) instanceof Transportable) {
+
+                    Transportable itemTrans = (Transportable) item;
+                    if (itemTrans.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT) {
+                        appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
+                    } else {
+                        player.addItem(itemTrans);
+                        player.getCurrentRoom().removeItem(item.getNAME());
+                        appendToOutputString("You just took " + item.getNAME() + " !");
+                    }
+
+                } else {
+                    appendToOutputString("This item is fixed you don't take it");
                 }
-            }  
-            
-        }else{
+
+            }
+
+        } else {
             appendToOutputString("Please specify the item what you want to take!");
-        
+
         }
         return false;
     }

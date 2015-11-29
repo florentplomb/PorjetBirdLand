@@ -15,18 +15,17 @@ import java.net.URL;
 public abstract class  Transportable extends Item{
     
     private final int WEIGHT;
-    private  String URL;
+    private final String URL;
+    private final boolean IMMORTAL;
    
-    public Transportable(String name, String description,int weight,String URL) {
+    public Transportable(String name, String description,int weight,boolean immortal, String URL) {
         super(name, description);
         this.WEIGHT = weight;
         this.URL = URL;
+        this.IMMORTAL = immortal;
     }
     
-   public Transportable(String name, String description,int weight) {
-        super(name, description);
-        this.WEIGHT = weight;
-   }
+  
 
     public String getURL() {
         return URL;
@@ -37,6 +36,13 @@ public abstract class  Transportable extends Item{
      */
     public int getWEIGHT() {
         return WEIGHT;
+    }
+
+    /**
+     * @return the IMMORTAL
+     */
+    public boolean isIMMORTAL() {
+        return IMMORTAL;
     }
    
    

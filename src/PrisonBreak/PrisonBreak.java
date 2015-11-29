@@ -1,8 +1,6 @@
 package PrisonBreak;
 
 import model.Game;
-import model.*;
-import model.item.BananaPeel;
 
 public class PrisonBreak {
 

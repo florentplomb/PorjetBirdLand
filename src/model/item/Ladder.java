@@ -12,8 +12,8 @@ package model.item;
  */
 public class Ladder extends Transportable{
 
-    public Ladder(String name, String description, int weight) {
-        super(name, description, weight);
+    public Ladder(String name,String description,int weight,boolean immortal,String URL) {
+        super(name, description,weight,immortal,URL);
     }
 
     @Override

@@ -76,5 +76,12 @@ public class Room {
      public void removeItem(String it) {
         items.remove(it);
     }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
     
 }

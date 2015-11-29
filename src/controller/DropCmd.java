@@ -7,6 +7,7 @@ package controller;
 
 import model.Player;
 import model.item.Item;
+import model.item.Transportable;
 
 /**
  *
@@ -19,12 +20,15 @@ public class DropCmd extends Command{
         clearOutputString();
             if (hasSecondWord()) {
                 String itemName = getSecondWord();
-                Item item = player.getItem(itemName);
+                Transportable item = (Transportable) player.getItem(itemName);
                 if ( item == null) {
                     appendToOutputString("Item not exist");
                 } else {
+                    
                     player.dropItem(item.getNAME());
-                    player.getCurrentRoom().addItem(item);
+                    if (item.isIMMORTAL()) {
+                     player.getCurrentRoom().addItem(item); 
+                    }
                     appendToOutputString("You drop " + item.toString() +" in "+player.getCurrentRoom().getDescription() +".\n");
                 }
 

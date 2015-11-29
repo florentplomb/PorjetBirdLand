@@ -12,8 +12,8 @@ package model.item;
  */
 public class Blanket extends Transportable{
 
-    public Blanket(String name, String description,int weight) {
-        super(name, description,weight);
+    public Blanket(String name,String description,int weight,boolean immortal,String URL) {
+         super(name, description,weight,immortal,URL);
     }
 
     @Override

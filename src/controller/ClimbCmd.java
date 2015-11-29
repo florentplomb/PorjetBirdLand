@@ -1,5 +1,6 @@
 package controller;
 
+import model.Game;
 import model.Player;
 
 /**
@@ -18,29 +19,31 @@ public class ClimbCmd extends Command {
      */
     public boolean execute(Player player) {
         clearOutputString();
-        if (player.getCurrentRoom().getItem("ladder") != null) {
 
-            if (hasSecondWord()) {
-                String climbedObject = getSecondWord();
-                String action = getThirdWord();
+        if (hasSecondWord()) {
+            String climbedObject = getSecondWord();
+            String action = getThirdWord();
 
-                if (climbedObject.equals("ladder")) {
-                    if (action.equals("jump")) {
-                        if (player.getCurrentRoom().getDescription().equals("outside")  ) {
-                            return true;
-                        }else{
-                            player.setCurrentRoom(null);
-                        }
+            if (climbedObject.equals("ladder")) {
+                if (action.equals("jump")) { 
+                    if (player.getCurrentRoom().getDescription().equals("outside")) {
 
+                        appendToOutputString("You Win ! ");
+                        return true;
+                    } else {
+                        appendToOutputString("You are ejected in the random room ");
+                        player.setCurrentRoom(Game.getRandomRooms());
                     }
-                } else {
-                    appendToOutputString("");
-                }
 
+                } else {
+                    appendToOutputString("If you climb on the ladder then, you have to jump. 'climb ladder jump' ");
+                }
+            } else {
+                appendToOutputString("There is no ladder to climb in this room, if you carry one , drop it and try again ");
             }
 
         } else {
-                appendToOutputString("There is no ladder in this room, if you carry one , drop it and try again");
+            appendToOutputString("Climb on what?");
         }
 
         return false;

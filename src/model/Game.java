@@ -3,6 +3,8 @@ package model;
 import communication.GameViewProxy;
 import controller.Parser;
 import iphone.IOSGameViewProxy;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.GameListener;
@@ -27,12 +29,14 @@ public class Game {
     private Parser parser;
     private Player player;
     private GameEngine engine;
+    private static ArrayList<Room> rooms;
 
     // Create the Game and initialize its internal map.     
     public Game() {
         player = new Player();
         parser = new Parser();
         engine = new GameEngine(parser, player);
+        rooms = new ArrayList<Room>();
         setFirstOutput();
         createRooms();
 
@@ -75,6 +79,19 @@ public class Game {
         endCorridor = new Room("The end of the corridor, almost outside", "/images/dungeon.gif","endCorridor");
         alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/dungeon.gif","alarmRoom");
         outside = new Room("Outside, the place for escaping!", "/images/dungeon.gif","outside");
+        
+        rooms.add(outside);
+        rooms.add(alarmRoom);
+        rooms.add(endCorridor);
+        rooms.add(mainCorridorMiddle);
+        rooms.add(mainCorridorMiddle);
+        rooms.add(cellEast1);
+        rooms.add(cellEast2);
+        rooms.add(cellWest1);
+        rooms.add(cellWest2);
+        rooms.add(mainCell);
+        
+        
 
         // Link exits of romms together
         mainCell.setExit("north", mainCorridorBegin);
@@ -115,4 +132,14 @@ public class Game {
         engine.appendToOutputString("World of Zuul is a great adventure game.\n");
         engine.appendToOutputString("Type 'help' if you need help.\n");
     }
+    
+
+    public static Room getRandomRooms() {
+        
+        Random rdm = new Random();
+        int listSize = rooms.size();
+        Room rdmRoom = rooms.get(rdm.nextInt(listSize));
+        return rdmRoom;
+    }
+
 }

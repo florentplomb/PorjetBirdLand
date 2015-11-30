@@ -5,6 +5,8 @@ import controller.GoCmd;
 import controller.Parser;
 import java.util.ArrayList;
 import view.GameListener;
+import view.GameView;
+import view.QuizzUserInterface;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a
@@ -22,6 +24,7 @@ public class GameEngine implements Model {
     private Player player;
     private ArrayList<GameListener> gameListeners;
     private Guardian guardian01;
+    private GameView gv;
 
     //Constructor
     public GameEngine(Parser parser, Player player,Guardian guardian01) {
@@ -38,7 +41,10 @@ public class GameEngine implements Model {
     private void clearOutputString() {
         outputString = "";
     }
-
+    
+    public void setGm(GameView gv){
+        this.gv = gv;
+    }
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {
         outputString += myString;
@@ -95,13 +101,18 @@ public class GameEngine implements Model {
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     
                     appendToOutputString("Guardian is HERE");
-                    
-                                        
+                    gv.enable(false);
+                    new QuizzUserInterface(this);
+                                
                     
                 }
             }
                     
         }
         notifyGameListeners();
+    }
+    
+    public void setGV(boolean b){
+        gv.enable(b);
     }
 }

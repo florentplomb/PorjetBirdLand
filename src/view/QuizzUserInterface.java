@@ -21,8 +21,8 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private int countScore;
     private GameView gameView;
 
-    public QuizzUserInterface() {
-  
+    public QuizzUserInterface(GameView gameView) {
+        this.gameView = gameView;
         this.answers = new HashMap<Integer,Integer>();
         this.currentScore = "Score : ";
         this.countScore = 0;
@@ -111,11 +111,6 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         }
 
         desire.setText(printQ);
-    }
-
-    public static void startQuizz() {
-        QuizzUserInterface quizz = new QuizzUserInterface();
-        quizz.requestFocus();
     }
 
 }

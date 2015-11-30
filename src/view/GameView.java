@@ -1,7 +1,10 @@
 package view;
 
+import Quizz.Question;
+import Quizz.QuizzController;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +20,10 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.HashMap;
+import java.util.Map;
+import javax.swing.border.Border;
 import model.item.BananaPeel;
 import model.item.Transportable;
 
@@ -25,7 +31,7 @@ import model.item.Transportable;
  * This class implements a simple graphical user interface with a text entry
  * area, a text output area and an optional image.
  */
-public class GameView implements ActionListener, GameListener,KeyListener {
+public class GameView implements ActionListener, GameListener, KeyListener {
 
     /*
      * Lists of Strings holding the data to be displayed.
@@ -38,18 +44,28 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     private ArrayList<URL> items = new ArrayList<URL>();
     private GameEngine engine;
     private ArrayList<String> keys = new ArrayList<String>();
-    private HashMap<String,Transportable> itemsKeys= new HashMap<String, Transportable>();
+    private HashMap<String, Transportable> itemsKeys = new HashMap<String, Transportable>();
 
     /**
-     * Construct a UserInterface. As a parameter, a Game Engine
-     * (an object processing and executing the game commands) is
-     * needed.
-     * 
-     * @param engine  The GameEngine object implementing the game logic.
+     * Quizz variables
+     */
+    private JButton one, two, three, for4;
+    private HashMap<Integer, Integer> answers;
+    private JTextArea score;
+    private JTextArea desire;
+    private String currentScore;
+    private String printQ;
+    private int countScore;
+
+    /**
+     * Construct a UserInterface. As a parameter, a Game Engine (an object
+     * processing and executing the game commands) is needed.
+     *
+     * @param engine The GameEngine object implementing the game logic.
      */
     public GameView(GameEngine engine) {
         this.engine = engine;
-        
+
         // These ArrayLists contains the list of items available in the room, items that the player carry and the stats of the players respectively.
         myRoomItems = new ArrayList<String>();
         myPlayerItems = new ArrayList<String>();
@@ -57,7 +73,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
         roomImage = null;
         playerImage = null;
-
+    
         createGUI();
 
         engine.addGameListener(this);
@@ -66,7 +82,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     /**
-     * Sets the list of room items. If you want to show items of current room, you should modify this method.
+     * Sets the list of room items. If you want to show items of current room,
+     * you should modify this method.
      */
     private void setRoomItems() {
         myRoomItems.clear();
@@ -74,7 +91,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     /**
-     * Sets the list of player items. If you want to show the items of the player, you should modify this method.
+     * Sets the list of player items. If you want to show the items of the
+     * player, you should modify this method.
      */
     private void setPlayerItems() {
         myPlayerItems.clear();
@@ -82,7 +100,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     /**
-     * Sets the list of player states. If you want to change the status of the player, you should modify this method.
+     * Sets the list of player states. If you want to change the status of the
+     * player, you should modify this method.
      */
     private void setPlayerStats() {
         myPlayerStats.clear();
@@ -97,52 +116,147 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     /**
-     * Sets the name of the player image to be displayed. If you want to change the player picture, you should modify this method.
+     * Sets the name of the player image to be displayed. If you want to change
+     * the player picture, you should modify this method.
      */
     private void setPlayerImage() {
         playerImage = getClass().getResource("/images/knight.gif");
     }
-    
+
     private void setMapImage() {
         mapImage = getClass().getResource("/images/map.gif");
     }
-    
-    private void setItem(String url){
+
+    private void setItem(String url) {
         URL itemImage = getClass().getResource(url);
         System.out.println(url);
         items.add(itemImage);
     }
-    private void deleteItem(){
+
+    private void deleteItem() {
         //items.remove(c)
+    }
+
+    public void QuizzUserInterface() {
+        JFrame quizzFrame = new JFrame();
+        this.answers = new HashMap<Integer, Integer>();
+        this.currentScore = "Score : ";
+        this.countScore = 0;
+        quizzFrame.setSize(400, 400);
+        quizzFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        quizzFrame.setVisible(true);
+        Container pane = quizzFrame.getContentPane();
+
+        BoxLayout b = new BoxLayout(pane, WIDTH);
+        pane.setLayout(b);
+
+        desire = new JTextArea(printQ, 10, 25);
+        score = new JTextArea(currentScore, 2, 2);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        score.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder()));
+
+        this.one = new JButton("1");
+        this.two = new JButton("2");
+        this.three = new JButton("3");
+        this.for4 = new JButton("4");
+
+        this.newQuestion();
+
+        one.addActionListener(this);
+        two.addActionListener(this);
+        three.addActionListener(this);
+        for4.addActionListener(this);
+        pane.add(desire);
+        pane.add(score);
+        pane.add(one);
+        pane.add(two);
+        pane.add(three);
+        pane.add(for4);
+        quizzFrame.setContentPane(pane);
+    }
+    
+        private void win() {
+        countScore++;
+        score.setText("Score : " + countScore);
+        Border border = BorderFactory.createLineBorder(Color.GREEN);
+        score.setBorder(border);
+    }
+
+    private void loose() {
+        countScore--;
+        score.setText("Score :" + countScore);
+        this.newQuestion();
+        Border border = BorderFactory.createLineBorder(Color.RED);
+        score.setBorder(border);
+
+    }
+
+    private void newQuestion() {
+        
+        Question q = QuizzController.getQuestion();
+
+        String printQ = q.getTitle() + "\n";
+
+        int cpt = 0;
+        for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
+            cpt++;
+            printQ += cpt + ") " + entry.getKey() + "\n";
+            answers.put(cpt, entry.getValue());
+            if (entry.getValue() == 1) {
+                // result.setAnswer(entry.getKey());
+            }
+        }
+
+        desire.setText(printQ);
     }
 
 // ==================LISTENERS' METHODS==============================
     /**
-     * Method triggered when eventListener is notified that an event has happened (here, event = 'enter' key typed in text field).
+     * Method triggered when eventListener is notified that an event has
+     * happened (here, event = 'enter' key typed in text field).
+     *
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
             // no need to check the type of action at the moment.
-            // there is only one possible action: text entry
-            processCommand();
+        // there is only one possible action: text entry
+        processCommand();
+
+        Object source = e.getSource();
+
+        if (source == one && answers.get(1) == 1) {
+            this.win();
+        } else if (source == two && answers.get(2) == 1) {
+            this.win();
+        } else if (source == three && answers.get(3) == 1) {
+            this.win();
+        } else if (source == for4 && answers.get(4) == 1) {
+            this.win();
+        } else {
+            this.loose();
+        }
+        this.newQuestion();
 
     }
 
     /**
-     * A command has been entered. Read the command and do whatever is 
-     * necessary to process it.
+     * A command has been entered. Read the command and do whatever is necessary
+     * to process it.
      */
     private void processCommand() {
         String input = inputBox.getText();
         inputBox.setText("");
-        if(input.equals("Alarme")){
+        if (input.equals("Alarme")) {
             alarme();
         }
         engine.interpretCommand(input);
     }
 
     /**
-     * Method triggered when gameListener is notified that the game has been modified.
+     * Method triggered when gameListener is notified that the game has been
+     * modified.
+     *
      * @param roomImageName the name of the image of the room to be displayed
      */
     public void gameStateModified(String roomImageName) {
@@ -166,14 +280,17 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
         // Updates images and lists displayed in the GUI.
         // IMPORTANT: Fields of the GUI must have been set to new values before.
-        
         updateRoomImage();
-        
+
         updatePlayerImage();
         updateMapImage();
 
         updateLists();
-        
+
+    }
+    
+      public JPanel getPanel() {
+       return this.mainPanel;
     }
 //==============================================================================
 //  << NO NEED TO READ THE FOLLOWING CODE >> << MODIFY AT YOUR OWN RISK >>
@@ -185,7 +302,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     //sub panels and their components.
     //ROOM
     private JPanel roomPanel;
-    private JLabel mapLabel,globalMapLabel;
+    private JLabel mapLabel, globalMapLabel;
     private ArrayList<JLabel> itemsLabel = new ArrayList<JLabel>();
     private JPanel roomlistPanel;
     private JScrollPane listScroller3;
@@ -216,15 +333,16 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     /**
      * initializes all components of the GUI
      */
-    private void checkTouches(){
-        if (itemsKeys.isEmpty()){
-        itemsKeys.put("H",new BananaPeel("BananaPeel","BananaPeel",10,false,"/images/banana.jpg"));
-        itemsKeys.put("J",null);
-        itemsKeys.put("K",null);
+    private void checkTouches() {
+        if (itemsKeys.isEmpty()) {
+            itemsKeys.put("H", new BananaPeel("BananaPeel", "BananaPeel", 10, false, "/images/banana.jpg"));
+            itemsKeys.put("J", null);
+            itemsKeys.put("K", null);
         }
 
     }
-    
+
+  
     private void createGUI() {
         myFrame = new JFrame("PRISON BREAK");
 
@@ -239,24 +357,21 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         roomlistPanel = new JPanel();
         statPanel = new JPanel();
 
-
         checkTouches();
 
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
         //subcontainers 
         //adding the various components to the subcontainers
-
         //this method 
         mapLabel = new JLabel();
         mapLabel.setPreferredSize(new Dimension(400, 300));
         mapLabel.setMinimumSize(new Dimension(200, 100));
-        
+
         //Global MAP
         globalMapLabel = new JLabel();
         globalMapLabel.setPreferredSize(new Dimension(150, 150));
         globalMapLabel.setMinimumSize(new Dimension(150, 150));
-        
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();
@@ -270,7 +385,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
         //sets the layout variables
-
         c = new GridBagConstraints();
         //adds an empty border around the components
         //c.insets=new Insets (5,5,5,5);
@@ -286,23 +400,23 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         c.anchor = GridBagConstraints.NORTH;
         roomPanel.setLayout(new GridBagLayout());
         roomPanel.add(mapLabel, c);
-        c.gridx=1;
-        
+        c.gridx = 1;
+
         roomPanel.add(globalMapLabel, c);
-        c.gridy=1;
+        c.gridy = 1;
         roomPanel.add(roomlistPanel, c);
-        c.gridy=0;
-        
+        c.gridy = 0;
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.NORTH;
-        
+
         c.anchor = GridBagConstraints.CENTER;
 
         //-----------------------------------------------------
         meLabel = new JLabel();
         meLabel.setPreferredSize(new Dimension(100, 100));
         meLabel.setMinimumSize(new Dimension(100, 100));
-        
+
         testLabel = new JLabel();
         testLabel.setPreferredSize(new Dimension(300, 300));
         testLabel.setMinimumSize(new Dimension(300, 300));
@@ -318,7 +432,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                 BorderFactory.createTitledBorder("Items"),
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
-        
         //caracteristics
         playerStats = new JList();
         listScroller4 = new JScrollPane();
@@ -335,34 +448,34 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         playerInformationPanel = new JPanel();
         playerInformationPanel.setLayout(new GridBagLayout());
         for (String key : itemsKeys.keySet()) {
-            if(itemsKeys.get(key)!=null){
+            if (itemsKeys.get(key) != null) {
                 setItem(itemsKeys.get(key).getURL());
-            }else{
-               setItem("/images/blanc.gif"); 
+            } else {
+                setItem("/images/blanc.gif");
             }
         }
-        
+
         updateItemImage();
-        c.gridx=0;
+        c.gridx = 0;
         for (String key : itemsKeys.keySet()) {
             JLabel touche = new JLabel(key);
             touche.setHorizontalAlignment(JLabel.CENTER);
             touche.setVerticalAlignment(JLabel.CENTER);
             //touche.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            playerInformationPanel.add(touche,c);
+            playerInformationPanel.add(touche, c);
             c.gridx++;
         }
-        c.gridy=1;
-        c.gridx=0;
-        c.insets = new Insets(1,2 , 1, 2);
+        c.gridy = 1;
+        c.gridx = 0;
+        c.insets = new Insets(1, 2, 1, 2);
         for (JLabel item : itemsLabel) {
-            
+
             item.setPreferredSize(new Dimension(50, 100));
             item.setMinimumSize(new Dimension(50, 100));
             item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            playerInformationPanel.add(item,c);
+            playerInformationPanel.add(item, c);
             c.gridx++;
-        } 
+        }
         playerPanel.setLayout(new GridBagLayout());
 
         // c.insets=new Insets (5,5,5,5);
@@ -378,8 +491,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
         c.gridx = 1;
         //c.gridheight=2;
-        
-         
+
         c.gridx = 1;
         playerPanel.add(playerInformationPanel, c);
         c.gridx = 2;
@@ -399,7 +511,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         dialogPanel.add(listScroller, BorderLayout.NORTH);
         dialogPanel.add(inputBox, BorderLayout.CENTER);
 
-
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
@@ -409,7 +520,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
         c.gridwidth = 2;
         mainPanel.add(roomPanel, c);
         // c.fill=GridBagConstraints.NONE;
-
 
         //c.gridx=0;
         c.gridy = 1;
@@ -434,15 +544,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                 BorderFactory.createTitledBorder(" WIZARD "),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-
-
         //create a combo item box with item choices
-
-
-
-
         //current position image
-
         myFrame.getContentPane().add(mainPanel);
 
         myFrame.addWindowListener(new WindowAdapter() {
@@ -452,10 +555,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
             }
         });
 
-
-
         inputBox.addActionListener(this);
-
 
         myFrame.pack();
         myFrame.setVisible(true);
@@ -463,7 +563,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     /**
-     * Udates the Jlists in the GUI with the content of the three arrayList fields.
+     * Udates the Jlists in the GUI with the content of the three arrayList
+     * fields.
      */
     private void updateLists() {
         String[] myList1 = new String[myRoomItems.size()];
@@ -512,7 +613,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
             myFrame.pack();
         }
     }
-    
+
     private void updateMapImage() {
         if (mapImage == null) {
             System.out.println("image not found");
@@ -522,8 +623,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
             myFrame.pack();
         }
     }
-    
-    private void updateItemImage(){
+
+    private void updateItemImage() {
         if (items.isEmpty()) {
             System.out.println("image not found");
         } else {
@@ -533,16 +634,17 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                 System.out.println(url);
                 ImageIcon icon = new ImageIcon(url);
                 Image image = icon.getImage();
-                Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
-                JLabel itemLabel = new JLabel(new ImageIcon(newimg),JLabel.CENTER);
+                Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+                JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
                 itemsLabel.add(itemLabel);
             }
             myFrame.pack();
-        }  
+        }
     }
-    
+
     /**
      * Enable or disable input in the input field.
+     *
      * @param on
      */
     public void enable(boolean on) {
@@ -554,6 +656,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
     /**
      * Print out some text into the text area.
+     *
      * @param text
      */
     public void print(String text) {
@@ -563,7 +666,8 @@ public class GameView implements ActionListener, GameListener,KeyListener {
 
     /**
      * Print out some text into the text area, followed by a line break.
-     * @param text 
+     *
+     * @param text
      */
     public void println(String text) {
         log.append(text + "\n");
@@ -574,42 +678,52 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      * Clears out the text area.
      */
     private void clearLog() {
-       log.setText("");
-       log.setCaretPosition(0);
+        log.setText("");
+        log.setCaretPosition(0);
     }
 //==============================================================================
+
     public void alarme() {
         System.out.println("Je sonne");
         mainPanel.setBackground(Color.red);
-       
+
         //GameViewAlert alert = new GameViewAlert(mainPanel);
         //alert.start();
     }
+
     public void keyTyped(KeyEvent e) {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(inputBox.getText().length()==0){
+        if (inputBox.getText().length() == 0) {
             String input;
             System.out.println(e.getKeyCode());
-            switch(e.getKeyCode()){
-                case 37: input = "go west";
-                         break;
-                case 38: input = "go north";
-                         break;
-                case 39: input = "go east";
-                         break;
-                case 40: input = "go south";
-                         break;
-                case 72: input = "drop "+itemsKeys.get("H").toString();
-                         
-                         break;
-                case 74: input = "drop "+itemsKeys.get("J").toString();
-                         break;
-                case 75: input = "drop "+itemsKeys.get("K").toString();
-                         break;
-                default: input = "";
-                         break;
+            switch (e.getKeyCode()) {
+                case 37:
+                    input = "go west";
+                    break;
+                case 38:
+                    input = "go north";
+                    break;
+                case 39:
+                    input = "go east";
+                    break;
+                case 40:
+                    input = "go south";
+                    break;
+                case 72:
+                    input = "drop " + itemsKeys.get("H").toString();
+
+                    break;
+                case 74:
+                    input = "drop " + itemsKeys.get("J").toString();
+                    break;
+                case 75:
+                    input = "drop " + itemsKeys.get("K").toString();
+                    break;
+                default:
+                    input = "";
+                    break;
             }
             engine.interpretCommand(input);
             updateItemImage();
@@ -618,6 +732,6 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
-        
+
     }
 }

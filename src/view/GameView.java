@@ -49,7 +49,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
      */
     public GameView(GameEngine engine) {
         this.engine = engine;
-
+        
         // These ArrayLists contains the list of items available in the room, items that the player carry and the stats of the players respectively.
         myRoomItems = new ArrayList<String>();
         myPlayerItems = new ArrayList<String>();
@@ -581,6 +581,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
     public void alarme() {
         System.out.println("Je sonne");
         mainPanel.setBackground(Color.red);
+       
         //GameViewAlert alert = new GameViewAlert(mainPanel);
         //alert.start();
     }

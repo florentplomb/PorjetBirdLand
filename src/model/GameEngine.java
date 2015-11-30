@@ -93,7 +93,10 @@ public class GameEngine implements Model {
                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
+                    
                     appendToOutputString("Guardian is HERE");
+                    guardian01.getQuizz();
+                    
                 }
             }
                     

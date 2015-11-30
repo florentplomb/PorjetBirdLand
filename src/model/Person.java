@@ -6,6 +6,7 @@
 package model;
 
 
+import view.QuizzUserInterface;
 import java.util.ArrayList;
 import model.item.Item;
 
@@ -46,11 +47,7 @@ public abstract class Person {
     }
     
     public void getQuizz(){
-        
-      
-        
-
-       
+          QuizzUserInterface.startQuizz();     
     }
 
 }

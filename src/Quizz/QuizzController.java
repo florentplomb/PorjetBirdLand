@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
-import model.GameEngine;
 
 //import ch.modele.Question;
 //import ch.modele.Answer;
@@ -75,48 +74,7 @@ public class QuizzController {
         return tabNumbers;
     }
 
-    public static Result getPrintQuestion() {
-        Result result = new Result();
-        Question question = QuizzController.getQuestion();
-
-        System.out.println(question.getTitle());
-
-        HashMap<Integer, Integer> answers = new HashMap<Integer, Integer>();
-        int cpt = 0;
-        String answer = "";
-        for (Map.Entry<String, Integer> entry : question.getAnswers().entrySet()) {
-            cpt++;
-            System.out.print(cpt + ") " + entry.getKey());
-            System.out.print("       ");
-            if (cpt % 2 == 0) {
-                System.out.println("");
-            }
-            answers.put(cpt, entry.getValue());
-            if (entry.getValue() == 1) {
-                result.setAnswer(entry.getKey());
-            }
-        }
-
-        Scanner sc = new Scanner(System.in);
-        int reponse = 0;
-        do {
-            System.out.println(ANSI_RED + "Saisissez le numero de la reponse puis pressez Enter :" + ANSI_RESET);
-            while (!sc.hasNextInt()) {
-                System.out.println("That's not a number!");
-                sc.next(); // this is important!
-            }
-            reponse = sc.nextInt();
-        } while (reponse > answers.size() || reponse < 1);
-
-        if (answers.get(reponse) != 1) {
-            result.setIsCorrect(false);
-            return result;
-        } else {
-            result.setIsCorrect(true);
-            return result;
-        }
-
-    }
+   
 
     public static Question getQuestion() {
 

@@ -14,7 +14,8 @@ import model.item.Transportable;
  * and also a list contains which rooms he where in before.
  */
 public class Player {
-
+    
+    private int point;
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
     private HashMap<String, Item> items;
@@ -26,6 +27,7 @@ public class Player {
         items = new HashMap<String, Item>();
         this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
         this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
+        this.point = 0;
     }
 
     // Return the current room for this player.
@@ -52,7 +54,8 @@ public class Player {
         items.put(i.getNAME().toLowerCase(), i);
     }
 
-    public void dropItem(String itemName) {
+    public void removeItem(String itemName) {
+        
         items.remove(itemName);
     }
 
@@ -68,5 +71,16 @@ public class Player {
             weight += item.getWEIGHT();
         }
         return weight;
+    }
+    
+    public void addPoint(Integer point){
+        this.point += point;
+    }
+
+    /**
+     * @return the point
+     */
+    public int getPoint() {
+        return point;
     }
 }

@@ -25,7 +25,7 @@ public class DropCmd extends Command{
                     appendToOutputString("Item not exist");
                 } else {
                     
-                    player.dropItem(item.getNAME());
+                    player.removeItem(item.getNAME());
                     if (item.isIMMORTAL()) {
                      player.getCurrentRoom().addItem(item); 
                     }

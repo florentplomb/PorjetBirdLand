@@ -100,10 +100,18 @@ public class GameEngine implements Model {
                 
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     
-                    appendToOutputString("Guardian is HERE");
-                    gv.enable(false);
-                    new QuizzUserInterface(this);
-                                
+                    appendToOutputString("\n Guardian is HERE \n");
+                    if (player.getItem("bananapeel") != null) {
+                       appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+                       player.removeItem("bananapeel");
+                    }else{
+                      gv.enable(false);
+                     new QuizzUserInterface(this,player);
+                    }
+                    
+                    
+                 
+                          
                     
                 }
             }

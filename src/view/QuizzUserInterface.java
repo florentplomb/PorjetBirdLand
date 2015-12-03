@@ -12,7 +12,7 @@ import model.GameEngine;
 import model.Player;
 
 public class QuizzUserInterface extends JFrame implements ActionListener {
-    
+
     private JButton one, two, three, for4;
     private HashMap<Integer, Integer> answers;
     private JTextArea score;
@@ -23,36 +23,37 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private int cpt;
     private GameEngine ge;
     private Player player;
-    
-    public QuizzUserInterface(GameEngine ge,Player p) {
+    private boolean loose;
+
+    public QuizzUserInterface(GameEngine ge, Player p) {
         this.cpt = 1;
         this.ge = ge;
+        this.loose = false;
         this.player = p;
         this.answers = new HashMap<Integer, Integer>();
-        this.currentScore = "Question"+ (cpt) +"/3" +"\n"+"Score :" + countScore +"\n Your Total Score : "+(player.getPoint()+countScore);
+        this.currentScore = "Question" + (cpt) + "/3" + "\n" + "Score :" + countScore + "\n Your Total Score : " + (player.getPoint() + countScore);
         this.countScore = 0;
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         Container pane = getContentPane();
-        
-        
+
         BoxLayout b = new BoxLayout(pane, WIDTH);
         pane.setLayout(b);
-        
+
         desire = new JTextArea(printQ, 10, 25);
         score = new JTextArea(currentScore, 2, 2);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         score.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder()));
-        
+
         this.one = new JButton("1");
         this.two = new JButton("2");
         this.three = new JButton("3");
         this.for4 = new JButton("4");
-        
+
         this.newQuestion();
-        
+
         one.addActionListener(this);
         two.addActionListener(this);
         three.addActionListener(this);
@@ -64,13 +65,13 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         pane.add(three);
         pane.add(for4);
         setContentPane(pane);
-         
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source == one && answers.get(1) == 1) {
             this.win();
         } else if (source == two && answers.get(2) == 1) {
@@ -82,43 +83,53 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         } else {
             this.loose();
         }
-      
-       this.newQuestion();
+
+       
     }
-    
+
     private void win() {
         countScore++;
         this.setScore();
         Border border = BorderFactory.createLineBorder(Color.GREEN);
         score.setBorder(border);
+         this.newQuestion();
     }
-    
+
     private void loose() {
-       
-        this.setScore();
+
+        this.loose = true;
         this.newQuestion();
         Border border = BorderFactory.createLineBorder(Color.RED);
         score.setBorder(border);
-        
+
     }
-    
+
     private void setScore() {
-       // score.setText("Question : "+ (cpt+1) +"/3" +"\n"+"Score : " + countScore);
-         cpt++;
-         score.setText("Question : "+ (cpt) +"/3" +"\n"+"Score : " + countScore +"\n Your Total Score : "+(player.getPoint()+countScore) );
+        // score.setText("Question : "+ (cpt+1) +"/3" +"\n"+"Score : " + countScore);
+        cpt++;
+        score.setText("Question : " + (cpt) + "/3" + "\n" + "Score : " + countScore + "\n Your Total Score : " + (player.getPoint() + countScore));
     }
+
     private void newQuestion() {
-        if (cpt > 3) {
-        this.player.addPoint(countScore);
-        this.ge.setGV(true);
-        this.dispose();
-            System.out.println("point player = " + player.getPoint());
+        if (cpt > 3 || loose) {
+            if (loose) {
+                JOptionPane.showMessageDialog(null, "You loose the quizz the guraidian swicth on alarm",
+                        "Quizz lost", JOptionPane.PLAIN_MESSAGE, null);
+            } else {
+                JOptionPane.showMessageDialog(null, "You win the quizz you can continues",
+                        "Quizz won", JOptionPane.PLAIN_MESSAGE, null);
+            }
+            System.out.println("je passe");
+            this.player.addPoint(countScore);
+            this.ge.setGV(true);
+            this.dispose();
+            
         }
-       
+
         Question q = QuizzController.getQuestion();
-        
+
         String printQ = q.getTitle() + "\n";
-        
+
         int cptAnswer = 0;
         for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
             cptAnswer++;
@@ -130,5 +141,5 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         }
         desire.setText(printQ);
     }
-    
+
 }

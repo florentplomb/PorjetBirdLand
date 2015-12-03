@@ -95,7 +95,7 @@ public class GameEngine implements Model {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
             if(command instanceof GoCmd){
-                guardian01.setNextRoom();
+              //  guardian01.setNextRoom();
                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {

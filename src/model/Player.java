@@ -25,7 +25,7 @@ public class Player {
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();
-        this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
+      
         this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
         this.point = 0;
     }
@@ -74,7 +74,7 @@ public class Player {
     }
     
     public void addPoint(Integer point){
-        this.point += point;
+        this.point = this.point + point;
     }
 
     /**

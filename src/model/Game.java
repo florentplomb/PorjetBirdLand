@@ -134,7 +134,7 @@ public class Game {
     }
     
     private void createGuardian() {
-      guardian01 = new Guardian("Joe", rooms.get(2));
+      guardian01 = new Guardian("Joe", rooms.get(4));
     }
 
     // Initialize the first room.

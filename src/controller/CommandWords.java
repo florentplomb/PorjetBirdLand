@@ -23,6 +23,7 @@ public class CommandWords {
         commands.put("climb", new ClimbCmd());
         commands.put("look", new LookCmd());
         commands.put("take", new TakeCmd());
+        commands.put("back", new BackCmd());
 
         // The 'help' command is created differently since it needs to receive the list of command words
         HelpCmd helpCmd = new HelpCmd();

@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import model.Player;
+import model.Room;
 
 /**
  * Implementation of *Back* command.
@@ -16,7 +18,20 @@ public class BackCmd extends Command {
      * message. Returns always 'false'.
      */
     public boolean execute(Player player) {
+        clearOutputString();
+        
+        ArrayList<Room> previousRoom = player.getPreviousRooms();
+        boolean check = previousRoom.isEmpty();
 
+        if (check == true) {
+            appendToOutputString("There is no way back");
+
+        } else {
+            
+            Room lastRoom = previousRoom.get(previousRoom.size()-1);
+            player.setCurrentRoom(lastRoom);
+            previousRoom.remove(previousRoom.size()-1);
+        }
 
         return false;
     }

@@ -71,7 +71,7 @@ public class Room {
         return null;
     }
      public void addItem(Item item) {
-        items.put(item.getNAME(), item);
+        items.put(item.getNAME().toLowerCase(), item);
     }
      public void removeItem(String it) {
         items.remove(it);

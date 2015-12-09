@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.border.Border;
 import model.GameEngine;
 import model.Player;
+import model.item.Alarm;
 
 public class QuizzUserInterface extends JFrame implements ActionListener {
 
@@ -84,15 +85,15 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
             this.loose();
         }
 
-       
     }
 
     private void win() {
         countScore++;
-        this.setScore();
         Border border = BorderFactory.createLineBorder(Color.GREEN);
         score.setBorder(border);
-         this.newQuestion();
+        this.setScore();
+        this.newQuestion();
+      
     }
 
     private void loose() {
@@ -105,7 +106,6 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     }
 
     private void setScore() {
-        // score.setText("Question : "+ (cpt+1) +"/3" +"\n"+"Score : " + countScore);
         cpt++;
         score.setText("Question : " + (cpt) + "/3" + "\n" + "Score : " + countScore + "\n Your Total Score : " + (player.getPoint() + countScore));
     }
@@ -113,17 +113,26 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private void newQuestion() {
         if (cpt > 3 || loose) {
             if (loose) {
-                JOptionPane.showMessageDialog(null, "You loose the quizz the guraidian swicth on alarm",
+                if (Alarm.getState() == true) {
+                    JOptionPane.showMessageDialog(null, "Game over",
+                            "Game over", JOptionPane.PLAIN_MESSAGE, null);
+                }else{
+                JOptionPane.showMessageDialog(null, " You loose...  ALARM!!!! ",
                         "Quizz lost", JOptionPane.PLAIN_MESSAGE, null);
+                Alarm.use();
+                this.ge.alarm();
+                this.ge.setGV(true);
+                }
+
             } else {
-                JOptionPane.showMessageDialog(null, "You win the quizz you can continues",
-                        "Quizz won", JOptionPane.PLAIN_MESSAGE, null);
-            }
-            System.out.println("je passe");
+//                JOptionPane.showMessageDialog(null, "You win the quizz you can continues",
+//                        "Quizz won", JOptionPane.PLAIN_MESSAGE, null);
+                this.ge.setGV(true);
+              
+            } 
             this.player.addPoint(countScore);
-            this.ge.setGV(true);
             this.dispose();
-            
+
         }
 
         Question q = QuizzController.getQuestion();

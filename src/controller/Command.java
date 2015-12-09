@@ -35,7 +35,7 @@ public abstract class Command {
      * the result is null.
      */
     public String getSecondWord() {
-        return secondWord.toLowerCase();
+        return secondWord;
     }
 
     /*
@@ -43,7 +43,7 @@ public abstract class Command {
      * the result is null.
      */
     public String getThirdWord() {
-        return thirdWord.toLowerCase();
+        return thirdWord;
     }
     
     // Check whether a second word was entered for this command.

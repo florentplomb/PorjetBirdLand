@@ -1,7 +1,5 @@
 package view;
 
-import Quizz.Question;
-import Quizz.QuizzController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -607,8 +605,14 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 //==============================================================================
 
     public void alarme() {
-        System.out.println("Je sonne");
         mainPanel.setBackground(Color.red);
+
+        //GameViewAlert alert = new GameViewAlert(mainPanel);
+        //alert.start();
+    }
+    
+    public void alarmeOFF() {
+        mainPanel.setBackground(Color.white);
 
         //GameViewAlert alert = new GameViewAlert(mainPanel);
         //alert.start();

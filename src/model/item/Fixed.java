@@ -17,5 +17,6 @@ public abstract class Fixed extends Item{
     public Fixed(String nom, String description) {
         super(nom, description);
     }
+      
 
 }

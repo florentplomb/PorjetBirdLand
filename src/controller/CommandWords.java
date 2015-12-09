@@ -24,6 +24,7 @@ public class CommandWords {
         commands.put("look", new LookCmd());
         commands.put("take", new TakeCmd());
         commands.put("back", new BackCmd());
+        commands.put("use", new UseCmd());
 
         // The 'help' command is created differently since it needs to receive the list of command words
         HelpCmd helpCmd = new HelpCmd();

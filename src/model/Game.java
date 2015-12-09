@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.item.Alarm;
+import model.item.Blanket;
+import model.item.Ladder;
 import view.GameListener;
 import view.GameView;
 
@@ -123,11 +126,15 @@ public class Game {
         
         outside.setExit("east", endCorridor);
         
-      
-    
-
+        
+   
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
+        mainCell.addItem(Alarm.getInstance());
+        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"url"));
+        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"url"));
+       
+                
         // Set start room of guardian
         
         

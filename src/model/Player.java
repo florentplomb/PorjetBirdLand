@@ -26,7 +26,7 @@ public class Player {
         previousRooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();
       
-        this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
+       this.addItem(new BananaPeel("bananapeel", "banana", 1, false, "asd"));
         this.point = 0;
     }
 

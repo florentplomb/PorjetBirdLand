@@ -3,7 +3,9 @@ package model;
 import controller.Command;
 import controller.GoCmd;
 import controller.Parser;
+import controller.UseCmd;
 import java.util.ArrayList;
+import model.item.Alarm;
 import view.GameListener;
 import view.GameView;
 import view.QuizzUserInterface;
@@ -27,13 +29,13 @@ public class GameEngine implements Model {
     private GameView gv;
 
     //Constructor
-    public GameEngine(Parser parser, Player player,Guardian guardian01) {
+    public GameEngine(Parser parser, Player player, Guardian guardian01) {
         outputString = new String();
         finished = false;
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
-        
+
         gameListeners = new ArrayList<GameListener>();
     }
 
@@ -41,10 +43,11 @@ public class GameEngine implements Model {
     private void clearOutputString() {
         outputString = "";
     }
-    
-    public void setGm(GameView gv){
+
+    public void setGm(GameView gv) {
         this.gv = gv;
     }
+
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {
         outputString += myString;
@@ -71,7 +74,12 @@ public class GameEngine implements Model {
         notifyGameListeners();
     }
 
+    public void alarm() {
+        gv.alarme();
+    }
+
     // Notifies all game listeners of game modifications.
+
     public void notifyGameListeners() {
         for (GameListener gl : gameListeners) {
             String imageName = getPlayer().getCurrentRoom().getImageName();
@@ -88,39 +96,46 @@ public class GameEngine implements Model {
         outputString += commandLine + "\n";
 
         Command command = parser.getCommand(commandLine);
-
+        //  System.out.println(command.getSecondWord());
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
         } else {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
-            if(command instanceof GoCmd){
-              //  guardian01.setNextRoom();
-               // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
-                
+
+            if (command instanceof UseCmd) {
+                if (command.getSecondWord() != null) {
+                    if (Alarm.getState()) {
+                        gv.alarme();
+                    } else {
+                        gv.alarmeOFF();
+                    }
+                }
+
+            }
+
+            if (command instanceof GoCmd) {
+                //  guardian01.setNextRoom();
+                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
-                    
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
-                       appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                       player.removeItem("bananapeel");
-                    }else{
-                      gv.enable(false);
-                     new QuizzUserInterface(this,player);
+                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+                        player.removeItem("bananapeel");
+                    } else {
+                        gv.enable(false);
+                        new QuizzUserInterface(this, player);
                     }
-                    
-                    
-                 
-                          
-                    
+
                 }
             }
-                    
+
         }
         notifyGameListeners();
     }
-    
-    public void setGV(boolean b){
+
+    public void setGV(boolean b) {
         gv.enable(b);
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Quizz;
+package DataBaseManager;
 
 //import java.sql.*;
 import java.util.ArrayList;
@@ -15,8 +15,6 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.ListIterator;
-import java.util.Map;
-import java.util.Scanner;
 import model.Player;
 
 //import ch.modele.Question;
@@ -144,7 +142,7 @@ public class DataBaseController {
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incrémenté il NE FAUT PAS le définir ;-)
-            // Rappel : Comme l'id est un champ auto incrémenté il NE FAUT PAS le définir ;-)
+          
 
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
             // Parcours de l'ensemble de résultats
@@ -166,7 +164,7 @@ public class DataBaseController {
                 int nbPlayerAdd = requete.executeUpdate(
                         "INSERT INTO GAME"
                         + "(PLAYER,MOVE,POINT) VALUES "
-                        + "('" + name + "', " + 0 + "," + 0 + ")",
+                        + "('" + name.toUpperCase() + "', " + 0 + "," + 0 + ")",
                         Statement.RETURN_GENERATED_KEYS);
                 System.out.println(nbPlayerAdd + " is added");
                 ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
@@ -203,8 +201,7 @@ public class DataBaseController {
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
             int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
-                    + "SET point = '" + player.getPoint()
-                    + "' AND move = '" + player.getMove() 
+                    + "SET point = " + player.getPoint() +", move = "+player.getMove()
                     + "WHERE player = '" + player.getName().toUpperCase()+"'");
             
             System.out.println(nombrePersonnesModifiees + " player modified");
@@ -218,6 +215,40 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
     }
+public static ArrayList<Player> getPlayerBD() {
 
+        ArrayList<Player> players = new ArrayList<Player>();
+
+
+        Connection con = null;
+
+        try {
+            // Connection à la base de données
+            con = DriverManager.getConnection(url, userName, password);
+            Statement requete = con.createStatement();
+            ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME ORDER BY MOVE ");
+            // Parcours de l'ensemble de résultats
+            while (ensembleResultats.next()) {
+                Player player = new Player(
+                        ensembleResultats.getString("Player"),
+                        ensembleResultats.getInt("Point"),
+                        ensembleResultats.getInt("Move"));
+                players.add(player);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            players = null;
+        }
+
+        // fermeture de la connection à la base de donnée ainsi que de toutes 
+        //les ressources qui lui sont associées ! (ResultSet, Statement)
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return players;
+    }
 
 }

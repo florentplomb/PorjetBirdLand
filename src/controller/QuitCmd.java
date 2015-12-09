@@ -1,6 +1,6 @@
 package controller;
 
-import Quizz.DataBaseController;
+import DataBaseManager.DataBaseController;
 import model.Player;
 
 /**

@@ -1,6 +1,7 @@
 package view;
 
-import Quizz.*;
+import DataBaseManager.Question;
+import DataBaseManager.DataBaseController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import view.ScoreView;
 
 /*
  * This class is the main class of the "World of Zuul" application. "World of
@@ -19,6 +20,7 @@ public class CommandWords {
         commands = new HashMap<String, Command>();
         commands.put("go", new GoCmd());
         commands.put("quit", new QuitCmd());
+        commands.put("score", new ScoreCmd());
         commands.put("drop", new DropCmd());
         commands.put("climb", new ClimbCmd());
         commands.put("look", new LookCmd());

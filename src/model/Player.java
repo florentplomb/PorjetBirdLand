@@ -23,12 +23,27 @@ public class Player {
     private HashMap<String, Item> items;
 
     //This is Constructor.
-    public Player() {
+/**
+ * Create a simple player to display in the scoreView
+ * @param name 
+ * @param point
+ * @param move 
+ */
+    public Player(String name , Integer point, Integer move) {
+        this.name = name;
+        this.point = point;
+        this.move = move;
+    }
+   /**
+    * Use 
+    * @param name 
+    */
+    public Player(String name) {
+        this.name = name;
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();
-      
-       this.addItem(new BananaPeel("bananapeel", "banana", 1, false, "asd"));
+        this.addItem(new BananaPeel("bananapeel", "banana", 1, false, "asd"));
         this.point = 0;
     }
 

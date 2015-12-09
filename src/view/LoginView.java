@@ -5,7 +5,7 @@
  */
 package view;
 
-import Quizz.DataBaseController;
+import DataBaseManager.DataBaseController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -86,8 +86,13 @@ public class LoginView extends JDialog {
     class BoutonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            boolean sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
-
+            
+             boolean sucess = false;
+            
+            if (!jtf.getText().isEmpty()) {
+                 sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
+               }
+            
             if (sucess) {
                 playerName = jtf.getText();
                 close();

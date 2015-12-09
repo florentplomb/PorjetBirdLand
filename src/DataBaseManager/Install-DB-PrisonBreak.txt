@@ -17,6 +17,6 @@ Install DataBase:
 	
    - Double click on it to connect. 
 
-4. Return in the view "Projects" on the Quizz repository click right on the "QuestionReponses.sql" -> Run files -> Choose the DB you just created.
+4. Return in the view "Projects" on the Quizz repository click right on the "DB-PrisonBreak.sql" -> Run files -> Choose the DB you just created.
 
 5. Run TestQuizz.java

@@ -427,7 +427,7 @@ public class GameView implements ActionListener, GameListener,KeyListener {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         playerPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder(" PLAYER "),
+                BorderFactory.createTitledBorder(engine.getPlayer().getName().toUpperCase()),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         dialogPanel.setBorder(BorderFactory.createCompoundBorder(

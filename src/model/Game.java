@@ -12,6 +12,7 @@ import model.item.Blanket;
 import model.item.Ladder;
 import view.GameListener;
 import view.GameView;
+import view.LoginView;
 
 /**
  * This class is the main class of the "World of Zuul" application. "World of
@@ -36,17 +37,15 @@ public class Game {
     private Guardian guardian01;
 
     // Create the Game and initialize its internal map.     
-    public Game() {
+    public Game(String playerName) {
         player = new Player();
-        parser = new Parser();
+        player.setName(playerName);
         rooms = new ArrayList<Room>();
         createRooms();
         createGuardian();
         engine = new GameEngine(parser, player,guardian01);
         setFirstOutput();
       
-      
-
         // GUI must be created last since it needs all above classes instances (engine, player, rooms) to display game.
         GameListener localView = new GameView(engine);
         engine.setGm((GameView) localView);

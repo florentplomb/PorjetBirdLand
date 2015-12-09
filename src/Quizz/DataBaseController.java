@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
+import model.Player;
 
 //import ch.modele.Question;
 //import ch.modele.Answer;
@@ -25,12 +26,12 @@ import java.util.Scanner;
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-public class QuizzController {
+public class DataBaseController {
 
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz";
+    private static final String url = "jdbc:derby://localhost:1527/quizz2";
     private static final String userName = "quizz";
     private static final String password = "1234";
     /**
@@ -43,10 +44,9 @@ public class QuizzController {
      * Random question engin
      */
     private static ListIterator<Integer> itrTabRdm = createItr();
-    
+
     private static final int nbQuestion = getNumberofQuestion();
              // Chargement du driver odbc une fois pour toute
-
 
     static {
         try {
@@ -74,15 +74,13 @@ public class QuizzController {
         return tabNumbers;
     }
 
-   
-
     public static Question getQuestion() {
 
         Question q = new Question();
         if (!itrTabRdm.hasNext()) {
             itrTabRdm = createItr();
         }
-        
+
         Connection con = null;
 
         try {
@@ -121,12 +119,11 @@ public class QuizzController {
         try {
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
-            ResultSet countQuestion = requete.executeQuery("SELECT COUNT("+1+") FROM question");
-    
+            ResultSet countQuestion = requete.executeQuery("SELECT COUNT(" + 1 + ") FROM question");
+
             countQuestion.next();
             nbrQuestion = countQuestion.getInt(1);
-            
-           
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -135,7 +132,92 @@ public class QuizzController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return   nbrQuestion;
+        return nbrQuestion;
     }
+
+    public static boolean insertNamePlayer(String name) {
+        Connection con = null;
+        boolean success = false;
+
+        try {
+            // Connection à la base de données
+            con = DriverManager.getConnection(url, userName, password);
+            Statement requete = con.createStatement();
+            // Rappel : Comme l'id est un champ auto incrémenté il NE FAUT PAS le définir ;-)
+            // Rappel : Comme l'id est un champ auto incrémenté il NE FAUT PAS le définir ;-)
+
+            ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
+            // Parcours de l'ensemble de résultats
+            boolean dejaInscrit = false;
+            while (ensembleResultats.next() && !dejaInscrit) {
+                if (name.equals(ensembleResultats.getString("PLAYER"))) {
+                    dejaInscrit = true;
+                }
+
+            }
+            // fermeture de la connection à la base de données ainsi que de toutes
+            //les ressources qui lui sont associées ! (ResultSet, Statement)
+
+            if (dejaInscrit) {
+
+                System.out.println("Already reigster");
+
+            } else {
+                int nbPlayerAdd = requete.executeUpdate(
+                        "INSERT INTO GAME"
+                        + "(PLAYER,MOVE,POINT) VALUES "
+                        + "('" + name + "', " + 0 + "," + 0 + ")",
+                        Statement.RETURN_GENERATED_KEYS);
+                System.out.println(nbPlayerAdd + " is added");
+                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
+                Integer playerName = null;
+
+                // Comme il n'y a eu qu'un seul insert, on peut faire un if au lieu d'un while
+                if (ensembleTuplesAjoutes.next()) {
+                    playerName = ensembleTuplesAjoutes.getInt(1);
+                }
+                System.out.println("L'id du nouveau tuple est : " + playerName);
+                ensembleTuplesAjoutes = null;
+                success = true;
+
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return success;
+    }
+    
+       public static void insertDataPlayer(Player player) {
+          Connection con = null;
+
+        try {
+            // Connection à la base de données
+            con = DriverManager.getConnection(url, userName, password);
+            Statement requete = con.createStatement();
+            int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
+                    + "SET point = '" + player.getPoint()
+                    + "' AND move = '" + player.getMove() 
+                    + "WHERE player = '" + player.getName().toUpperCase()+"'");
+            
+            System.out.println(nombrePersonnesModifiees + " player modified");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }

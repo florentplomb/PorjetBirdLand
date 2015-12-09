@@ -1,5 +1,6 @@
 package controller;
 
+import Quizz.DataBaseController;
 import model.Player;
 
 /**
@@ -18,6 +19,7 @@ public class QuitCmd extends Command {
     public boolean execute(Player player) {
         clearOutputString();
         if (getSecondWord() == null) {
+             DataBaseController.insertDataPlayer(player);
             appendToOutputString("Thank you for playing.  Good bye.");
             return true;
         } else {

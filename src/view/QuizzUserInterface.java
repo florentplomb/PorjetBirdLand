@@ -135,7 +135,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
 
         }
 
-        Question q = QuizzController.getQuestion();
+        Question q = DataBaseController.getQuestion();
 
         String printQ = q.getTitle() + "\n";
 

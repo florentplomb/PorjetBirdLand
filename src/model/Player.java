@@ -16,6 +16,8 @@ import model.item.Transportable;
 public class Player {
     
     private int point;
+    private int move;
+    private String name;
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
     private HashMap<String, Item> items;
@@ -82,5 +84,33 @@ public class Player {
      */
     public int getPoint() {
         return point;
+    }
+
+    /**
+     * @return the move
+     */
+    public int getMove() {
+        return move;
+    }
+
+    /**
+     * @param move the move to set
+     */
+    public void setMove(int move) {
+        this.move += move;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

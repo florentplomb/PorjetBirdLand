@@ -20,7 +20,7 @@ public class GoCmd extends Command {
         if (hasSecondWord()) {
             String direction = getSecondWord();
             Room nextRoom = player.getCurrentRoom().getExit(direction);
-
+            player.setMove(1);
             if (nextRoom == null) {
                 appendToOutputString("There is no door!");
             } else {

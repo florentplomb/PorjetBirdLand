@@ -676,33 +676,40 @@ public class GameView implements ActionListener, GameListener, KeyListener {
             switch (e.getKeyCode()) {
                 case 37:
                     input = "go west";
+                    engine.interpretCommand(input);
                     break;
                 case 38:
                     input = "go north";
+                    engine.interpretCommand(input);
                     break;
                 case 39:
                     input = "go east";
+                    engine.interpretCommand(input);
                     break;
                 case 40:
                     input = "go south";
+                    engine.interpretCommand(input);
                     break;
                 case 72:
                     input = "drop " + itemsKeys.get("H").toString();
                     removePlayerItem("H");
+                    engine.interpretCommand(input);
                     break;
                 case 74:
                     input = "drop " + itemsKeys.get("J").toString();
                     removePlayerItem("J");
+                    engine.interpretCommand(input);
                     break;
                 case 75:
                     input = "drop " + itemsKeys.get("K").toString();
                     removePlayerItem("J");
+                    engine.interpretCommand(input);
                     break;
                 default:
                     input = "";
                     break;
             }
-            engine.interpretCommand(input);
+            
             inputBox.setText("");
         }
     }

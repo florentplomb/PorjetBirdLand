@@ -12,14 +12,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import model.Game;
 
 /**
  *
@@ -48,7 +48,8 @@ public class LoginView extends JDialog {
         
         this.setTitle("Login");
         this.setSize(300, 300);
-        this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        //addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {  close();}});
         // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         container.setBackground(Color.white);
@@ -64,15 +65,9 @@ public class LoginView extends JDialog {
         text4user.setBackground(Color.lightGray);
         top.add(jtf);
         top.add(b);
-         
         top.add(text4user);
         top.add(alreadyRegister);
-       
-       
-        
         this.setContentPane(top);
-       
-        
         this.setVisible(true);
     }
 
@@ -84,26 +79,25 @@ public class LoginView extends JDialog {
     }
 
     class BoutonListener implements ActionListener {
-
         public void actionPerformed(ActionEvent e) {
-            
              boolean sucess = false;
-            
             if (!jtf.getText().isEmpty()) {
-                 sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
-               }
-            
+                try {
+                    sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
+                } catch (Exception ex) {
+                    System.out.println("Erro"+ex.getMessage());
+                }
+            }
             if (sucess) {
+                System.out.println("Sucess");
                 playerName = jtf.getText();
                 close();
-                
+                Game myGame = new Game(playerName); 
             } else {
-                
                  alreadyRegister.setVisible(true);
             }
-            }
-
         }
+    }
     private void close(){
         this.dispose();
     }

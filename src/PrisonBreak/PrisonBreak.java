@@ -12,11 +12,6 @@ public class PrisonBreak {
        
         LoginView login = new LoginView();
         String playerName = login.getPlayerName();
-        Game myGame = new Game(playerName);
-        
-       
-        
-        
         
     }
 }

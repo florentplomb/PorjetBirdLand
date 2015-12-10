@@ -148,4 +148,8 @@ public class GameEngine implements Model {
             System.out.println(t.getNAME());
         }
     }
+    
+    public GameView getGameView(){
+        return gv;
+    }
 }

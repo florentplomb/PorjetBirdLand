@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DataBaseManager;
+
 //import java.sql.*;
 import java.util.ArrayList;
 import java.sql.Connection;

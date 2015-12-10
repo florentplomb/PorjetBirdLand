@@ -6,6 +6,7 @@ import controller.GoCmd;
 import controller.Parser;
 import controller.UseCmd;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import model.item.Alarm;
 import model.item.Item;
 import model.item.Transportable;
@@ -46,9 +47,12 @@ public class GameEngine implements Model {
         outputString = "";
     }
 
-    public void setGm(GameView gv) {
+    public void setGv(GameView gv) {
         this.gv = gv;
+             
     }
+    
+    
 
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {

@@ -115,10 +115,11 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         if (cpt > 3 || loose) {
             if (loose) {
                 if (Alarm.getState() == true) {
-                    JOptionPane.showMessageDialog(null, "Game over",
+                    JOptionPane.showMessageDialog(null, "You loose",
                             "Game over", JOptionPane.PLAIN_MESSAGE, null);
+                   System.exit(0);
                 }else{
-                JOptionPane.showMessageDialog(null, " You loose...  ALARM!!!! ",
+                JOptionPane.showMessageDialog(null, " You loose... ALARM!!!! ",
                         "Quizz lost", JOptionPane.PLAIN_MESSAGE, null);
                 Alarm.use();
                 this.ge.alarm();

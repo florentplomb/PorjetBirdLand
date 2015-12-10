@@ -1,5 +1,6 @@
 package controller;
 
+import javax.swing.JOptionPane;
 import model.Game;
 import model.Player;
 
@@ -33,14 +34,16 @@ public class ClimbCmd extends Command {
                         if (player.getCurrentRoom().getId().equals("outside")) {
                             if(player.getCurrentRoom().getItem("blanket") != null)  {
                               
-                                appendToOutputString("You Win ! ");                           
+                                JOptionPane.showMessageDialog(null, "You win",
+                                        "You are escaped!! Enjoy your life...", JOptionPane.PLAIN_MESSAGE, null);
+                                System.exit(0);                        
                                 return true;   
                             }
-                            else{
-                                /*
-                                MORT SI IL Y A PAS  BLANKET
-                                */
-                                appendToOutputString("Tu meurts ");
+                            else{      
+                                JOptionPane.showMessageDialog(null, "Game over",
+                                        "You forgot the blanket you die on the barbed", JOptionPane.PLAIN_MESSAGE, null);
+                                System.exit(0);
+                                
                             }                            
                         } else {
                             appendToOutputString("You are ejected in the random room ");

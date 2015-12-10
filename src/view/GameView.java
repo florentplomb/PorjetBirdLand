@@ -479,6 +479,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         inputBox.requestFocus();
     }
 
+    
     /**
      * Udates the Jlists in the GUI with the content of the three arrayList
      * fields.

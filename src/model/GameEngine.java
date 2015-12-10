@@ -1,9 +1,12 @@
 package model;
 
 import controller.Command;
+import controller.DropCmd;
 import controller.GoCmd;
 import controller.Parser;
 import java.util.ArrayList;
+import model.item.Item;
+import model.item.Transportable;
 import view.GameListener;
 import view.GameView;
 import view.QuizzUserInterface;
@@ -33,7 +36,6 @@ public class GameEngine implements Model {
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
-        
         gameListeners = new ArrayList<GameListener>();
     }
 
@@ -97,30 +99,32 @@ public class GameEngine implements Model {
             if(command instanceof GoCmd){
                 guardian01.setNextRoom();
                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
-                
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
-                    
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
+                       interpretCommand("drop bananapeel");
                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                       player.removeItem("bananapeel");
+                       gv.removePlayerItem("H");
+                       //player.removeItem("bananapeel");
                     }else{
                       gv.enable(false);
                      new QuizzUserInterface(this,player);
-                    }
-                    
-                    
-                 
-                          
-                    
+                    }     
                 }
             }
-                    
         }
         notifyGameListeners();
     }
     
     public void setGV(boolean b){
         gv.enable(b);
+    }
+    
+    public void InitItemView(){
+        System.out.println("InitItemView");
+        for (Transportable t : player.getAllItems()) {
+            gv.setPlayerItems(t);
+            System.out.println(t.getNAME());
+        }
     }
 }

@@ -18,15 +18,14 @@ public class Player {
     private int point;
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
-    private HashMap<String, Item> items;
+    private HashMap<String, Transportable> items;
 
     //This is Constructor.
     public Player() {
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
-        items = new HashMap<String, Item>();
+        items = new HashMap<String, Transportable>();
         this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
-        this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
         this.point = 0;
     }
 
@@ -50,17 +49,21 @@ public class Player {
         previousRooms.add(room);
     }
 
-    public void addItem(Item i) {
-        items.put(i.getNAME().toLowerCase(), i);
+    public void addItem(Transportable t) {
+        items.put(t.getNAME().toLowerCase(), t);
     }
 
     public void removeItem(String itemName) {
         
         items.remove(itemName);
     }
-
+    //Return item with name
     public Item getItem(String itemName) {
         return items.get(itemName);
+    }
+    //Return all items
+    public ArrayList<Transportable> getAllItems(){
+        return new ArrayList<Transportable>(items.values());
     }
 
     public Integer getWeightItems() {

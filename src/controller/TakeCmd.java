@@ -15,6 +15,7 @@ import model.item.Transportable;
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class TakeCmd extends Command {
+    Transportable lastTake;
 
     public TakeCmd() {
     }
@@ -37,6 +38,7 @@ public class TakeCmd extends Command {
                 if (player.getCurrentRoom().getItem(nameItem) instanceof Transportable) {
 
                     Transportable itemTrans = (Transportable) item;
+                    lastTake = itemTrans;
                     if (itemTrans.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT) {
                         appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
                     } else {
@@ -56,5 +58,8 @@ public class TakeCmd extends Command {
 
         }
         return false;
+    }
+    public Transportable getLastTake(){
+        return lastTake;
     }
 }

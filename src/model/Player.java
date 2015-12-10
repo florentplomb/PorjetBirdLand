@@ -42,13 +42,8 @@ public class Player {
         this.name = name;
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
-<<<<<<< HEAD
-        items = new HashMap<String, Item>();
-        this.addItem(new BananaPeel("bananapeel", "banana", 1, false, "asd"));
-=======
         items = new HashMap<String, Transportable>();
         this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
->>>>>>> onur
         this.point = 0;
     }
 

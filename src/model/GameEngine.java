@@ -6,12 +6,9 @@ import controller.GoCmd;
 import controller.Parser;
 import controller.UseCmd;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import model.item.Alarm;
-=======
 import model.item.Item;
 import model.item.Transportable;
->>>>>>> onur
 import view.GameListener;
 import view.GameView;
 import view.QuizzUserInterface;
@@ -41,10 +38,6 @@ public class GameEngine implements Model {
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
-<<<<<<< HEAD
-
-=======
->>>>>>> onur
         gameListeners = new ArrayList<GameListener>();
     }
 
@@ -84,7 +77,7 @@ public class GameEngine implements Model {
     }
 
     public void alarm() {
-        gv.alarme();
+        gv.alarmeOn();
     }
 
     // Notifies all game listeners of game modifications.
@@ -111,37 +104,34 @@ public class GameEngine implements Model {
         } else {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
-<<<<<<< HEAD
-
             if (command instanceof UseCmd) {
                 if (command.getSecondWord() != null) {
                     if (Alarm.getState()) {
-                        gv.alarme();
+                        gv.alarmeOn();
                     } else {
-                        gv.alarmeOFF();
+                        gv.alarmeOff();
                     }
                 }
 
             }
 
-            if (command instanceof GoCmd) {
-                //  guardian01.setNextRoom();
-                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+//            if (command instanceof GoCmd) {
+//                //  guardian01.setNextRoom();
+//                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+//
+//                if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
+//                    appendToOutputString("\n Guardian is HERE \n");
+//                    if (player.getItem("bananapeel") != null) {
+//                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+//                        player.removeItem("bananapeel");
+//                    } else {
+//                        gv.enable(false);
+//                        new QuizzUserInterface(this, player);
+//                    }
+//
+//                }
+//            }
 
-                if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
-                    appendToOutputString("\n Guardian is HERE \n");
-                    if (player.getItem("bananapeel") != null) {
-                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                        player.removeItem("bananapeel");
-                    } else {
-                        gv.enable(false);
-                        new QuizzUserInterface(this, player);
-                    }
-
-                }
-            }
-
-=======
             if(command instanceof GoCmd){
                 guardian01.setNextRoom();
                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
@@ -158,7 +148,6 @@ public class GameEngine implements Model {
                     }     
                 }
             }
->>>>>>> onur
         }
         notifyGameListeners();
     }

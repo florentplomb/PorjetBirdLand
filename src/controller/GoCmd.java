@@ -28,7 +28,7 @@ public class GoCmd extends Command {
                 player.addPreviousRoom(player.getCurrentRoom());
                 player.setCurrentRoom(nextRoom);
                 //POUR TESTER 
-                nextRoom.addItem(new Ladder("Ladder", "Ladder", 1, true, "/images/echelle.gif"));
+                //nextRoom.addItem(new Ladder("Ladder", "Ladder", 1, true, "/images/echelle.gif"));
                 appendToOutputString("You are " + nextRoom.getDescription() + ".\n");
                 int i = 0;
                 //Waits for a while

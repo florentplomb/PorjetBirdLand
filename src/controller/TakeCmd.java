@@ -16,7 +16,7 @@ import model.item.Transportable;
  */
 public class TakeCmd extends Command {
     Transportable lastTake;
-
+    Boolean takeOK=false;
     public TakeCmd() {
     }
 
@@ -42,6 +42,7 @@ public class TakeCmd extends Command {
                     if (itemTrans.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT) {
                         appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
                     } else {
+                        takeOK=true;
                         player.addItem(itemTrans);
                         player.getCurrentRoom().removeItem(item.getNAME());
                         appendToOutputString("You just took the " + item.getNAME() + " !");
@@ -61,5 +62,13 @@ public class TakeCmd extends Command {
     }
     public Transportable getLastTake(){
         return lastTake;
+    }
+    
+    public boolean getTakeOk(){
+        return takeOK;
+    }
+    
+    public void setTakeOff(){
+        takeOK=false;
     }
 }

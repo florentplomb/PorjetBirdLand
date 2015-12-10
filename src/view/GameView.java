@@ -108,6 +108,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     itemsKeys.replace(key, t);
                     notInsert =false;
                     System.out.println("Insert OK");
+                    System.out.println(t.getURL());
                     setItemImage(key,getClass().getResource(t.getURL()));
                 }
             }

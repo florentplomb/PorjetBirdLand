@@ -135,7 +135,11 @@ public class GameEngine implements Model {
                     }     
                 }
             }else if(command instanceof TakeCmd){
-                gv.setPlayerItems(((TakeCmd)command).getLastTake());
+                TakeCmd c = (TakeCmd)command;
+                if(c.getTakeOk()){
+                    gv.setPlayerItems(((TakeCmd)command).getLastTake());
+                    c.setTakeOff();
+                }
             }
         }
         notifyGameListeners();

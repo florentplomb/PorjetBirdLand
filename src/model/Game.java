@@ -50,7 +50,7 @@ public class Game {
         // GUI must be created last since it needs all above classes instances (engine, player, rooms) to display game.
         GameListener localView = new GameView(engine);
         engine.setGm((GameView) localView);
-
+        engine.InitItemView();
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
 

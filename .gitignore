@@ -5,4 +5,4 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-src/Quizz/QuizzController.java
+src/DataBaseManager/DataBaseController.java

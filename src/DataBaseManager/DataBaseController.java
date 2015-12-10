@@ -5,6 +5,7 @@
  */
 package DataBaseManager;
 
+
 //import java.sql.*;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz2";
+    private static final String url = "jdbc:derby://localhost:1527/quizz";
     private static final String userName = "quizz";
     private static final String password = "1234";
     /**

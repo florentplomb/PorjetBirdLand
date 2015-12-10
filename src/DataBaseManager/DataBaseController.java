@@ -29,8 +29,8 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz2";
-    private static final String userName = "quizz";
+    private static final String url = "jdbc:derby://localhost:1527/quizz";
+    private static final String userName = "Quizz";
     private static final String password = "1234";
     /**
      * System out style :)
@@ -138,14 +138,14 @@ public class DataBaseController {
         boolean success = false;
 
         try {
-            // Connection à la base de données
+            // Connection ï¿½ la base de donnï¿½es
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
-            // Rappel : Comme l'id est un champ auto incrémenté il NE FAUT PAS le définir ;-)
+            // Rappel : Comme l'id est un champ auto incrï¿½mentï¿½ il NE FAUT PAS le dï¿½finir ;-)
           
 
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
-            // Parcours de l'ensemble de résultats
+            // Parcours de l'ensemble de rï¿½sultats
             boolean dejaInscrit = false;
             while (ensembleResultats.next() && !dejaInscrit) {
                 if (name.equals(ensembleResultats.getString("PLAYER"))) {
@@ -153,8 +153,8 @@ public class DataBaseController {
                 }
 
             }
-            // fermeture de la connection à la base de données ainsi que de toutes
-            //les ressources qui lui sont associées ! (ResultSet, Statement)
+            // fermeture de la connection ï¿½ la base de donnï¿½es ainsi que de toutes
+            //les ressources qui lui sont associï¿½es ! (ResultSet, Statement)
 
             if (dejaInscrit) {
 
@@ -197,7 +197,7 @@ public class DataBaseController {
           Connection con = null;
 
         try {
-            // Connection à la base de données
+            // Connection ï¿½ la base de donnï¿½es
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
             int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
@@ -223,11 +223,11 @@ public static ArrayList<Player> getPlayerBD() {
         Connection con = null;
 
         try {
-            // Connection à la base de données
+            // Connection ï¿½ la base de donnï¿½es
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME ORDER BY MOVE ");
-            // Parcours de l'ensemble de résultats
+            // Parcours de l'ensemble de rï¿½sultats
             while (ensembleResultats.next()) {
                 Player player = new Player(
                         ensembleResultats.getString("Player"),
@@ -240,8 +240,8 @@ public static ArrayList<Player> getPlayerBD() {
             players = null;
         }
 
-        // fermeture de la connection à la base de donnée ainsi que de toutes 
-        //les ressources qui lui sont associées ! (ResultSet, Statement)
+        // fermeture de la connection ï¿½ la base de donnï¿½e ainsi que de toutes 
+        //les ressources qui lui sont associï¿½es ! (ResultSet, Statement)
         try {
             con.close();
         } catch (SQLException e) {

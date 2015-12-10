@@ -4,6 +4,7 @@ import controller.Command;
 import controller.DropCmd;
 import controller.GoCmd;
 import controller.Parser;
+import controller.TakeCmd;
 import controller.UseCmd;
 import java.util.ArrayList;
 import model.item.Alarm;
@@ -114,24 +115,6 @@ public class GameEngine implements Model {
                 }
 
             }
-
-//            if (command instanceof GoCmd) {
-//                //  guardian01.setNextRoom();
-//                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
-//
-//                if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
-//                    appendToOutputString("\n Guardian is HERE \n");
-//                    if (player.getItem("bananapeel") != null) {
-//                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-//                        player.removeItem("bananapeel");
-//                    } else {
-//                        gv.enable(false);
-//                        new QuizzUserInterface(this, player);
-//                    }
-//
-//                }
-//            }
-
             if(command instanceof GoCmd){
                 guardian01.setNextRoom();
                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
@@ -147,6 +130,8 @@ public class GameEngine implements Model {
                      new QuizzUserInterface(this,player);
                     }     
                 }
+            }else if(command instanceof TakeCmd){
+                gv.setPlayerItems(((TakeCmd)command).getLastTake());
             }
         }
         notifyGameListeners();

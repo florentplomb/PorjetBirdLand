@@ -4,6 +4,7 @@ import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
 import javax.swing.*;
 import java.awt.*;
+import static java.awt.BorderLayout.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -17,15 +18,14 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
 
     private JButton one, two, three, for4;
     private HashMap<Integer, Integer> answers;
-    private JTextArea score;
-    private JTextArea desire;
-    private String currentScore;
-    private String printQ;
-    private int countScore;
-    private int cpt;
+    private JTextArea score,desire;
+    private String currentScore,printQ;
+    private int countScore,cpt;
+    private double x,y,gvWidth;
     private GameEngine ge;
     private Player player;
     private boolean loose;
+    private JPanel mainPanel,questionPanel;
 
     public QuizzUserInterface(GameEngine ge, Player p) {
         this.cpt = 1;
@@ -35,16 +35,21 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         this.answers = new HashMap<Integer, Integer>();
         this.currentScore = "Question" + (cpt) + "/3" + "\n" + "Score :" + countScore + "\n Your Total Score : " + (player.getPoint() + countScore);
         this.countScore = 0;
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("QUIZZ");
+        this.setLocationRelativeTo(null);
+        setSize(400, 250);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
-        Container pane = getContentPane();
-
-        BoxLayout b = new BoxLayout(pane, WIDTH);
-        pane.setLayout(b);
-
-        desire = new JTextArea(printQ, 10, 25);
-        score = new JTextArea(currentScore, 2, 2);
+        //Container pane = getContentPane();
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        this.setLocation(((int)x)+600, ((int)y));
+        questionPanel = new JPanel();
+        questionPanel.setLayout((new FlowLayout()));
+        
+        desire = new JTextArea(printQ);
+        desire.setLineWrap(true);
+        score = new JTextArea(currentScore);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         score.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder()));
@@ -60,14 +65,22 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         two.addActionListener(this);
         three.addActionListener(this);
         for4.addActionListener(this);
-        pane.add(desire);
-        pane.add(score);
-        pane.add(one);
-        pane.add(two);
-        pane.add(three);
-        pane.add(for4);
-        setContentPane(pane);
+        mainPanel.add(desire,NORTH);
+        mainPanel.add(score,CENTER);
+        mainPanel.add(questionPanel,SOUTH);
+        questionPanel.add(one);
+        questionPanel.add(two);
+        questionPanel.add(three);
+        questionPanel.add(for4);
+        setContentPane(mainPanel);
 
+    }
+    
+    public void setPositionQuizz(GameEngine ge){
+        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
+        x=pGameView.getX();
+        y=pGameView.getY();
+        gvWidth=ge.getGameView().getPanel().getSize().getWidth();
     }
 
     @Override

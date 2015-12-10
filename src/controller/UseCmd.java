@@ -27,7 +27,7 @@ public class UseCmd extends Command {
             Item item = player.getCurrentRoom().getItem(nameItem);
            
             if (item == null) {
-                appendToOutputString("This item doesn't exist in this room!");
+                appendToOutputString("This item is not in the room!");
 
             } else {
 
@@ -38,12 +38,12 @@ public class UseCmd extends Command {
 
                     }
                 } else {
-                    appendToOutputString("You can use this object , try to take it");
+                    appendToOutputString("You can use this object, try to take it");
                 }
             }
 
         } else {
-            appendToOutputString("Please specify the item what you want to take!");
+            appendToOutputString("Please specify the item that you want to take!");
 
         }
         return false;

@@ -22,14 +22,14 @@ public class DropCmd extends Command{
                 String itemName = getSecondWord();
                 Transportable item = (Transportable) player.getItem(itemName);
                 if ( item == null) {
-                    appendToOutputString("Item not exist");
+                    appendToOutputString("This item doesn't exist");
                 } else {
                     
                     player.removeItem(item.getNAME());
                     if (item.isIMMORTAL()) {
                      player.getCurrentRoom().addItem(item); 
                     }
-                    appendToOutputString("You drop " + item.toString() +" in "+player.getCurrentRoom().getDescription() +".\n");
+                    appendToOutputString("You just dropped the " + item.toString() +" in "+player.getCurrentRoom().getDescription() +".\n");
                 }
 
             } else {

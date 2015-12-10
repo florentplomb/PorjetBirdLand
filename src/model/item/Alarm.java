@@ -17,7 +17,7 @@ public class Alarm extends Fixed {
         super(nom, description);
     }
 
-    private static Alarm instance = new Alarm("Alarm","Une alarme de la prison" );
+    private static Alarm instance = new Alarm("Alarm","It is the alarm of the prison" );
 
     public static boolean getState(){
         return Alarm.state;

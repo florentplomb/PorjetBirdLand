@@ -28,7 +28,7 @@ class ScoreCmd extends Command{
             appendToOutputString("Score table");
             return false;
         } else {
-            appendToOutputString("I cannot quit that...");
+            appendToOutputString("I cannot quit something...");
             return false;
         }
     }

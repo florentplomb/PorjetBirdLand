@@ -44,17 +44,17 @@ public class TakeCmd extends Command {
                     } else {
                         player.addItem(itemTrans);
                         player.getCurrentRoom().removeItem(item.getNAME());
-                        appendToOutputString("You just took " + item.getNAME() + " !");
+                        appendToOutputString("You just took the " + item.getNAME() + " !");
                     }
 
                 } else {
-                    appendToOutputString("This item is fixed you don't take it");
+                    appendToOutputString("This item is fixed you can't take it");
                 }
 
             }
 
         } else {
-            appendToOutputString("Please specify the item what you want to take!");
+            appendToOutputString("Please specify the item that you want to take!");
 
         }
         return false;

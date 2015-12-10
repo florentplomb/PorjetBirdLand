@@ -20,10 +20,10 @@ public class QuitCmd extends Command {
         clearOutputString();
         if (getSecondWord() == null) {
              DataBaseController.insertDataPlayer(player);
-            appendToOutputString("Thank you for playing.  Good bye.");
+            appendToOutputString("Thanks for playing! Good bye...");
             return true;
         } else {
-            appendToOutputString("I cannot quit that...");
+            appendToOutputString("I cannot quit something...");
             return false;
         }
     }

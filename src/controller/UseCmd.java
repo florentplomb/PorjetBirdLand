@@ -9,23 +9,27 @@ import model.Player;
 import model.item.Alarm;
 import model.item.Fixed;
 import model.item.Item;
-import model.item.Transportable;
 
 /**
- *
+ * Implementation of *Use* Command.
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class UseCmd extends Command {
 
+    /**
+     * Allow the player to use the fixed object present in the rooms,
+     * @param player the current player
+     * @return always false
+     */
     @Override
     public boolean execute(Player player) {
         clearOutputString();
-        
+
         if (hasSecondWord()) {
-         
+
             String nameItem = getSecondWord();
             Item item = player.getCurrentRoom().getItem(nameItem);
-           
+
             if (item == null) {
                 appendToOutputString("This item is not in the room!");
 

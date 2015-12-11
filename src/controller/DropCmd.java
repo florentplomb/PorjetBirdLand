@@ -10,12 +10,18 @@ import model.item.Item;
 import model.item.Transportable;
 
 /**
- *
+ * This class is the implemnetation of the drop command of player
  * @author Onur Erdogan
+ * 
  */
 public class DropCmd extends Command{
-
-    @Override
+    
+    /**
+     * Allows the player to drop an item of his inventory
+     * @param player the current player
+     * @return always false
+     */
+    @Override 
     public boolean execute(Player player) {
         clearOutputString();
             if (hasSecondWord()) {

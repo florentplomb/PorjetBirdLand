@@ -8,15 +8,21 @@ import model.Player;
  * Implementation of *Climb* command. With this command, the player can climb
  * the ladder and jump from the wall, so that he can escape the prison and win
  * the game.
+ *
+ * @author Florent Plomb <plombf at gmail.com>
  */
 public class ClimbCmd extends Command {
 
     public ClimbCmd() {
     }
 
-    /*
-     * Goes to the direction which is entered as the second word. If there is no
-     * exit for that direction, prints an error message. Returns always *false*.
+    /**
+     * Allows the player to climb the prison wall to escape, if the player isn't
+     * in the escape room , he will be teleported in the random room
+     *
+     * @param player the current player
+     * @return true if the player success to espace (the game is won), if not
+     * false.
      */
     public boolean execute(Player player) {
         clearOutputString();

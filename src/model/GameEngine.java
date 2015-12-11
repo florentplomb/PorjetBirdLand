@@ -144,11 +144,11 @@ public class GameEngine implements Model {
         }
         notifyGameListeners();
     }
-
+    // Set enable/disabled the view 
     public void setGV(boolean b) {
         gv.enable(b);
     }
-    
+     // Initialise players items to view
     public void InitItemView(){
         System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
@@ -156,7 +156,7 @@ public class GameEngine implements Model {
             System.out.println(t.getNAME());
         }
     }
-    
+    // retrun the current game view
     public GameView getGameView(){
         return gv;
     }

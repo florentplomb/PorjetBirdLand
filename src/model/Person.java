@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import model.item.Item;
 
 /**
- *
+ * Implementation of the *Person* model
  * @author Bryan Cornelius
  */
 public abstract class Person {
@@ -19,6 +19,12 @@ public abstract class Person {
     private String name;
     private ArrayList<Item> items;
     private Room currentRoom;
+    
+    /**
+     * 
+     * @param name the person's name
+     * @param currentRoom the room where the new person appears
+     */
 
     public Person(String name, Room currentRoom) {
         this.name = name;

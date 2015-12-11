@@ -3,22 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.item;
 
 /**
- * 
- *@author Florent Plomb <plombf at gmail.com>
+ * Implementation of the *Blanket* Model
+ *
+ * @author Florent Plomb <plombf at gmail.com>
  */
-public class Blanket extends Transportable{
+public class Blanket extends Transportable {
 
-    public Blanket(String name,String description,int weight,boolean immortal,String URL) {
-         super(name, description,weight,immortal,URL);
+    /**
+     *
+     * @param name the object name.
+     * @param description the object description.
+     * @param weight the object weight.
+     * @param immortal true if the object apprear in the room inventory when the
+     * player drop it.
+     * @param URL the picture url.
+     */
+
+    public Blanket(String name, String description, int weight, boolean immortal, String URL) {
+        super(name, description, weight, immortal, URL);
     }
 
-    @Override
-    public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

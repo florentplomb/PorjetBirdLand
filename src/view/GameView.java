@@ -83,7 +83,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * Sets the list of room itemsURL. If you want to show itemsURL of current room,
  you should modify this method.
      */
-    private void setRoomItems() {
+    public void setRoomItems() {
         myRoomItems.clear();
         Room room = engine.getPlayer().getCurrentRoom();
         if(!room.getAllItems().values().isEmpty()){
@@ -115,11 +115,22 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         }
     }
     
-    public void removePlayerItem(String key){
+    public void removePlayerItem(Transportable t){
         System.out.println("removePlayerItem");
-        itemsKeys.replace(key, null);
-        System.out.println("Remove OK");
-        deleteItemImage(key);
+        boolean removeOK = false;
+        if (itemsKeys.containsValue(t)){
+            System.out.println("Contains");
+            for (String key : itemsKeys.keySet()) {
+                if(!removeOK){
+                    if(itemsKeys.get(key).equals(t)){
+                        itemsKeys.replace(key, null);
+                        System.out.println("Remove OK");
+                        deleteItemImage(key);
+                        removeOK=true;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -694,17 +705,17 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     break;
                 case 72:
                     input = "drop " + itemsKeys.get("H").toString();
-                    removePlayerItem("H");
+                    removePlayerItem(itemsKeys.get("H"));
                     engine.interpretCommand(input);
                     break;
                 case 74:
                     input = "drop " + itemsKeys.get("J").toString();
-                    removePlayerItem("J");
+                    removePlayerItem(itemsKeys.get("J"));
                     engine.interpretCommand(input);
                     break;
                 case 75:
                     input = "drop " + itemsKeys.get("K").toString();
-                    removePlayerItem("J");
+                    removePlayerItem(itemsKeys.get("K"));
                     engine.interpretCommand(input);
                     break;
                 default:

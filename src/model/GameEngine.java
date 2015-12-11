@@ -9,6 +9,7 @@ import controller.UseCmd;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import model.item.Alarm;
+import model.item.BananaPeel;
 import model.item.Item;
 import model.item.Transportable;
 import view.GameListener;
@@ -117,7 +118,6 @@ public class GameEngine implements Model {
                         gv.alarmeOff();
                     }
                 }
-
             }
             if(command instanceof GoCmd){
                 guardian01.setNextRoom();
@@ -127,7 +127,7 @@ public class GameEngine implements Model {
                     if (player.getItem("bananapeel") != null) {
                        interpretCommand("drop bananapeel");
                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                       gv.removePlayerItem("H");
+                       gv.removePlayerItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
                        //player.removeItem("bananapeel");
                     }else{
                       gv.enable(false);
@@ -140,6 +140,10 @@ public class GameEngine implements Model {
                     gv.setPlayerItems(((TakeCmd)command).getLastTake());
                     c.setTakeOff();
                 }
+            }else if(command instanceof DropCmd){
+                DropCmd c = (DropCmd)command;
+                gv.removePlayerItem(c.getDropItem());
+                gv.setRoomItems();
             }
         }
         notifyGameListeners();

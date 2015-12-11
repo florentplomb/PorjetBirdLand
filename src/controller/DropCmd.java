@@ -14,6 +14,7 @@ import model.item.Transportable;
  * @author Onur Erdogan
  */
 public class DropCmd extends Command{
+    Transportable t;
 
     @Override
     public boolean execute(Player player) {
@@ -21,10 +22,10 @@ public class DropCmd extends Command{
             if (hasSecondWord()) {
                 String itemName = getSecondWord();
                 Transportable item = (Transportable) player.getItem(itemName);
+                t = item;
                 if ( item == null) {
                     appendToOutputString("This item doesn't exist");
                 } else {
-                    
                     player.removeItem(item.getNAME());
                     if (item.isIMMORTAL()) {
                      player.getCurrentRoom().addItem(item); 
@@ -37,6 +38,10 @@ public class DropCmd extends Command{
                 appendToOutputString("drop what?");
             }
             return false;
+    }
+    
+    public Transportable getDropItem(){
+        return t;
     }
     
 }

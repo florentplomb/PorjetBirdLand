@@ -79,6 +79,7 @@ public class LoginView extends JDialog {
 
     class BoutonListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             boolean sucess = false;
             if (!jtf.getText().isEmpty()) {
@@ -92,7 +93,8 @@ public class LoginView extends JDialog {
                 System.out.println("Sucess");
                 playerName = jtf.getText();
                 close();
-                Game myGame = new Game(playerName);
+                start(playerName);
+              
             } else {
                 alreadyRegister.setVisible(true);
             }
@@ -102,5 +104,9 @@ public class LoginView extends JDialog {
     private void close() {
         this.dispose();
     }
+    
+   private void start(String playerName){
+       Game game = new Game(playerName);
+   }
 
 }

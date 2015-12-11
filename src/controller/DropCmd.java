@@ -6,7 +6,6 @@
 package controller;
 
 import model.Player;
-import model.item.Item;
 import model.item.Transportable;
 
 /**

@@ -51,6 +51,8 @@ public class LoginView extends JDialog {
         this.setTitle("Login");
         this.setSize(300, 300);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
+        
 
         this.setLocationRelativeTo(null);
         container.setBackground(Color.white);
@@ -76,11 +78,15 @@ public class LoginView extends JDialog {
     public String getPlayerName() {
         return playerName;
     }
+    
+
 
     class BoutonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+                      
+            
             boolean sucess = false;
             if (!jtf.getText().isEmpty()) {
                 try {

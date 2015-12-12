@@ -51,10 +51,8 @@ public class GameEngine implements Model {
 
     public void setGv(GameView gv) {
         this.gv = gv;
-             
+
     }
-    
-    
 
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {
@@ -87,7 +85,6 @@ public class GameEngine implements Model {
     }
 
     // Notifies all game listeners of game modifications.
-
     public void notifyGameListeners() {
         for (GameListener gl : gameListeners) {
             String imageName = getPlayer().getCurrentRoom().getImageName();
@@ -119,30 +116,30 @@ public class GameEngine implements Model {
                     }
                 }
             }
-            if(command instanceof GoCmd){
+            if (command instanceof GoCmd) {
                 guardian01.setNextRoom();
-               // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
-                       interpretCommand("drop bananapeel");
-                       appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                       gv.removePlayerItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
-                       //player.removeItem("bananapeel");
-                    }else{
-//                      gv.enable(false);
-//                     new QuizzUserInterface(this,player);
-                    }     
+                        interpretCommand("drop bananapeel");
+                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+                        gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
+
+                    } else {
+                        gv.enable(false);
+                        new QuizzUserInterface(this, player);
+                    }
                 }
-            }else if(command instanceof TakeCmd){
-                TakeCmd c = (TakeCmd)command;
-                if(c.getTakeOk()){
-                    gv.setPlayerItems(((TakeCmd)command).getLastTake());
+            } else if (command instanceof TakeCmd) {
+                TakeCmd c = (TakeCmd) command;
+                if (c.getTakeOk()) {
+                    gv.setPlayerItems(((TakeCmd) command).getLastTake());
                     c.setTakeOff();
                 }
-            }else if(command instanceof DropCmd){
-                DropCmd c = (DropCmd)command;
-                if (c.getDropCmdOK()){
+            } else if (command instanceof DropCmd) {
+                DropCmd c = (DropCmd) command;
+                if (c.getDropCmdOK()) {
                     gv.removePlayerItem(c.getDropItem());
                     gv.setRoomItems();
                 }
@@ -151,20 +148,26 @@ public class GameEngine implements Model {
         }
         notifyGameListeners();
     }
+
     // Set enable/disabled the view 
+
     public void setGV(boolean b) {
         gv.enable(b);
     }
-     // Initialise players items to view
-    public void InitItemView(){
+
+    // Initialise players items to view
+
+    public void InitItemView() {
         System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
             gv.setPlayerItems(t);
             System.out.println(t.getNAME());
         }
     }
+
     // retrun the current game view
-    public GameView getGameView(){
+
+    public GameView getGameView() {
         return gv;
     }
 }

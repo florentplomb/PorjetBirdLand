@@ -10,8 +10,6 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.Player;
@@ -22,14 +20,13 @@ import model.Player;
  */
 public class ScoreView extends JFrame {
 
+    private double x, y, gvWidth;
+
     public ScoreView() {
         super();
 
         setTitle("Score View");
-        JPanel container = new JPanel();
-        JScrollPane scrPane = new JScrollPane(container);
-        add(scrPane);
-
+        this.setLocation(((int) x) + 1250, ((int) y));
         this.setVisible(true);
 
         ArrayList<Player> players = new ArrayList<Player>();
@@ -59,4 +56,5 @@ public class ScoreView extends JFrame {
 
         pack();
     }
+
 }

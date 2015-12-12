@@ -82,12 +82,12 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
 
     }
 
-    public void setPositionQuizz(GameEngine ge) {
-        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
-        x = pGameView.getX();
-        y = pGameView.getY();
-        gvWidth = ge.getGameView().getPanel().getSize().getWidth();
-    }
+//    public void setPositionQuizz(GameEngine ge) {
+//        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
+//        x = pGameView.getX();
+//        y = pGameView.getY();
+//        gvWidth = ge.getGameView().getPanel().getSize().getWidth();
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

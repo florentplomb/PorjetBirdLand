@@ -1,9 +1,7 @@
 package PrisonBreak;
 
-import DataBaseManager.DataBaseController;
 import model.Game;
 import view.LoginView;
-import view.ScoreView;
 
 public class PrisonBreak {
 

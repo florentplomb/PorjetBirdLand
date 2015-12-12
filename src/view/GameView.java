@@ -122,11 +122,13 @@ public class GameView implements ActionListener, GameListener, KeyListener {
             System.out.println("Contains");
             for (String key : itemsKeys.keySet()) {
                 if(!removeOK){
-                    if(itemsKeys.get(key).equals(t)){
-                        itemsKeys.replace(key, null);
-                        System.out.println("Remove OK");
-                        deleteItemImage(key);
-                        removeOK=true;
+                    if(itemsKeys.get(key)!=null){
+                        if(itemsKeys.get(key).equals(t)){
+                            itemsKeys.replace(key, null);
+                            System.out.println("Remove OK");
+                            deleteItemImage(key);
+                            removeOK=true;
+                        }
                     }
                 }
             }

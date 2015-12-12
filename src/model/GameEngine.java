@@ -142,8 +142,11 @@ public class GameEngine implements Model {
                 }
             }else if(command instanceof DropCmd){
                 DropCmd c = (DropCmd)command;
-                gv.removePlayerItem(c.getDropItem());
-                gv.setRoomItems();
+                if (c.getDropCmdOK()){
+                    gv.removePlayerItem(c.getDropItem());
+                    gv.setRoomItems();
+                }
+
             }
         }
         notifyGameListeners();

@@ -15,6 +15,7 @@ import model.item.Transportable;
  */
 public class DropCmd extends Command{
     Transportable t;
+    boolean dropCmdOK = false;
 
     @Override
     public boolean execute(Player player) {
@@ -26,6 +27,7 @@ public class DropCmd extends Command{
                 if ( item == null) {
                     appendToOutputString("This item doesn't exist");
                 } else {
+                    dropCmdOK = true;
                     player.removeItem(item.getNAME());
                     if (item.isIMMORTAL()) {
                      player.getCurrentRoom().addItem(item); 
@@ -42,6 +44,10 @@ public class DropCmd extends Command{
     
     public Transportable getDropItem(){
         return t;
+    }
+    
+    public boolean getDropCmdOK(){
+        return dropCmdOK;
     }
     
 }

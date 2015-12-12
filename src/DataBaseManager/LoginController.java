@@ -4,19 +4,12 @@
  * and open the template in the editor.
  */
 
-package model.item;
-
-import model.item.Item;
+package DataBaseManager;
 
 /**
  * 
  *@author Florent Plomb <plombf at gmail.com>
  */
-public abstract class Fixed extends Item{
-
-    public Fixed(String nom, String description) {
-        super(nom, description);
-    }
-      
+public class LoginController {
 
 }

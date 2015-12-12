@@ -16,17 +16,34 @@ import model.item.Transportable;
 public class Player {
     
     private int point;
+    private int move;
+    private String name;
     private Room currentRoom;
     private ArrayList<Room> previousRooms;
     private HashMap<String, Item> items;
 
     //This is Constructor.
-    public Player() {
+/**
+ * Create a simple player to display in the scoreView
+ * @param name 
+ * @param point
+ * @param move 
+ */
+    public Player(String name , Integer point, Integer move) {
+        this.name = name;
+        this.point = point;
+        this.move = move;
+    }
+   /**
+    * Use 
+    * @param name 
+    */
+    public Player(String name) {
+        this.name = name;
         currentRoom = null;
         previousRooms = new ArrayList<Room>();
         items = new HashMap<String, Item>();
-        this.addItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
-        this.addItem(new Ladder("Ladder", "You can climb on ladder",5,true,"url"));
+        this.addItem(new BananaPeel("bananapeel", "banana", 1, false, "asd"));
         this.point = 0;
     }
 
@@ -74,7 +91,7 @@ public class Player {
     }
     
     public void addPoint(Integer point){
-        this.point += point;
+        this.point = this.point + point;
     }
 
     /**
@@ -82,5 +99,33 @@ public class Player {
      */
     public int getPoint() {
         return point;
+    }
+
+    /**
+     * @return the move
+     */
+    public int getMove() {
+        return move;
+    }
+
+    /**
+     * @param move the move to set
+     */
+    public void setMove(int move) {
+        this.move += move;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

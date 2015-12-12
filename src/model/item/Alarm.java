@@ -11,25 +11,26 @@ package model.item;
  */
 public class Alarm extends Fixed {
     
-     private boolean state = false;
+     private static boolean state = false;
     
        private Alarm(String nom, String description) {
         super(nom, description);
     }
 
-    private static Alarm instance = new Alarm("Alarme1","Une alarme de la prison" );
+    private static Alarm instance = new Alarm("Alarm","Une alarme de la prison" );
 
-    public boolean getState(){
-        return this.state;
+    public static boolean getState(){
+        return Alarm.state;
     }
+    public static Alarm getInstance() {
+      return instance;
+   }
     
-    public void switchOff(){
-        state = false;
-    }
-           
-    public void switchOn(){
-       state = true;
-    }
+     public static void use() {
+         state = !state;
+         
+   }
+            
 
     @Override
     public void action() {

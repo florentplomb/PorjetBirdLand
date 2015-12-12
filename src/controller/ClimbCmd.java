@@ -31,9 +31,17 @@ public class ClimbCmd extends Command {
 
                     if (action.equals("jump")) {
                         if (player.getCurrentRoom().getId().equals("outside")) {
-                            appendToOutputString("You Win ! ");
-                            
-                            return true;
+                            if(player.getCurrentRoom().getItem("blanket") != null)  {
+                              
+                                appendToOutputString("You Win ! ");                           
+                                return true;   
+                            }
+                            else{
+                                /*
+                                MORT SI IL Y A PAS  BLANKET
+                                */
+                                appendToOutputString("Tu meurts ");
+                            }                            
                         } else {
                             appendToOutputString("You are ejected in the random room ");
                             player.setCurrentRoom(Game.getRandomRooms());

@@ -1,8 +1,17 @@
-DROP TABLE ANSWER;
-DROP TABLE QUESTION;
+  
+  DROP TABLE ANSWER;
+  DROP TABLE QUESTION;
+  DROP TABLE GAME;
+ 
 /*
 Structure de la table QUESTION
 */
+CREATE TABLE GAME (
+  PLAYER VARCHAR(25) NOT NULL,
+  MOVE INTEGER NOT NULL,
+  POINT INTEGER NOT NULL,
+  PRIMARY KEY (PLAYER)
+);
  
 CREATE TABLE QUESTION (
   ID INTEGER NOT NULL,
@@ -66,7 +75,7 @@ INSERT INTO "QUESTION" ("ID", "RANK", "TITLE") VALUES
 (35, 1, 'Quelle était la couleur de la robe de Pippa Middleton lors du mariage de sa soeur ?'),
 (36, 3, 'Dans Koh Lanta 2005, qu''avait capturé Mohamed avec ses mains ? '),
 (37, 2, 'Dernièrement, quel verbe a fait son entrée dans le dictionnaire suédois ?'),
-(38, 1, 'A quelle marque appartient ce slogan : "Nous, c’est le goût" ?'),
+(38, 1, 'A quelle marque appartient ce slogan : "Nous, c??Test le goût" ?'),
 (39, 1, ' Si j''avais voulu tromper ma copine, il aurait fallu que je participe à quelle émission de télé-réalité ? '),
 (40, 3, 'Quel animal est visible sur le logo d''Alfa Romeo ?'),
 (41, 3, 'Dans quel sport Magnus Carlsen est-il considéré comme un génie ?'),
@@ -74,12 +83,12 @@ INSERT INTO "QUESTION" ("ID", "RANK", "TITLE") VALUES
 (43, 3, 'Qui sont Larry Page et Sergueï Brin ?'),
 (44, 2, 'Qui anime : "Le Grand Journal" sur Canal+ ?'),
 (45, 1, 'Complétez cette phrase : "Amour, gloire et"...'),
-(46, 2, 'Lors de l’émission 7 sur 7, Serge Gainsbourg brûlait un billet de banque en direct. De quel billet s’agissait-il ?'),
+(46, 2, 'Lors de l??Témission 7 sur 7, Serge Gainsbourg brûlait un billet de banque en direct. De quel billet s??Tagissait-il ?'),
 (47, 3, 'Quel est le nom de la commande permettant de tester l''accessibilité d''une autre machine à travers un réseau IP ?'),
 (48, 3, 'Quelle phrase a prononcé PPDA lors de son dernier JT ?'),
 (49, 2, 'Qui est l''inventeur du  World Wide Web (www) ?'),
 (50, 2, 'Alain Chabat a animé un jeu TV sur Canal+, quel était son nom ?'),
-(51, 1, 'Top ! Je suis un animateur qui pose des questions rédigées sur un carton jaune… je suis, je suis… ?'),
+(51, 1, 'Top ! Je suis un animateur qui pose des questions rédigées sur un carton jaune??? je suis, je suis??? ?'),
 (52, 2, 'Selon certains médias, dans quel lieu s''entretiendrai  des relations secrètes entre l''armée américaine et des extraterrestres ?'),
 (53, 2, 'Qu''est-ce que le PAF ? '),
 (54, 3, 'Comment appelle-t-on un magazine édité uniquement sur internet ?'),
@@ -97,7 +106,7 @@ INSERT INTO "QUESTION" ("ID", "RANK", "TITLE") VALUES
 (66, 1, 'Nous cherchons une marque: "Le meilleur du numérique..." c''est :'),
 (67, 2, 'Dans quelle université étudiait Mark Zuckerberg lorsqu''il a créé Facebook ?'),
 (68, 1, 'Faites correspondre une marque à "...connecting people"'),
-(69, 3, 'En 2013, qui a dévoilé des informations top-secrètes concernant la captation d''appels téléphoniques aux États-Unis ?'),
+(69, 3, 'En 2013, qui a dévoilé des informations top-secrètes concernant la captation d''appels téléphoniques aux ??tats-Unis ?'),
 (70, 2, 'Combien de saison compte la Star Académie à l''heure actuelle?'),
 (71, 3, 'Dans quel domaine Kevin Mitnick est-il célébre ?'),
 (72, 3, 'En France, quelle loi vise à mettre un terme aux partages de fichiers peer to peer protégés par des lois d''auteurs ?'),
@@ -105,14 +114,14 @@ INSERT INTO "QUESTION" ("ID", "RANK", "TITLE") VALUES
 (74, 1, 'Dans quel film Léonardo Dicaprio fait-il une copie d''une carte secrète ?'),
 (75, 2, 'Dans la série K2000 , quelle est la particularité de la voiture de Michael Knight ? '),
 (76, 2, 'Quel est le nom de l''association crée par Julian Assange ?'),
-(77, 2, 'L’émission française "The Voice" comprend Jennifer, Garou, Florent Pagny et ... ? '),
+(77, 2, 'L??Témission française "The Voice" comprend Jennifer, Garou, Florent Pagny et ... ? '),
 (78, 3, 'Combien de filtres à choix propose Instagram ?'),
 (79, 1, 'Que signifie "lol" ?'),
 (80, 3, 'Pour combien de milliard(s) de dollars Facebook a-t-il racheté Instagram ?'),
 (81, 1, 'Dans quel film peut-ont entendre : "La vie, c''est comme une boîte de chocolats, on ne sait jamais sur quoi on va tomber."'),
 (82, 2, 'En 2013, combien de personnes possèdent un compte sur Facebook ?'),
 (83, 3, 'Qu''est-ce qu''un site web responsive ?'),
-(84, 2, 'À quoi peut servir le peer-to-peer ?'),
+(84, 2, '?? quoi peut servir le peer-to-peer ?'),
 (85, 1, 'Combien coûte l''application Whatsapp sur AppleStore ?'),
 (86, 2, 'Où a eu lieu la finale de Pékin Express 2013 ?'),
 (87, 1, 'Quel service internet possède un petit oiseau bleu comme logo ? '),
@@ -121,13 +130,13 @@ INSERT INTO "QUESTION" ("ID", "RANK", "TITLE") VALUES
 (90, 1, 'Qui sont les maîtres chocolatiers depuis 1845 ?'),
 (91, 3, 'Comment est appelé le concept de "liste d''amis" chez Google + ?'),
 (92, 1, 'Qui meurt tout le temps dans la série "South Park" ?'),
-(93, 3, 'À quelle date Google+ a-t-il été rendu accessible à tout le monde ?'),
+(93, 3, '?? quelle date Google+ a-t-il été rendu accessible à tout le monde ?'),
 (94, 2, 'La lessive "super croix d''ailleurs" fait atterir son linge...'),
 (95, 2, 'Quel(le) acteur(trice) a représenté le parfum Chanel n°5 en 2012 ?'),
 (96, 2, 'Qu''est ce qu''un "mème" ?'),
 (97, 3, 'En 2012, combien de personnes possèdent un compte sur Google+ ?'),
 (98, 1, 'Que veut dire l''abréviation WTF ?'),
-(99, 2, 'À quoi servent les "Doodles" ? '),
+(99, 2, '?? quoi servent les "Doodles" ? '),
 (100, 1, 'Quand a été dévoilée la formule du Coca-Cola ?'),
 (101, 1, 'Le slogan "De quelle couleur est votre radio ?" peut être entendue sur... '),
 (102, 3, 'Quelle est la particularité principale des voitures du projet Google Car ?'),
@@ -340,8 +349,8 @@ INSERT INTO "ANSWER" (ID, ISCORRECT, TITLE, QUESTION_ID) VALUES
 (187, 1, 'Ping', 47),
 (188, 0, 'Ping', 47),
 (189, 0, 'A demain pour de nouvelles aventures', 48),
-(190, 0, 'Sarkozy m’a tuée', 48),
-(191, 1, 'Ce qui ne peut être évité, il faut l’embrasser', 48),
+(190, 0, 'Sarkozy m''a tué', 48),
+(191, 1, 'Ce qui ne peut être évité, il faut l''embrasser', 48),
 (192, 0, 'Bonne soirée et sortez couvert', 48),
 (193, 1, 'Tim Berners-Lee', 49),
 (194, 0, 'Garry Kasparov', 49),

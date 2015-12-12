@@ -130,8 +130,8 @@ public class GameEngine implements Model {
                        gv.removePlayerItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
                        //player.removeItem("bananapeel");
                     }else{
-                      gv.enable(false);
-                     new QuizzUserInterface(this,player);
+//                      gv.enable(false);
+//                     new QuizzUserInterface(this,player);
                     }     
                 }
             }else if(command instanceof TakeCmd){

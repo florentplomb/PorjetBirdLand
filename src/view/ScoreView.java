@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.Player;
@@ -24,7 +26,10 @@ public class ScoreView extends JFrame {
         super();
 
         setTitle("Score View");
-      
+        JPanel container = new JPanel();
+        JScrollPane scrPane = new JScrollPane(container);
+        add(scrPane);
+
         this.setVisible(true);
 
         ArrayList<Player> players = new ArrayList<Player>();
@@ -36,8 +41,8 @@ public class ScoreView extends JFrame {
             donnees[i][j] = p.getName();
             donnees[i][j + 1] = p.getPoint();
             donnees[i][j + 2] = p.getMove();
-            donnees[i][j + 3] = i+1;
-             i++;
+            donnees[i][j + 3] = i + 1;
+            i++;
         }
 
         String[] entetes = {"Player", "Points", "Move", "Rank"};

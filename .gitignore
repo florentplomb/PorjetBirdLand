@@ -4,4 +4,9 @@ nbbuild/
 dist/
 nbdist/
 nbactions.xml
+<<<<<<< HEAD
 nb-configuration.xml
+=======
+
+*/DataBaseController.java
+>>>>>>> 33766f7e8a7486eeb90cff2fd8ec6a585b8f7658

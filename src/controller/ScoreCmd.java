@@ -3,32 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
-import DataBaseManager.DataBaseController;
 import model.Player;
 import view.ScoreView;
 
 /**
- * 
- *@author Florent Plomb <plombf at gmail.com>
+ * Implementation of *Score* Command.
+ * @author Florent Plomb <plombf at gmail.com>
  */
-class ScoreCmd extends Command{
+class ScoreCmd extends Command {
+
 
     public ScoreCmd() {
-       
+
     }
+    /**
+     * Allows the players to display the score view
+     * @param player the current player
+     * @return always false
+     */
 
     @Override
     public boolean execute(Player player) {
-         clearOutputString();
+        clearOutputString();
         if (getSecondWord() == null) {
-              new ScoreView();
+            ScoreView scoreView = new ScoreView();
             appendToOutputString("Score table");
             return false;
         } else {
-            appendToOutputString("I cannot quit that...");
+            appendToOutputString("I cannot quit something...");
             return false;
         }
     }

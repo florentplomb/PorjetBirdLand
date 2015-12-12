@@ -1,11 +1,17 @@
 package model;
 
 import controller.Command;
+import controller.DropCmd;
 import controller.GoCmd;
 import controller.Parser;
+import controller.TakeCmd;
 import controller.UseCmd;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import model.item.Alarm;
+import model.item.BananaPeel;
+import model.item.Item;
+import model.item.Transportable;
 import view.GameListener;
 import view.GameView;
 import view.QuizzUserInterface;
@@ -35,7 +41,6 @@ public class GameEngine implements Model {
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
-
         gameListeners = new ArrayList<GameListener>();
     }
 
@@ -44,9 +49,12 @@ public class GameEngine implements Model {
         outputString = "";
     }
 
-    public void setGm(GameView gv) {
+    public void setGv(GameView gv) {
         this.gv = gv;
+             
     }
+    
+    
 
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {
@@ -75,7 +83,7 @@ public class GameEngine implements Model {
     }
 
     public void alarm() {
-        gv.alarme();
+        gv.alarmeOn();
     }
 
     // Notifies all game listeners of game modifications.
@@ -102,40 +110,58 @@ public class GameEngine implements Model {
         } else {
             finished = command.execute(player);
             appendToOutputString(command.getOutputString());
-
             if (command instanceof UseCmd) {
                 if (command.getSecondWord() != null) {
                     if (Alarm.getState()) {
-                        gv.alarme();
+                        gv.alarmeOn();
                     } else {
-                        gv.alarmeOFF();
+                        gv.alarmeOff();
                     }
                 }
-
             }
-
-            if (command instanceof GoCmd) {
-                //  guardian01.setNextRoom();
-                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
-
+            if(command instanceof GoCmd){
+                guardian01.setNextRoom();
+               // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
-                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                        player.removeItem("bananapeel");
-                    } else {
-                        gv.enable(false);
-                        new QuizzUserInterface(this, player);
-                    }
-
+                       interpretCommand("drop bananapeel");
+                       appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+                       gv.removePlayerItem(new BananaPeel("BananaPeel","BananaPeel",1,false,"/images/banana.jpg"));
+                       //player.removeItem("bananapeel");
+                    }else{
+                      gv.enable(false);
+                     new QuizzUserInterface(this,player);
+                    }     
                 }
+            }else if(command instanceof TakeCmd){
+                TakeCmd c = (TakeCmd)command;
+                if(c.getTakeOk()){
+                    gv.setPlayerItems(((TakeCmd)command).getLastTake());
+                    c.setTakeOff();
+                }
+            }else if(command instanceof DropCmd){
+                DropCmd c = (DropCmd)command;
+                gv.removePlayerItem(c.getDropItem());
+                gv.setRoomItems();
             }
-
         }
         notifyGameListeners();
     }
-
+    // Set enable/disabled the view 
     public void setGV(boolean b) {
         gv.enable(b);
+    }
+     // Initialise players items to view
+    public void InitItemView(){
+        System.out.println("InitItemView");
+        for (Transportable t : player.getAllItems()) {
+            gv.setPlayerItems(t);
+            System.out.println(t.getNAME());
+        }
+    }
+    // retrun the current game view
+    public GameView getGameView(){
+        return gv;
     }
 }

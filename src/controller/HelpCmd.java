@@ -27,7 +27,7 @@ public class HelpCmd extends Command {
     public boolean execute(Player player) {
         clearOutputString();
         appendToOutputString("You are lost. You are alone. You wander\n");
-        appendToOutputString("around at the university.\n");
+        appendToOutputString("In the prison.\n");
         appendToOutputString("\n");
         appendToOutputString("Your command words are:\n");
 

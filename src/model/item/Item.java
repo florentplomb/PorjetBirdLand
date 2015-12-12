@@ -6,20 +6,25 @@
 package model.item;
 
 /**
+ * Implementaion of the Item model An instance of intance can be carry by the
+ * player or present in the game room.
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
 public abstract class Item {
 
-    private String NAME;
-    private String DESCRIPTION;
+    private String name;
+    private String description;
 
-    public Item (String name,String description) {
-        this.NAME = name.toLowerCase();
-        this.DESCRIPTION = description;
+    /**
+     *
+     * @param name the object's name
+     * @param description the object's description
+     */
+    public Item(String name, String description) {
+        this.name = name.toLowerCase();
+        this.description = description;
     }
-    
-    public abstract void action();
 
     @Override
     public String toString() {
@@ -30,29 +35,28 @@ public abstract class Item {
      * @return the NAME
      */
     public String getNAME() {
-        return NAME;
+        return name;
     }
 
     /**
      * @param NAME the NAME to set
      */
     public void setNAME(String NAME) {
-        this.NAME = NAME;
+        this.name = NAME;
     }
 
     /**
      * @return the DESCRIPTION
      */
     public String getDESCRIPTION() {
-        return DESCRIPTION;
+        return description;
     }
 
     /**
      * @param DESCRIPTION the DESCRIPTION to set
      */
     public void setDESCRIPTION(String DESCRIPTION) {
-        this.DESCRIPTION = DESCRIPTION;
+        this.description = DESCRIPTION;
     }
-    
-    
+
 }

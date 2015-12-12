@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Dec 10 12:09:29 CET 2015:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446) : instance a816c00e-0151-8b94-e5a0-00000e0fb538 
+dans le répertoire de base de données /Users/Chepper/Documents/workspace UNIL/PrisonBreak/quizz avec le chargeur de classe sun.misc.Launcher$AppClassLoader@5e2de80c
+Chargé de file:/Applications/NetBeans/glassfish-4.1/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_45-b14
+user.dir=/Users/Chepper/Documents/workspace UNIL/PrisonBreak
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.1
+derby.system.home=null
+Chargeur de classe de la base de données démarré - derby.database.classpath = ''

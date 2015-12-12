@@ -76,7 +76,9 @@ public class Room {
      public void removeItem(String it) {
         items.remove(it);
     }
-
+    public HashMap<String, Item> getAllItems(){
+        return items;
+    }
     /**
      * @return the id
      */

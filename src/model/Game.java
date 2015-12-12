@@ -49,8 +49,8 @@ public class Game {
 
         // GUI must be created last since it needs all above classes instances (engine, player, rooms) to display game.
         GameListener localView = new GameView(engine);
-        engine.setGm((GameView) localView);
-
+        engine.setGv((GameView) localView);
+        engine.InitItemView();
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
 
@@ -131,8 +131,8 @@ public class Game {
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
         mainCell.addItem(Alarm.getInstance());
-        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"url"));
-        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"url"));
+        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/echelle.gif"));
+        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/echelle.gif"));
        
                 
         // Set start room of guardian

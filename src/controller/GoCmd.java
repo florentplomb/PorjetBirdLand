@@ -2,6 +2,7 @@ package controller;
 
 import model.Player;
 import model.Room;
+import model.item.Ladder;
 
 /**
  * Implementation of *Go* command.
@@ -26,6 +27,8 @@ public class GoCmd extends Command {
             } else {
                 player.addPreviousRoom(player.getCurrentRoom());
                 player.setCurrentRoom(nextRoom);
+                //POUR TESTER 
+                //nextRoom.addItem(new Ladder("Ladder", "Ladder", 1, true, "/images/echelle.gif"));
                 appendToOutputString("You are " + nextRoom.getDescription() + ".\n");
                 int i = 0;
                 //Waits for a while

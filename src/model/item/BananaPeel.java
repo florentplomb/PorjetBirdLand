@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.item;
 
-import java.net.URL;
-
 /**
- * 
- *@author Florent Plomb <plombf at gmail.com>
+ * Implementation of Banana peel model
+ *
+ * @author Florent Plomb <plombf at gmail.com>
  */
-public class BananaPeel extends Transportable{
+public class BananaPeel extends Transportable {
 
-   
-    
-    public BananaPeel(String name,String description,int weight,boolean immortal,String URL){
-        super(name, description,weight,immortal,URL);
+    /**
+     *
+     * @param name the object name.
+     * @param description the object description.
+     * @param weight the object weight.
+     * @param immortal true if the object apprear in the room inventory when the
+     * player drop it.
+     * @param URL the picture url.
+     */
+    public BananaPeel(String name, String description, int weight, boolean immortal, String URL) {
+        super(name, description, weight, immortal, URL);
     }
 
-    @Override
-    public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

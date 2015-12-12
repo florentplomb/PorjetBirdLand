@@ -41,7 +41,7 @@ public class Game {
         parser = new Parser();
         rooms = new ArrayList<Room>();
         createRooms();
-        createGuardian();
+      //  createGuardian();
         engine = new GameEngine(parser, player,guardian01);
         setFirstOutput();
       

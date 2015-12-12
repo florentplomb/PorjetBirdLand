@@ -93,7 +93,7 @@ public class LoginView extends JDialog {
                 System.out.println("Sucess");
                 playerName = jtf.getText();
                 close();
-                start(playerName);
+               // start(playerName);
               
             } else {
                 alreadyRegister.setVisible(true);

@@ -24,7 +24,7 @@ public class ScoreView extends JFrame {
         super();
 
         setTitle("Score View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
         this.setVisible(true);
 
         ArrayList<Player> players = new ArrayList<Player>();

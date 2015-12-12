@@ -11,7 +11,7 @@ public class PrisonBreak {
     public static void main(String[] args) {
        
         LoginView login = new LoginView();
-        String playerName = login.getPlayerName();
-        Game myGame = new Game(playerName);
+        Game game = new Game(login.getPlayerName());
+     
     }
 }

@@ -45,8 +45,14 @@ public class ClimbCmd extends Command {
                     if (action.equals("jump")) {
                         if (player.getCurrentRoom().getId().equals("outside")) {
                             if (player.getCurrentRoom().getItem("blanket") != null) {
-                                 DataBaseController.insertDataPlayer(player);
-                                ScoreView scoreView = new ScoreView();
+                                ScoreView scoreView = null;
+
+                                if (!GameParms.mobileApp) {
+                                    DataBaseController.insertDataPlayer(player);
+                                    
+                                    scoreView = new ScoreView(player);
+                                }
+
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",
                                         "You are escaped!! Enjoy your life...", JOptionPane.PLAIN_MESSAGE, icon);

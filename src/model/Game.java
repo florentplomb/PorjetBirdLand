@@ -1,6 +1,7 @@
 package model;
 
 import communication.GameViewProxy;
+import controller.GameParms;
 import controller.Parser;
 import iphone.IOSGameViewProxy;
 import java.util.ArrayList;
@@ -130,9 +131,12 @@ public class Game {
    
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
-        alarmRoom.addItem(Alarm.getInstance());
+       
+ 
         mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/blanket.jpg"));
         mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/ladder.jpg"));
+        alarmRoom.addItem(Alarm.getInstance());
+        
        
                 
         // Set start room of guardian

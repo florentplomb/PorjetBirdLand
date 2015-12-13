@@ -3,12 +3,14 @@ package view;
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
 import controller.ClimbCmd;
+import controller.GameParms;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javax.swing.border.Border;
 import model.GameEngine;
@@ -65,6 +67,12 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         this.two = new JButton("2");
         this.three = new JButton("3");
         this.for4 = new JButton("4");
+
+        if (GameParms.mobileApp) {
+
+        } else {
+
+        }
 
         this.newQuestion();
 
@@ -136,7 +144,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
                 String txt;
                 Icon icon;
                 if (Alarm.getState() == true) {
-                    ScoreView sc = new ScoreView();
+                    ScoreView sc = new ScoreView(player);
                     icon = new ImageIcon(getClass().getResource("/images/backToCell.jpg"));
                     txt = "GAME OVER";
                     JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
@@ -168,8 +176,17 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
             this.dispose();
 
         }
+        
+         Question q = null;
 
-        Question q = DataBaseController.getQuestion();
+        if (GameParms.mobileApp) {
+
+           q = getQuestionMobile();
+        } else{
+           q = DataBaseController.getQuestion();
+        }
+
+      
 
         String printQ = q.getTitle() + "\n";
 
@@ -183,6 +200,24 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
             }
         }
         desire.setText(printQ);
+    }
+
+    private Question getQuestionMobile() {
+        Question q = new Question();
+
+        HashMap<String, Integer> answers = new HashMap<String, Integer>();
+
+        q.setTitle("Quellle est la première émission de télé-réalité française ?");
+
+        answers.put("Koh-Lanta", 0);
+        answers.put("Secret Story", 0);
+        answers.put("Loft Story", 1);
+        answers.put("Les anges", 0);
+
+        q.setAnswers(answers);
+
+        return q;
+
     }
 
 }

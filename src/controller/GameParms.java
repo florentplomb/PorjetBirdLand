@@ -13,7 +13,19 @@ package controller;
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-public class GlobalVariable {
+public class GameParms {
 
     public static int MAX_WEIGHT = 10;
+    
+    public static final String url = "jdbc:derby://localhost:1527/quizz";
+
+    public static final String userName = "quizz";
+
+    public static final String password = "1234";
+    
+    public static  boolean mobileApp = true;
+    
+     public static  boolean DemoGame = false;
+    
+    
 }

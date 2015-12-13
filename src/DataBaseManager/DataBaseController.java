@@ -7,6 +7,7 @@ package DataBaseManager;
 
 
 //import java.sql.*;
+import controller.GameParms;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +17,8 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.ListIterator;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Player;
 
 //import ch.modele.Question;
@@ -30,11 +33,11 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz";
+    private static final String url = GameParms.url;
 
-    private static final String userName = "quizz";
+    private static final String userName = GameParms.userName;
 
-    private static final String password = "1234";
+    private static final String password = GameParms.password;
     /**
      * System out style :)
      */
@@ -56,6 +59,30 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+public static void getConnection(){
+        final String url = "jdbc:derby://localhost:1527/quizz";
+
+     final String userName = "quizz";
+
+   final String password = "1234";
+   
+    Connection con = null;
+   
+            try {
+            // Connection � la base de donn�es
+            con = DriverManager.getConnection(url, userName, password);
+            Statement requete = con.createStatement();}
+            catch (Exception e){
+                JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+                
+                System.exit(0);
+            }
+           
+    
+}
 
     private static ListIterator<Integer> createItr() {
 
@@ -102,7 +129,11 @@ public class DataBaseController {
             itrTabRdm.remove();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+         //   System.out.println(e.getMessage());
+           
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+
         }
         // fermeture de la connection à la base de donnée ainsi que de toutes 
         //les ressources qui lui sont associées ! (ResultSet, Statement)
@@ -158,7 +189,7 @@ public class DataBaseController {
 
             try {
                 con.close();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
@@ -192,8 +223,10 @@ public class DataBaseController {
 
         try {
             con.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+          //  System.out.println(e.getMessage());
         }
     }
 public static ArrayList<Player> getPlayerBD() {
@@ -226,10 +259,13 @@ public static ArrayList<Player> getPlayerBD() {
         try {
             con.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+          //  System.out.println(e.getMessage());
         }
 
         return players;
     }
+
 
 }

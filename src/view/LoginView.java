@@ -6,6 +6,7 @@
 package view;
 
 import DataBaseManager.DataBaseController;
+import controller.GameParms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -86,13 +87,13 @@ public class LoginView extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
                       
-            
+          try{
             boolean sucess = true;
             if (!jtf.getText().isEmpty()) {
-                try {
+                if (GameParms.mobileApp) {
+                    sucess = false;
+                }else{
                     sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
-                } catch (Exception ex) {
-                    System.out.println("Erro" + ex.getMessage());
                 }
             }
             if (!sucess) {
@@ -103,7 +104,17 @@ public class LoginView extends JDialog {
               
             } else {
                 alreadyRegister.setVisible(true);
+         
             }
+          }
+          catch (Exception ex){
+              System.out.println("hooo");
+          }
+          finally{
+              System.out.println("sadadsads = ");
+          }
+            
+            
         }
     }
 

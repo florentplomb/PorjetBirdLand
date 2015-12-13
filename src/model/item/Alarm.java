@@ -6,34 +6,43 @@
 package model.item;
 
 /**
+ * Implementaion of *Alarm" model (Singelton)
  *
- * @author Bryan
+ * @author Bryan Cornelius
  */
 public class Alarm extends Fixed {
-    
-     private static boolean state = false;
-    
-       private Alarm(String nom, String description) {
+
+    private static boolean state = false;
+
+    private Alarm(String nom, String description) {
         super(nom, description);
     }
 
-    private static Alarm instance = new Alarm("Alarm","It is the alarm of the prison" );
+    private static Alarm instance = new Alarm("Alarm", "It is the alarm of the prison");
 
-    public static boolean getState(){
+    /**
+     *
+     * @return true if the alarm is on , false is not
+     */
+    public static boolean getState() {
         return Alarm.state;
     }
-    public static Alarm getInstance() {
-      return instance;
-   }
-    
-     public static void use() {
-         state = !state;
-         
-   }
-            
 
-    @Override
-    public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     *
+     * @return the singleton Alarm
+     */
+    public static Alarm getInstance() {
+        return instance;
     }
+
+    /**
+     * Allow to enable or disabled the Alarm
+     */
+    public static void use() {
+        state = !state;
+
+    }
+
+   
 }

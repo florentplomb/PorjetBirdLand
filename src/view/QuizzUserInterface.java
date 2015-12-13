@@ -2,6 +2,7 @@ package view;
 
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
+import controller.ClimbCmd;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
@@ -14,18 +15,24 @@ import model.GameEngine;
 import model.Player;
 import model.item.Alarm;
 
+/**
+ * Implementaion of the QuizzUserInterface This class allow to play a quizz
+ * against the guardian when we try to esapet
+ *
+ * @author Florent Plomb <plombf at gmail.com>
+ */
 public class QuizzUserInterface extends JFrame implements ActionListener {
 
     private JButton one, two, three, for4;
     private HashMap<Integer, Integer> answers;
-    private JTextArea score,desire;
-    private String currentScore,printQ;
-    private int countScore,cpt;
-    private double x,y,gvWidth;
+    private JTextArea score, desire;
+    private String currentScore, printQ;
+    private int countScore, cpt;
+    private double x, y, gvWidth;
     private GameEngine ge;
     private Player player;
     private boolean loose;
-    private JPanel mainPanel,questionPanel;
+    private JPanel mainPanel, questionPanel;
 
     public QuizzUserInterface(GameEngine ge, Player p) {
         this.cpt = 1;
@@ -43,10 +50,10 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         //Container pane = getContentPane();
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
-        this.setLocation(((int)x)+600, ((int)y));
+        this.setLocation(((int) x) + 600, ((int) y));
         questionPanel = new JPanel();
         questionPanel.setLayout((new FlowLayout()));
-        
+
         desire = new JTextArea(printQ);
         desire.setLineWrap(true);
         score = new JTextArea(currentScore);
@@ -65,9 +72,9 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         two.addActionListener(this);
         three.addActionListener(this);
         for4.addActionListener(this);
-        mainPanel.add(desire,NORTH);
-        mainPanel.add(score,CENTER);
-        mainPanel.add(questionPanel,SOUTH);
+        mainPanel.add(desire, NORTH);
+        mainPanel.add(score, CENTER);
+        mainPanel.add(questionPanel, SOUTH);
         questionPanel.add(one);
         questionPanel.add(two);
         questionPanel.add(three);
@@ -75,14 +82,13 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         setContentPane(mainPanel);
 
     }
-    
-    public void setPositionQuizz(GameEngine ge){
-        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
-        x=pGameView.getX();
-        y=pGameView.getY();
-        gvWidth=ge.getGameView().getPanel().getSize().getWidth();
-    }
 
+//    public void setPositionQuizz(GameEngine ge) {
+//        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
+//        x = pGameView.getX();
+//        y = pGameView.getY();
+//        gvWidth = ge.getGameView().getPanel().getSize().getWidth();
+//    }
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -107,7 +113,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         score.setBorder(border);
         this.setScore();
         this.newQuestion();
-      
+
     }
 
     private void loose() {
@@ -127,24 +133,37 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private void newQuestion() {
         if (cpt > 3 || loose) {
             if (loose) {
+                String txt;
+                Icon icon;
                 if (Alarm.getState() == true) {
-                    JOptionPane.showMessageDialog(null, "You loose",
-                            "Game over", JOptionPane.PLAIN_MESSAGE, null);
-                   System.exit(0);
-                }else{
-                JOptionPane.showMessageDialog(null, " You loose... ALARM!!!! ",
-                        "Quizz lost", JOptionPane.PLAIN_MESSAGE, null);
-                Alarm.use();
-                this.ge.alarm();
-                this.ge.setGV(true);
+                    ScoreView sc = new ScoreView();
+                    icon = new ImageIcon(getClass().getResource("/images/backToCell.jpg"));
+                    txt = "GAME OVER";
+                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+                    JDialog dialog = optionPane.createDialog(txt);
+                    dialog.setModal(true);
+                    dialog.setVisible(true);
+
+                    System.exit(0);
+                } else {
+                    txt = "You loose... ALARM!!!!";
+                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
+                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+                    JDialog dialog = optionPane.createDialog(txt);
+                    dialog.setModal(true);
+                    dialog.setVisible(true);
+
+                    Alarm.use();
+                    this.ge.alarm();
+                    this.ge.setGV(true);
                 }
 
             } else {
 //                JOptionPane.showMessageDialog(null, "You win the quizz you can continues",
 //                        "Quizz won", JOptionPane.PLAIN_MESSAGE, null);
                 this.ge.setGV(true);
-              
-            } 
+
+            }
             this.player.addPoint(countScore);
             this.dispose();
 

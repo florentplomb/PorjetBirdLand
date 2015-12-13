@@ -12,8 +12,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
@@ -22,10 +20,10 @@ import javax.swing.JPanel;
 import model.Game;
 
 /**
+ * Implementaion of the Login View
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-//Les imports habituels
 public class LoginView extends JDialog {
 
     private JPanel container = new JPanel();
@@ -36,26 +34,29 @@ public class LoginView extends JDialog {
     private JLabel welcome;
     private String playerName;
 
+    /**
+     * Allow to display the login window and manage the login, the user choice a
+     * name wich is checked if not already exist in the database
+     */
     public LoginView() {
-        
+
         this.setModal(true);
         this.text4user = new JLabel("Enter your name");
-  
-         this.alreadyRegister = new JLabel("This name alraedy exist please choice an other");
-        
-         this.alreadyRegister.setForeground(Color.red);
-         this.alreadyRegister.setVisible(false);
-        
+
+        this.alreadyRegister = new JLabel("This name alraedy exist please choice an other");
+
+        this.alreadyRegister.setForeground(Color.red);
+        this.alreadyRegister.setVisible(false);
+
         this.setTitle("Login");
         this.setSize(300, 300);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        //addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {  close();}});
-        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+
         this.setLocationRelativeTo(null);
         container.setBackground(Color.white);
         container.setLayout(new BorderLayout());
-//        container.add(text4user);
-//        container.add(welcome);
         JPanel top = new JPanel();
         Font police = new Font("Arial", Font.BOLD, 14);
         jtf.setFont(police);
@@ -77,30 +78,41 @@ public class LoginView extends JDialog {
     public String getPlayerName() {
         return playerName;
     }
+    
+
 
     class BoutonListener implements ActionListener {
+
+        @Override
         public void actionPerformed(ActionEvent e) {
-             boolean sucess = false;
+                      
+            
+            boolean sucess = true;
             if (!jtf.getText().isEmpty()) {
                 try {
                     sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
                 } catch (Exception ex) {
-                    System.out.println("Erro"+ex.getMessage());
+                    System.out.println("Erro" + ex.getMessage());
                 }
             }
-            if (sucess) {
+            if (!sucess) {
                 System.out.println("Sucess");
                 playerName = jtf.getText();
                 close();
-                Game myGame = new Game(playerName); 
+               // start(playerName);
+              
             } else {
-                 alreadyRegister.setVisible(true);
+                alreadyRegister.setVisible(true);
             }
         }
     }
-    private void close(){
+
+    private void close() {
         this.dispose();
     }
     
-   
+   private void start(String playerName){
+       Game game = new Game(playerName);
+   }
+
 }

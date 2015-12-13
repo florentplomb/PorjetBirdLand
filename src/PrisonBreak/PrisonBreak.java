@@ -1,9 +1,7 @@
 package PrisonBreak;
 
-import DataBaseManager.DataBaseController;
 import model.Game;
 import view.LoginView;
-import view.ScoreView;
 
 public class PrisonBreak {
 
@@ -11,7 +9,7 @@ public class PrisonBreak {
     public static void main(String[] args) {
        
         LoginView login = new LoginView();
-        String playerName = login.getPlayerName();
-        
+        Game game = new Game(login.getPlayerName());
+     
     }
 }

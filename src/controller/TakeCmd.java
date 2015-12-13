@@ -6,24 +6,27 @@
 package controller;
 
 import model.Player;
-import model.Room;
 import model.item.Item;
 import model.item.Transportable;
 
 /**
- *
+ * Implementation of *Take* Command.
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class TakeCmd extends Command {
-    Transportable lastTake;
-    Boolean takeOK=false;
+
+    private Transportable lastTake;
+    private Boolean takeOK = false;
+
     public TakeCmd() {
     }
 
-    /*
-     * Take a object wich is in the room
-     * 
-     * Take a object   
+    /**
+     * Allows the player to take an transportable object wich is in a room, this
+     * function check also is the maximum weight is not exceeded
+     *
+     * @param player the current player
+     * @return always false
      */
     public boolean execute(Player player) {
 
@@ -42,7 +45,7 @@ public class TakeCmd extends Command {
                     if (itemTrans.getWEIGHT() + player.getWeightItems() > GlobalVariable.MAX_WEIGHT) {
                         appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
                     } else {
-                        takeOK=true;
+                        takeOK = true;
                         player.addItem(itemTrans);
                         player.getCurrentRoom().removeItem(item.getNAME());
                         appendToOutputString("You just took the " + item.getNAME() + " !");
@@ -60,15 +63,16 @@ public class TakeCmd extends Command {
         }
         return false;
     }
-    public Transportable getLastTake(){
+
+    public Transportable getLastTake() {
         return lastTake;
     }
-    
-    public boolean getTakeOk(){
+
+    public boolean getTakeOk() {
         return takeOK;
     }
-    
-    public void setTakeOff(){
-        takeOK=false;
+
+    public void setTakeOff() {
+        takeOK = false;
     }
 }

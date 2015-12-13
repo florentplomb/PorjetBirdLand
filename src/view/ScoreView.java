@@ -20,11 +20,13 @@ import model.Player;
  */
 public class ScoreView extends JFrame {
 
+    private double x, y, gvWidth;
+
     public ScoreView() {
         super();
 
         setTitle("Score View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(((int) x) + 1250, ((int) y));
         this.setVisible(true);
 
         ArrayList<Player> players = new ArrayList<Player>();
@@ -36,8 +38,8 @@ public class ScoreView extends JFrame {
             donnees[i][j] = p.getName();
             donnees[i][j + 1] = p.getPoint();
             donnees[i][j + 2] = p.getMove();
-            donnees[i][j + 3] = i+1;
-             i++;
+            donnees[i][j + 3] = i + 1;
+            i++;
         }
 
         String[] entetes = {"Player", "Points", "Move", "Rank"};
@@ -54,4 +56,5 @@ public class ScoreView extends JFrame {
 
         pack();
     }
+
 }

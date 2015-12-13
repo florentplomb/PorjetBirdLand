@@ -23,10 +23,12 @@ public class GameParms {
 
     public static final String password = "1234";
     
-    // si on met false , ça doit se connecter à la base de donée
+    // si on met false , ça doit se connecter à la base de donée pour que le jeux démarre,
+    // si on met true , ça passe l'erreur et on peut jouer
     
     public static  boolean mobileApp = true;
     
+    // Pas fini
     
      public static  boolean DemoGame = false;
     

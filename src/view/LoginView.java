@@ -87,7 +87,7 @@ public class LoginView extends JDialog {
         public void actionPerformed(ActionEvent e) {
                       
             
-            boolean sucess = false;
+            boolean sucess = true;
             if (!jtf.getText().isEmpty()) {
                 try {
                     sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
@@ -95,7 +95,7 @@ public class LoginView extends JDialog {
                     System.out.println("Erro" + ex.getMessage());
                 }
             }
-            if (sucess) {
+            if (!sucess) {
                 System.out.println("Sucess");
                 playerName = jtf.getText();
                 close();

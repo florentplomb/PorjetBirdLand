@@ -123,7 +123,7 @@ public class GameEngine implements Model {
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
                         interpretCommand("drop bananapeel");
-                        appendToOutputString("You used the bananpeal to skip the guardian.. \n");
+                        appendToOutputString("You used the bananpeel to skip the guardian.. \n");
                         gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
 
                     } else {

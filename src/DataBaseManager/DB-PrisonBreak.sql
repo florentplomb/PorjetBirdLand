@@ -1,8 +1,8 @@
   
-/*  DROP TABLE ANSWER;
+ DROP TABLE ANSWER;
   DROP TABLE QUESTION;
   DROP TABLE GAME;
-*/
+
 
  
 /*
@@ -349,7 +349,7 @@ INSERT INTO "ANSWER" (ID, ISCORRECT, TITLE, QUESTION_ID) VALUES
 (185, 0, 'Pong', 47),
 (186, 0, 'Tic', 47),
 (187, 1, 'Ping', 47),
-(188, 0, 'Ping', 47),
+(188, 0, 'Pong', 47),
 (189, 0, 'A demain pour de nouvelles aventures', 48),
 (190, 0, 'Sarkozy m''a tué', 48),
 (191, 1, 'Ce qui ne peut être évité, il faut l''embrasser', 48),

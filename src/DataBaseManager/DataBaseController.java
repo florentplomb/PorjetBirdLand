@@ -138,7 +138,7 @@ public class DataBaseController {
 
     public static boolean insertNamePlayer(String name) {
         Connection con = null;
-        boolean success = false;
+        boolean dejaInscrit = false;
 
         try {
             // Connection � la base de donn�es
@@ -146,40 +146,13 @@ public class DataBaseController {
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incr�ment� il NE FAUT PAS le d�finir ;-)
           
-
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
             // Parcours de l'ensemble de r�sultats
-            boolean dejaInscrit = false;
+            
             while (ensembleResultats.next() && !dejaInscrit) {
                 if (name.equals(ensembleResultats.getString("PLAYER"))) {
                     dejaInscrit = true;
                 }
-
-            }
-            // fermeture de la connection � la base de donn�es ainsi que de toutes
-            //les ressources qui lui sont associ�es ! (ResultSet, Statement)
-
-            if (dejaInscrit) {
-
-                System.out.println("Already reigster");
-
-            } else {
-                int nbPlayerAdd = requete.executeUpdate(
-                        "INSERT INTO GAME"
-                        + "(PLAYER,MOVE,POINT) VALUES "
-                        + "('" + name.toUpperCase() + "', " + 0 + "," + 0 + ")",
-                        Statement.RETURN_GENERATED_KEYS);
-                System.out.println(nbPlayerAdd + " is added");
-                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
-                Integer playerName = null;
-
-                // Comme il n'y a eu qu'un seul insert, on peut faire un if au lieu d'un while
-                if (ensembleTuplesAjoutes.next()) {
-                    playerName = ensembleTuplesAjoutes.getInt(1);
-                }
-                System.out.println("L'id du nouveau tuple est : " + playerName);
-                ensembleTuplesAjoutes = null;
-                success = true;
 
             }
 
@@ -193,7 +166,7 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
 
-        return success;
+        return dejaInscrit;
     }
     
        public static void insertDataPlayer(Player player) {
@@ -203,11 +176,16 @@ public class DataBaseController {
             // Connection � la base de donn�es
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
-            int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
-                    + "SET point = " + player.getPoint() +", move = "+player.getMove()
-                    + "WHERE player = '" + player.getName().toUpperCase()+"'");
             
-            System.out.println(nombrePersonnesModifiees + " player modified");
+             int nbPlayerAdd = requete.executeUpdate(
+                        "INSERT INTO GAME"
+                        + "(PLAYER,MOVE,POINT) VALUES "
+                        + "('" + player.getName().toUpperCase() + "',"+ player.getMove() + "," + player.getPoint() + ")",
+                        Statement.RETURN_GENERATED_KEYS);
+                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
+                Integer playerName = null;
+                        
+           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

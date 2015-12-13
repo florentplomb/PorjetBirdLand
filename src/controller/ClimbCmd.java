@@ -1,5 +1,6 @@
 package controller;
 
+import DataBaseManager.DataBaseController;
 import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -44,8 +45,8 @@ public class ClimbCmd extends Command {
                     if (action.equals("jump")) {
                         if (player.getCurrentRoom().getId().equals("outside")) {
                             if (player.getCurrentRoom().getItem("blanket") != null) {
+                                 DataBaseController.insertDataPlayer(player);
                                 ScoreView scoreView = new ScoreView();
-
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",
                                         "You are escaped!! Enjoy your life...", JOptionPane.PLAIN_MESSAGE, icon);

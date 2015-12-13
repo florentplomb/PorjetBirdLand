@@ -2,6 +2,7 @@ package view;
 
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
+import controller.ClimbCmd;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
@@ -15,11 +16,11 @@ import model.Player;
 import model.item.Alarm;
 
 /**
- * Implementaion of the QuizzUserInterface
- * This class allow to play a quizz against the guardian when we try to esapet
+ * Implementaion of the QuizzUserInterface This class allow to play a quizz
+ * against the guardian when we try to esapet
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
-
 public class QuizzUserInterface extends JFrame implements ActionListener {
 
     private JButton one, two, three, for4;
@@ -88,7 +89,6 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
 //        y = pGameView.getY();
 //        gvWidth = ge.getGameView().getPanel().getSize().getWidth();
 //    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -133,13 +133,26 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private void newQuestion() {
         if (cpt > 3 || loose) {
             if (loose) {
+                String txt;
+                Icon icon;
                 if (Alarm.getState() == true) {
-                    JOptionPane.showMessageDialog(null, "You loose",
-                            "Game over", JOptionPane.PLAIN_MESSAGE, null);
+                    ScoreView sc = new ScoreView();
+                    icon = new ImageIcon(getClass().getResource("/images/backToCell.jpg"));
+                    txt = "GAME OVER";
+                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+                    JDialog dialog = optionPane.createDialog(txt);
+                    dialog.setModal(true);
+                    dialog.setVisible(true);
+
                     System.exit(0);
                 } else {
-                    JOptionPane.showMessageDialog(null, " You loose... ALARM!!!! ",
-                            "Quizz lost", JOptionPane.PLAIN_MESSAGE, null);
+                    txt = "You loose... ALARM!!!!";
+                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
+                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+                    JDialog dialog = optionPane.createDialog(txt);
+                    dialog.setModal(true);
+                    dialog.setVisible(true);
+
                     Alarm.use();
                     this.ge.alarm();
                     this.ge.setGV(true);

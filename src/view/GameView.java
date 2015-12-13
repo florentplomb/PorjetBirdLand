@@ -117,10 +117,10 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void removePlayerItem(Transportable t) {
-        System.out.println("removePlayerItem");
+       
         boolean removeOK = false;
         if (itemsKeys.containsValue(t)) {
-            System.out.println("Contains");
+           
             for (String key : itemsKeys.keySet()) {
                 if (!removeOK) {
                     if (itemsKeys.get(key) != null) {
@@ -142,7 +142,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      */
     private void setPlayerStats() {
         myPlayerStats.clear();
-        myPlayerStats.add("none");
+        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +" Kg");
+        myPlayerStats.add("Moves: " + engine.getPlayer().getMove());
     }
 
     /**
@@ -157,7 +158,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * the player picture, you should modify this method.
      */
     private void setPlayerImage() {
-        playerImage = getClass().getResource("/images/knight.gif");
+        playerImage = getClass().getResource("/images/prisoner.jpg");
     }
 
     private void setMapImage() {
@@ -209,6 +210,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         if (engine.isFinished()) {
             enable(false);
         }
+        
 
         // Clears the text displayed and then gets the new data in the Engine.
         clearLog();
@@ -393,8 +395,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         c.gridy = 1;
         System.out.println(itemsLabel.values().size());
         for (JLabel item : itemsLabel.values()) {
-            item.setPreferredSize(new Dimension(50, 100));
-            item.setMinimumSize(new Dimension(50, 100));
+            item.setPreferredSize(new Dimension(80, 100));
+            item.setMinimumSize(new Dimension(80, 100));
             item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             playerInformationPanel.add(item, c);
             c.gridx++;

@@ -130,9 +130,9 @@ public class Game {
    
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
-        mainCell.addItem(Alarm.getInstance());
-        outside.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/echelle.gif"));
-        outside.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/echelle.gif"));
+        alarmRoom.addItem(Alarm.getInstance());
+        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/blanket.jpg"));
+        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/ladder.jpg"));
        
                 
         // Set start room of guardian

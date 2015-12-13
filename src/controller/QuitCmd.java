@@ -19,7 +19,6 @@ public class QuitCmd extends Command {
     public boolean execute(Player player) {
         clearOutputString();
         if (getSecondWord() == null) {
-             DataBaseController.insertDataPlayer(player);
             appendToOutputString("Thanks for playing! Good bye...");
             return true;
         } else {

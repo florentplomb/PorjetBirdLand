@@ -18,7 +18,9 @@ public class PrisonBreak {
         } catch (ExceptionInInitializerError e) {
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed. Connect it and try again.", "Connection failed",
                     JOptionPane.ERROR_MESSAGE);
-            GameParms.mobileApp = true;
+                     if (!GameParms.mobileApp) {
+                        System.exit(0);
+                    }
         }
 
         LoginView login = new LoginView();

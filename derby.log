@@ -1,8 +1,15 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Mon Dec 14 18:17:32 CET 2015:
 Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0151-a17f-483e-000006da6970 
 dans le répertoire de base de données C:\Users\Florent\Dropbox\Master\POO\PrisonBreak\quizz  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@60e53b93
 
+=======
+Mon Dec 14 18:03:51 CET 2015:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446) : instance a816c00e-0151-a172-c0d2-00000e766478 
+dans le répertoire de base de données /Users/Matthieu/Documents/HEC/HEC/POO/PrisonBreak/quizz avec le chargeur de classe sun.misc.Launcher$AppClassLoader@49476842
+Chargé de file:/Applications/NetBeans/glassfish-4.1/javadb/lib/derby.jar
+>>>>>>> 104877a68210cecc3c26e8461c498e2fb2202a30
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_65-b17
 user.dir=C:\Users\Florent\Dropbox\Master\POO\PrisonBreak

@@ -28,7 +28,7 @@ class ScoreCmd extends Command {
     public boolean execute(Player player) {
         clearOutputString();
         if (getSecondWord() == null) {
-            ScoreView scoreView = new ScoreView();
+            ScoreView scoreView = new ScoreView(player);
             appendToOutputString("Score table");
             return false;
         } else {

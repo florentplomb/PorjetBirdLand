@@ -34,35 +34,35 @@ public class IOSGameViewProxy implements GameListener {
 
         // Register service on that server socket
         System.out.println("Registering service...");
-//        service.registerService(port);
-//
-//        while (!quit) {
-//            try {
-//                System.out.println("\nNow accepting connections...");
-//                connectionServer = new ServerSocket(4444);
-//                clientSession = connectionServer.accept();
-//                System.out.println("Connection was accepted");
-//                out = new PrintStream(clientSession.getOutputStream(), true);
-//                in = new BufferedReader(new InputStreamReader(clientSession.getInputStream()));
-//
-//                System.out.println("Initial room is " + player.getCurrentRoom().getDescription() + " with exits: " + code(player.getCurrentRoom().getExits()));
-//                out.println(player.getCurrentRoom().getDescription() + "/" + code(player.getCurrentRoom().getExits()) + "/" + player.getCurrentRoom().getImageName());
-//
-//                String command;
-//                while ((command = in.readLine()) != null) {
-//                    System.out.println("Received command " + command);
-//                    engine.interpretCommand(command);
-//                }
-//
-//                System.out.println("Reading loop ended");
-//                out.close();
-//                in.close();
-//                clientSession.close();
-//                connectionServer.close();
-//            } catch (IOException e) {
-//                System.out.println(e);
-//            }
-//        }
+        service.registerService(port);
+
+        while (!quit) {
+            try {
+                System.out.println("\nNow accepting connections...");
+                connectionServer = new ServerSocket(4444);
+                clientSession = connectionServer.accept();
+                System.out.println("Connection was accepted");
+                out = new PrintStream(clientSession.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSession.getInputStream()));
+
+                System.out.println("Initial room is " + player.getCurrentRoom().getDescription() + " with exits: " + code(player.getCurrentRoom().getExits()));
+                out.println(player.getCurrentRoom().getDescription() + "/" + code(player.getCurrentRoom().getExits()) + "/" + player.getCurrentRoom().getImageName());
+
+                String command;
+                while ((command = in.readLine()) != null) {
+                    System.out.println("Received command " + command);
+                    engine.interpretCommand(command);
+                }
+
+                System.out.println("Reading loop ended");
+                out.close();
+                in.close();
+                clientSession.close();
+                connectionServer.close();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
 
     }
 

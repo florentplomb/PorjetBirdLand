@@ -3,12 +3,14 @@ package view;
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
 import controller.ClimbCmd;
+import controller.GameParms;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javax.swing.border.Border;
 import model.GameEngine;
@@ -21,7 +23,7 @@ import model.item.Alarm;
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-public class QuizzUserInterface extends JFrame implements ActionListener {
+public class QuizzUserInterface extends JDialog implements ActionListener {
 
     private JButton one, two, three, for4;
     private HashMap<Integer, Integer> answers;
@@ -35,6 +37,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private JPanel mainPanel, questionPanel;
 
     public QuizzUserInterface(GameEngine ge, Player p) {
+        this.setModal(true);
         this.cpt = 1;
         this.ge = ge;
         this.loose = false;
@@ -44,9 +47,10 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         this.countScore = 0;
         this.setTitle("QUIZZ");
         this.setLocationRelativeTo(null);
-        setSize(400, 250);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setVisible(true);
+        this.setSize(400, 250);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        
         //Container pane = getContentPane();
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -66,6 +70,12 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         this.three = new JButton("3");
         this.for4 = new JButton("4");
 
+        if (GameParms.mobileApp) {
+
+        } else {
+
+        }
+
         this.newQuestion();
 
         one.addActionListener(this);
@@ -79,7 +89,9 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         questionPanel.add(two);
         questionPanel.add(three);
         questionPanel.add(for4);
-        setContentPane(mainPanel);
+        this.setContentPane(mainPanel);
+        this.setVisible(true);
+        
 
     }
 
@@ -136,7 +148,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
                 String txt;
                 Icon icon;
                 if (Alarm.getState() == true) {
-                    ScoreView sc = new ScoreView();
+                    ScoreView sc = new ScoreView(player);
                     icon = new ImageIcon(getClass().getResource("/images/backToCell.jpg"));
                     txt = "GAME OVER";
                     JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
@@ -146,12 +158,12 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
 
                     System.exit(0);
                 } else {
-                    txt = "You loose... ALARM!!!!";
-                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
-                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
-                    JDialog dialog = optionPane.createDialog(txt);
-                    dialog.setModal(true);
-                    dialog.setVisible(true);
+//                    txt = "You loose... ALARM!!!!";
+//                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
+//                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+//                    JDialog dialog = optionPane.createDialog(txt);
+//                    dialog.setModal(true);
+//                    dialog.setVisible(true);
 
                     Alarm.use();
                     this.ge.alarm();
@@ -168,8 +180,17 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
             this.dispose();
 
         }
+        
+         Question q = null;
 
-        Question q = DataBaseController.getQuestion();
+        if (GameParms.mobileApp) {
+
+           q = getQuestionMobile();
+        } else{
+           q = DataBaseController.getQuestion();
+        }
+
+      
 
         String printQ = q.getTitle() + "\n";
 
@@ -183,6 +204,24 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
             }
         }
         desire.setText(printQ);
+    }
+
+    private Question getQuestionMobile() {
+        Question q = new Question();
+
+        HashMap<String, Integer> answers = new HashMap<String, Integer>();
+
+        q.setTitle("Quellle est la première émission de télé-réalité française ?");
+
+        answers.put("Koh-Lanta", 0);
+        answers.put("Secret Story", 0);
+        answers.put("Loft Story", 1);
+        answers.put("Les anges", 0);
+
+        q.setAnswers(answers);
+
+        return q;
+
     }
 
 }

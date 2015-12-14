@@ -98,7 +98,6 @@ public class GameEngine implements Model {
             String imageName = getPlayer().getCurrentRoom().getImageName();
             String mapName = getPlayer().getCurrentRoom().getMapName();
             imageName = imageName.substring(0, imageName.length() - 4) + "G" + imageName.substring(imageName.length() - 4, imageName.length());
-            System.out.println(imageName);
             gl.gameStateModified(imageName, mapName);
         }
     }

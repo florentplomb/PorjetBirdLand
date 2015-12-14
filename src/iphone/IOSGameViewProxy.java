@@ -83,7 +83,8 @@ public class IOSGameViewProxy implements GameListener {
         return code;
     }
 
-    public void gameStateModified(String roomImageName) {
+
+    public void gameStateModified(String imageName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -109,7 +109,7 @@ public class GameEngine implements Model {
     public void interpretCommand(String commandLine) {
         clearOutputString();
         outputString += commandLine + "\n";
-
+        
         Command command = parser.getCommand(commandLine);
         
         //  System.out.println(command.getSecondWord());
@@ -165,7 +165,7 @@ public class GameEngine implements Model {
 
             }
         }
-        
+       notifyGameListeners();
     }
 
     // Set enable/disabled the view 

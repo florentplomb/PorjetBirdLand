@@ -26,12 +26,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Player;
 
-//import ch.modele.Question;
-//import ch.modele.Answer;
-//import java.util.ArrayList;
 /**
+ * Implementaion of the DataBaseController This class allow to connect and
+ * perfrom querys to the integrated database.
  *
  * @author Florent Plomb <plombf at gmail.com>
+ *
  */
 public class DataBaseController {
 
@@ -39,19 +39,13 @@ public class DataBaseController {
      * DB Connection data
      */
     private static final String url = GameParams.URL;
-    /**
-     * System out style :)
-     */
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
+
     /**
      * Random question engin
      */
     private static ListIterator<Integer> itrTabRdm = createItr();
 
-   
-     private static  int nbQuestion = 1;
+    private static int nbQuestion = 1;
     // Chargement du driver odbc une fois pour toute
 
     static {
@@ -62,6 +56,14 @@ public class DataBaseController {
         }
     }
 
+    /**
+     * Allows to initialiase the database in function of the DB-PrsionBreak.sql
+     * file
+     *
+     * @param con connection DB
+     *
+     *
+     */
     public static void initBD(Connection con) throws IOException, SQLException {
         try {
             BufferedReader in = new BufferedReader(new FileReader(new File("resources/bd/DB-PrisonBreak.sql")));
@@ -77,11 +79,14 @@ public class DataBaseController {
             //System.out.println(prisonBreakSQL);
             in.close();
         } catch (SQLException e) {
-            System.out.println("HEYYY" + e.getMessage());
+            System.out.println(e.getMessage());
             throw e;
         }
     }
 
+    /**
+     * Check if the connection is avaible
+     */
     public static void getConnection() {
         Connection con = null;
         DatabaseMetaData metas;
@@ -91,16 +96,15 @@ public class DataBaseController {
             con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             metas = con.getMetaData();
-           ResultSet tables = metas.getTables(con.getCatalog(), null, "GAME", null);
+            ResultSet tables = metas.getTables(con.getCatalog(), null, "GAME", null);
             if (!tables.next()) {
                 System.out.println("exist pas");
                 initBD(con);
-            }else{
+            } else {
                 System.out.println("Exist");
             }
             nbQuestion = getNumberofQuestion();
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
                     JOptionPane.ERROR_MESSAGE);
@@ -126,6 +130,11 @@ public class DataBaseController {
         return tabNumbers;
     }
 
+    /**
+     * Get a new question in the database
+     *
+     * @return a random question
+     */
     public static Question getQuestion() {
 
         Question q = new Question();
@@ -154,12 +163,8 @@ public class DataBaseController {
 
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
-
-            // JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-            //JOptionPane.ERROR_MESSAGE);
         }
-        // fermeture de la connection à la base de donnée ainsi que de toutes 
-        //les ressources qui lui sont associées ! (ResultSet, Statement)
+
         try {
             con.close();
         } catch (SQLException e) {
@@ -190,7 +195,14 @@ public class DataBaseController {
         return nbrQuestion;
     }
 
-    public static boolean insertNamePlayer(String name) {
+    /**
+     * Allows to check if the name of a new player is already use
+     *
+     * @param name of the new player
+     * @return true if the name already exist
+     */
+
+    public static boolean checkIfexist(String name) {
         Connection con = null;
         boolean dejaInscrit = false;
 
@@ -223,6 +235,12 @@ public class DataBaseController {
         return dejaInscrit;
     }
 
+    /**
+     * Insert the new player in the database
+     *
+     * @param player new player
+     */
+
     public static void insertDataPlayer(Player player) {
         Connection con = null;
 
@@ -252,6 +270,11 @@ public class DataBaseController {
         }
     }
 
+    /**
+     * Get all data of the game table to display the score.
+     *
+     * @return List of all games
+     */
     public static ArrayList<Player> getPlayerBD() {
 
         ArrayList<Player> players = new ArrayList<Player>();
@@ -276,14 +299,12 @@ public class DataBaseController {
             players = null;
         }
 
-        // fermeture de la connection � la base de donn�e ainsi que de toutes 
-        //les ressources qui lui sont associ�es ! (ResultSet, Statement)
         try {
             con.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
                     JOptionPane.ERROR_MESSAGE);
-            //  System.out.println(e.getMessage());
+
         }
 
         return players;

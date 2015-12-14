@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 /**
- * 
+ * Implementai
  *@author Florent Plomb <plombf at gmail.com>
  */
 public class LookCmd extends Command{
@@ -23,6 +23,7 @@ public class LookCmd extends Command{
          
         clearOutputString();     
         appendToOutputString("You are +" +player.getCurrentRoom().getDescription());
+         
 
         return false;
     }

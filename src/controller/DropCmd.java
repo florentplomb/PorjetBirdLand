@@ -14,37 +14,34 @@ import model.item.Transportable;
  * @author Onur Erdogan
  *
  */
+/**
+ * Allows the player to drop an item of his inventory
+ *
+ * @param player the current player
+ * @return always false
+ */
+public class DropCmd extends Command {
 
-    /**
-     * Allows the player to drop an item of his inventory
-     *
-     * @param player the current player
-     * @return always false
-     */
-
-public class DropCmd extends Command{
     Transportable t;
     boolean dropCmdOK = false;
-
 
     public boolean execute(Player player) {
         clearOutputString();
 
-
-            if (hasSecondWord()) {
-                String itemName = getSecondWord();
-                Transportable item = (Transportable) player.getItem(itemName);
-                t = item;
-                if ( item == null) {
-                    appendToOutputString("This item doesn't exist");
-                } else {
-                    dropCmdOK = true;
-                    player.removeItem(item.getNAME());
-                    if (item.isIMMORTAL()) {
-                     player.getCurrentRoom().addItem(item); 
-                    }
-                    appendToOutputString("You just dropped the " + item.toString() +" in "+player.getCurrentRoom().getDescription() +".\n");
+        if (hasSecondWord()) {
+            String itemName = getSecondWord();
+            Transportable item = (Transportable) player.getItem(itemName);
+            t = item;
+            if (item == null) {
+                appendToOutputString("This item doesn't exist");
+            } else {
+                dropCmdOK = true;
+                player.removeItem(item.getNAME());
+                if (item.isIMMORTAL()) {
+                    player.getCurrentRoom().addItem(item);
                 }
+                appendToOutputString("You just dropped the " + item.toString() + " in " + player.getCurrentRoom().getDescription() + ".\n");
+            }
 
         } else {
             // if there is no second word, we don't know where to go...
@@ -53,17 +50,12 @@ public class DropCmd extends Command{
         return false;
     }
 
-
     public Transportable getDropItem() {
         return t;
     }
 
-
-
-    
-    public boolean getDropCmdOK(){
+    public boolean getDropCmdOK() {
         return dropCmdOK;
     }
-    
 
 }

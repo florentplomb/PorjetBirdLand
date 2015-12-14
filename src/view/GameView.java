@@ -144,6 +144,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         myPlayerStats.clear();
         myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +" Kg");
         myPlayerStats.add("Moves: " + engine.getPlayer().getMove());
+        myPlayerStats.add("Points: " + engine.getPlayer().getPoint());
     }
 
     /**
@@ -305,8 +306,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
         //Global MAP
         globalMapLabel = new JLabel();
-        globalMapLabel.setPreferredSize(new Dimension(250, 295));
-        globalMapLabel.setMinimumSize(new Dimension(250, 295));
+        globalMapLabel.setPreferredSize(new Dimension(200, 300));
+        globalMapLabel.setMinimumSize(new Dimension(200, 300));
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();

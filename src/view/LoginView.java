@@ -90,7 +90,7 @@ public class LoginView extends JDialog {
           try{
             boolean sucess = true;
             if (!jtf.getText().isEmpty()) {
-                    sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());       
+                    sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());       
             }
             if (!sucess) {
                 System.out.println("Sucess");

@@ -305,8 +305,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
         //Global MAP
         globalMapLabel = new JLabel();
-        globalMapLabel.setPreferredSize(new Dimension(250, 300));
-        globalMapLabel.setMinimumSize(new Dimension(250, 300));
+        globalMapLabel.setPreferredSize(new Dimension(250, 295));
+        globalMapLabel.setMinimumSize(new Dimension(250, 295));
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();

@@ -54,4 +54,8 @@ public class GameViewProxy extends Thread implements GameListener {
         }
 
     }
+
+    public void gameStateModified(String imageName, String mapName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

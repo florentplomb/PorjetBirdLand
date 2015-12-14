@@ -64,7 +64,7 @@ public class DataBaseController {
 
     public static void initBD(Connection con) throws IOException, SQLException {
         try {
-            BufferedReader in = new BufferedReader(new FileReader(new File("DB-PrisonBreak.sql")));
+            BufferedReader in = new BufferedReader(new FileReader(new File("resources/bd/DB-PrisonBreak.sql")));
             String line;
             PreparedStatement ps;
             while ((line = in.readLine()) != null) {

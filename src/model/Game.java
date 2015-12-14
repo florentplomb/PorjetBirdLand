@@ -150,8 +150,8 @@ public class Game {
 
     // Initialize the first room.
     private void setFirstOutput() {
-        engine.appendToOutputString("Welcome to the World of Zuul!\n");
-        engine.appendToOutputString("World of Zuul is a great adventure game.\n");
+        engine.appendToOutputString("Welcome to PrisonBreak!\n");
+        engine.appendToOutputString("PrisonBreak is a great adventure game.\n");
         engine.appendToOutputString("Type 'help' if you need help.\n");
     }
     

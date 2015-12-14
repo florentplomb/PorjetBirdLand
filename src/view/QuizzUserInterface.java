@@ -23,7 +23,7 @@ import model.item.Alarm;
  *
  * @author Florent Plomb <plombf at gmail.com>
  */
-public class QuizzUserInterface extends JFrame implements ActionListener {
+public class QuizzUserInterface extends JDialog implements ActionListener {
 
     private JButton one, two, three, for4;
     private HashMap<Integer, Integer> answers;
@@ -37,6 +37,7 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
     private JPanel mainPanel, questionPanel;
 
     public QuizzUserInterface(GameEngine ge, Player p) {
+        this.setModal(true);
         this.cpt = 1;
         this.ge = ge;
         this.loose = false;
@@ -46,9 +47,10 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         this.countScore = 0;
         this.setTitle("QUIZZ");
         this.setLocationRelativeTo(null);
-        setSize(400, 250);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setVisible(true);
+        this.setSize(400, 250);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        
         //Container pane = getContentPane();
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -87,7 +89,9 @@ public class QuizzUserInterface extends JFrame implements ActionListener {
         questionPanel.add(two);
         questionPanel.add(three);
         questionPanel.add(for4);
-        setContentPane(mainPanel);
+        this.setContentPane(mainPanel);
+        this.setVisible(true);
+        
 
     }
 

@@ -1,6 +1,7 @@
 package PrisonBreak;
 
 import controller.GameParms;
+import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;

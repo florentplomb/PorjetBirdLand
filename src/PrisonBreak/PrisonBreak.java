@@ -1,10 +1,5 @@
 package PrisonBreak;
 
-import controller.GameParams;
-import java.awt.Dialog;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Game;

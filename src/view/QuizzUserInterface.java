@@ -150,12 +150,6 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
 
                     System.exit(0);
                 } else {
-//                    txt = "You loose... ALARM!!!!";
-//                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
-//                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
-//                    JDialog dialog = optionPane.createDialog(txt);
-//                    dialog.setModal(true);
-//                    dialog.setVisible(true);
 
                     Alarm.use();
                     this.ge.alarm();
@@ -163,8 +157,6 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
                 }
 
             } else {
-//                JOptionPane.showMessageDialog(null, "You win the quizz you can continues",
-//                        "Quizz won", JOptionPane.PLAIN_MESSAGE, null);
                 this.ge.setGV(true);
 
             }
@@ -189,24 +181,6 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
             }
         
         desire.setText(printQ);
-    }
-
-    private Question getQuestionMobile() {
-        Question q = new Question();
-
-        HashMap<String, Integer> answers = new HashMap<String, Integer>();
-
-        q.setTitle("EN DUR CODE Quellle est la première émission de télé-réalité française ?");
-
-        answers.put("Koh-Lanta", 0);
-        answers.put("Secret Story", 0);
-        answers.put("Loft Story", 1);
-        answers.put("Les anges", 0);
-
-        q.setAnswers(answers);
-
-        return q;
-
     }
 
 }

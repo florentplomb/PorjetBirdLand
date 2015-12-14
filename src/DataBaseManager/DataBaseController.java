@@ -50,8 +50,8 @@ public class DataBaseController {
      */
     private static ListIterator<Integer> itrTabRdm = createItr();
 
-    private static final int nbQuestion = 3;
-    //  private static final int nbQuestion = getNumberofQuestion();
+   
+     private static final int nbQuestion = getNumberofQuestion();
     // Chargement du driver odbc une fois pour toute
 
     static {

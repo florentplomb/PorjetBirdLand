@@ -92,6 +92,16 @@ public class GameEngine implements Model {
             gl.gameStateModified(imageName, mapName);
         }
     }
+    
+    public void notifyGameListenersWithGuardian() {
+        for (GameListener gl : gameListeners) {
+            String imageName = getPlayer().getCurrentRoom().getImageName();
+            String mapName = getPlayer().getCurrentRoom().getMapName();
+            imageName = imageName.substring(0, imageName.length() - 4) + "G" + imageName.substring(imageName.length() - 4, imageName.length());
+            System.out.println(imageName);
+            gl.gameStateModified(imageName, mapName);
+        }
+    }
 
     /*
      * Given a command, execute the command. If this command ends the game,
@@ -133,7 +143,7 @@ public class GameEngine implements Model {
 
                     } else {
                         gv.enable(false);
-                        notifyGameListeners();
+                        notifyGameListenersWithGuardian();
                         new QuizzUserInterface(this, player);
                     }
                 }

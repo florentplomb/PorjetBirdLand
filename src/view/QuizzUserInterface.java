@@ -158,12 +158,12 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
 
                     System.exit(0);
                 } else {
-                    txt = "You loose... ALARM!!!!";
-                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
-                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
-                    JDialog dialog = optionPane.createDialog(txt);
-                    dialog.setModal(true);
-                    dialog.setVisible(true);
+//                    txt = "You loose... ALARM!!!!";
+//                    icon = new ImageIcon(getClass().getResource("/images/alarm.jpg"));
+//                    JOptionPane optionPane = new JOptionPane(null, JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, icon);
+//                    JDialog dialog = optionPane.createDialog(txt);
+//                    dialog.setModal(true);
+//                    dialog.setVisible(true);
 
                     Alarm.use();
                     this.ge.alarm();

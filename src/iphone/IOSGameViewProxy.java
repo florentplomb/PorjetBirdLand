@@ -66,7 +66,7 @@ public class IOSGameViewProxy implements GameListener {
 
     }
 
-    public void gameStateModified(String roomName) {
+    public void gameStateModified(String roomName, String mapName) {
         if (out != null) {
             System.out.println("Initial room is " + player.getCurrentRoom().getDescription() + " with exits: " + code(player.getCurrentRoom().getExits()) + " " + player.getCurrentRoom().getImageName());
             out.println(player.getCurrentRoom().getDescription() + "/" + code(player.getCurrentRoom().getExits()) + "/" + player.getCurrentRoom().getImageName());
@@ -81,5 +81,9 @@ public class IOSGameViewProxy implements GameListener {
             code = code + s + ",";
         }
         return code;
+    }
+
+    public void gameStateModified(String roomImageName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

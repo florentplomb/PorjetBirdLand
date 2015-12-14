@@ -76,7 +76,7 @@ public class Game {
 
     // Create all the rooms and link their exits together.
     private void createRooms() {
-        Room mainCell, cellEast1, cellEast2, cellWest1, cellWest2, mainCorridorBegin, mainCorridorMiddle, endCorridor, alarmRoom, outside;
+        Room mainCell, cellEast1, cellEast2, cellWest1, cellWest2, mainCorridorBegin, mainCorridorMiddle, outside, alarmRoom, outsideEscape;
 
         /*
          * Create all the rooms
@@ -90,13 +90,13 @@ public class Game {
         cellWest2 = new Room("Second west cell", "/images/cellule4.jpg","cellWest2");
         mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/mainCorridorBegin.jpg","mainCorridorBegin");
         mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","mainCorridorMiddle");
-        endCorridor = new Room("The end of the corridor, almost outside", "/images/endCorridor.png","endCorridor");
-        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarmRoom.png","alarmRoom");
-        outside = new Room("Outside, the place for escaping!", "/images/outside.png","outside");
+        outside = new Room("outside!", "/images/outside.jpg","outside");
+        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarme.jpg","alarmRoom");
+        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","liberty wall");
         
-        rooms.add(outside);
+        rooms.add(outsideEscape);
         rooms.add(alarmRoom);
-        rooms.add(endCorridor);
+        rooms.add(outside);
         rooms.add(mainCorridorMiddle);
         rooms.add(mainCorridorMiddle);
         rooms.add(cellEast1);
@@ -115,7 +115,7 @@ public class Game {
         mainCorridorBegin.setExit("east", cellEast1);
         mainCorridorBegin.setExit("west", cellWest1);
         
-        mainCorridorMiddle.setExit("north", endCorridor);
+        mainCorridorMiddle.setExit("north", outside);
         mainCorridorMiddle.setExit("south", mainCorridorBegin);
         mainCorridorMiddle.setExit("east", cellEast2);
         mainCorridorMiddle.setExit("west", cellWest2);
@@ -125,13 +125,13 @@ public class Game {
         cellWest1.setExit("east", mainCorridorBegin);
         cellWest2.setExit("east", mainCorridorMiddle);
         
-        endCorridor.setExit("south", mainCorridorMiddle);
-        endCorridor.setExit("east", alarmRoom);
-        endCorridor.setExit("west", outside);
+        outside.setExit("south", mainCorridorMiddle);
+        outside.setExit("east", alarmRoom);
+        outside.setExit("west", outsideEscape);
         
-        alarmRoom.setExit("west", endCorridor);
+        alarmRoom.setExit("west", outside);
         
-        outside.setExit("east", endCorridor);
+        outsideEscape.setExit("east", outside);
         
         
    

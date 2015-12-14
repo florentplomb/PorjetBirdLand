@@ -161,8 +161,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         playerImage = getClass().getResource("/images/prisoner.jpg");
     }
 
-    private void setMapImage() {
-        mapImage = getClass().getResource("/images/map.gif");
+    private void setMapImage(String mapImageName) {
+        mapImage = getClass().getResource(mapImageName);
     }
 
     public void setMainPan() {
@@ -305,8 +305,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
         //Global MAP
         globalMapLabel = new JLabel();
-        globalMapLabel.setPreferredSize(new Dimension(150, 150));
-        globalMapLabel.setMinimumSize(new Dimension(150, 150));
+        globalMapLabel.setPreferredSize(new Dimension(250, 300));
+        globalMapLabel.setMinimumSize(new Dimension(250, 300));
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();

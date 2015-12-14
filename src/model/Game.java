@@ -1,7 +1,7 @@
 package model;
 
 import communication.GameViewProxy;
-import controller.GameParms;
+import controller.GameParams;
 import controller.Parser;
 import iphone.IOSGameViewProxy;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class Game {
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
 
-        if (GameParms.mobileApp) {
+       
 
             GameListener remoteJavaView = new GameViewProxy(engine);
             // calls the run method of GameViewProxy
@@ -65,7 +65,7 @@ public class Game {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
+        
 
 //*******************************************************************************************
     }
@@ -134,7 +134,7 @@ public class Game {
         Ladder l = new Ladder("ladder", "You can climb on ladder", 8, true, "/images/ladder.jpg");
         alarmRoom.addItem(Alarm.getInstance());
         
-        if (GameParms.DemoGame) {
+        if (GameParams.DemoGame) {
             cellEast1.addItem(b);
             cellWest2.addItem(l);
             
@@ -148,7 +148,7 @@ public class Game {
     }
 
     private void createGuardian() {
-        if (GameParms.DemoGame) {
+        if (GameParams.DemoGame) {
            guardian01 = new Guardian("Joe", rooms.get(4)); 
         }
         else{

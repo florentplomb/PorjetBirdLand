@@ -6,7 +6,7 @@
 package view;
 
 import DataBaseManager.DataBaseController;
-import controller.GameParms;
+import controller.GameParams;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -90,11 +90,7 @@ public class LoginView extends JDialog {
           try{
             boolean sucess = true;
             if (!jtf.getText().isEmpty()) {
-                if (GameParms.mobileApp) {
-                    sucess = false;
-                }else{
-                    sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());
-                }
+                    sucess = DataBaseController.insertNamePlayer(jtf.getText().toUpperCase());       
             }
             if (!sucess) {
                 System.out.println("Sucess");

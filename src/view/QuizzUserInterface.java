@@ -3,7 +3,7 @@ package view;
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
 import controller.ClimbCmd;
-import controller.GameParms;
+import controller.GameParams;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
@@ -49,8 +49,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setSize(400, 250);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        
-        
+
         //Container pane = getContentPane();
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -70,12 +69,6 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.three = new JButton("3");
         this.for4 = new JButton("4");
 
-        if (GameParms.mobileApp) {
-
-        } else {
-
-        }
-
         this.newQuestion();
 
         one.addActionListener(this);
@@ -91,7 +84,6 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         questionPanel.add(for4);
         this.setContentPane(mainPanel);
         this.setVisible(true);
-        
 
     }
 
@@ -180,29 +172,22 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
             this.dispose();
 
         }
-        
-         Question q = null;
 
-        if (GameParms.mobileApp) {
-
-           q = getQuestionMobile();
-        } else{
-           q = DataBaseController.getQuestion();
-        }
-
-      
+        Question q = DataBaseController.getQuestion();
 
         String printQ = q.getTitle() + "\n";
 
         int cptAnswer = 0;
-        for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
-            cptAnswer++;
-            printQ += cptAnswer + ") " + entry.getKey() + "\n";
-            answers.put(cptAnswer, entry.getValue());
-            if (entry.getValue() == 1) {
-                // result.setAnswer(entry.getKey());
+
+            for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
+                cptAnswer++;
+                printQ += cptAnswer + ") " + entry.getKey() + "\n";
+                answers.put(cptAnswer, entry.getValue());
+                if (entry.getValue() == 1) {
+                    // result.setAnswer(entry.getKey());
+                }
             }
-        }
+        
         desire.setText(printQ);
     }
 

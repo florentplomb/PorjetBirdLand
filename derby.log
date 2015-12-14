@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Mon Dec 14 12:43:27 CET 2015:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0151-a04d-6bd1-000006da5b10 
-dans le répertoire de base de données C:\Users\Florent\Dropbox\Master\POO\PrisonBreak\quizz  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@14dad5dc
+Mon Dec 14 15:51:03 CET 2015:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0151-a0f9-2c51-000006d9fa18 
+dans le répertoire de base de données C:\Users\Florent\Dropbox\Master\POO\PrisonBreak\quizz  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@60e53b93
 
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_65-b17

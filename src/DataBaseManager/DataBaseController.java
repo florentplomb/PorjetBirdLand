@@ -5,14 +5,15 @@
  */
 package DataBaseManager;
 
-
 //import java.sql.*;
-import controller.GameParms;
+import controller.GameParams;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = GameParms.URL;
+    private static final String url = GameParams.URL;
     /**
      * System out style :)
      */
@@ -49,8 +50,9 @@ public class DataBaseController {
      */
     private static ListIterator<Integer> itrTabRdm = createItr();
 
-    private static final int nbQuestion = getNumberofQuestion();
-             // Chargement du driver odbc une fois pour toute
+    private static final int nbQuestion = 3;
+    //  private static final int nbQuestion = getNumberofQuestion();
+    // Chargement du driver odbc une fois pour toute
 
     static {
         try {
@@ -59,41 +61,50 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static void initBD(Connection con){
-        try{
-                BufferedReader in = new BufferedReader(new FileReader(new File("DB-PrisonBreak.sql")));
-                String line;
-                PreparedStatement ps;
-                while ((line = in.readLine()) != null)
-                {
+
+    public static void initBD(Connection con) throws IOException, SQLException {
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(new File("DB-PrisonBreak.sql")));
+            String line;
+            PreparedStatement ps;
+            while ((line = in.readLine()) != null) {
                 // Afficher le contenu du fichier
-                  System.out.println (line);
-                  //prisonBreakSQL = prisonBreakSQL+"\n"+line;
-                  ps = con.prepareStatement(line);
-                  ps.execute();
-                }
-                //System.out.println(prisonBreakSQL);
-                in.close();
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-                System.out.println ("Le fichier n'a pas été trouvé");
+                System.out.println(line);
+                //prisonBreakSQL = prisonBreakSQL+"\n"+line;
+                ps = con.prepareStatement(line);
+                ps.execute();
             }
-    }    
-    public static void getConnection(){
+            //System.out.println(prisonBreakSQL);
+            in.close();
+        } catch (SQLException e) {
+            System.out.println("HEYYY" + e.getMessage());
+            throw e;
+        }
+    }
+
+    public static void getConnection() {
         Connection con = null;
-    //initBD();
-            try {
-                // Connection ï¿½ la base de donnï¿½es
-                con = DriverManager.getConnection(url);
+        DatabaseMetaData metas;
+
+        try {
+            // Connection ï¿½ la base de donnï¿½es
+            con = DriverManager.getConnection(url);
+            Statement requete = con.createStatement();
+            metas = con.getMetaData();
+           ResultSet tables = metas.getTables(con.getCatalog(), null, "GAME", null);
+            if (!tables.next()) {
+                System.out.println("exist pas");
                 initBD(con);
+            }else{
+                System.out.println("Exist");
             }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-                JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-                JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
 
     private static ListIterator<Integer> createItr() {
@@ -141,9 +152,9 @@ public class DataBaseController {
             itrTabRdm.remove();
 
         } catch (Exception e) {
-            System.out.println("Error"+e.getMessage());
+            System.out.println("Error" + e.getMessage());
 
-           // JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+            // JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
             //JOptionPane.ERROR_MESSAGE);
         }
         // fermeture de la connection Ã  la base de donnÃ©e ainsi que de toutes 
@@ -187,10 +198,10 @@ public class DataBaseController {
             con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incrï¿½mentï¿½ il NE FAUT PAS le dï¿½finir ;-)
-          
+
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
             // Parcours de l'ensemble de rï¿½sultats
-            
+
             while (ensembleResultats.next() && !dejaInscrit) {
                 if (name.equals(ensembleResultats.getString("PLAYER"))) {
                     dejaInscrit = true;
@@ -210,24 +221,23 @@ public class DataBaseController {
 
         return dejaInscrit;
     }
-    
-       public static void insertDataPlayer(Player player) {
-          Connection con = null;
+
+    public static void insertDataPlayer(Player player) {
+        Connection con = null;
 
         try {
             // Connection ï¿½ la base de donnï¿½es
             con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
-            
-             int nbPlayerAdd = requete.executeUpdate(
-                        "INSERT INTO GAME"
-                        + "(PLAYER,MOVE,POINT) VALUES "
-                        + "('" + player.getName().toUpperCase() + "',"+ player.getMove() + "," + player.getPoint() + ")",
-                        Statement.RETURN_GENERATED_KEYS);
-                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
-                Integer playerName = null;
-                        
-           
+
+            int nbPlayerAdd = requete.executeUpdate(
+                    "INSERT INTO GAME"
+                    + "(PLAYER,MOVE,POINT) VALUES "
+                    + "('" + player.getName().toUpperCase() + "'," + player.getMove() + "," + player.getPoint() + ")",
+                    Statement.RETURN_GENERATED_KEYS);
+            ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
+            Integer playerName = null;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -236,14 +246,14 @@ public class DataBaseController {
             con.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-        JOptionPane.ERROR_MESSAGE);
-          //  System.out.println(e.getMessage());
+                    JOptionPane.ERROR_MESSAGE);
+            //  System.out.println(e.getMessage());
         }
     }
-public static ArrayList<Player> getPlayerBD() {
+
+    public static ArrayList<Player> getPlayerBD() {
 
         ArrayList<Player> players = new ArrayList<Player>();
-
 
         Connection con = null;
 
@@ -271,12 +281,11 @@ public static ArrayList<Player> getPlayerBD() {
             con.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-        JOptionPane.ERROR_MESSAGE);
-          //  System.out.println(e.getMessage());
+                    JOptionPane.ERROR_MESSAGE);
+            //  System.out.println(e.getMessage());
         }
 
         return players;
     }
-
 
 }

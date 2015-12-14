@@ -1,6 +1,6 @@
 package PrisonBreak;
 
-import controller.GameParms;
+import controller.GameParams;
 import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,13 +15,13 @@ public class PrisonBreak {
     //The game started from the method
     public static void main(String[] args) {
         try {
+            
             DataBaseManager.DataBaseController.getConnection();
         } catch (ExceptionInInitializerError e) {
-            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed. Connect it and try again.", "Connection failed",
-                    JOptionPane.ERROR_MESSAGE);
-                     if (!GameParms.mobileApp) {
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed.", "Connection failed",
+                    JOptionPane.ERROR_MESSAGE);              
                         System.exit(0);
-                    }
+                    
         }
 
         LoginView login = new LoginView();

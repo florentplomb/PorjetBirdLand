@@ -6,7 +6,7 @@
 package view;
 
 import DataBaseManager.DataBaseController;
-import controller.GameParms;
+import controller.GameParams;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -32,15 +32,8 @@ public class ScoreView extends JFrame {
         this.setVisible(true);
 
         ArrayList<Player> players = new ArrayList<Player>();
-        if (!GameParms.mobileApp) {
-            players = DataBaseController.getPlayerBD();
 
-        } else {
-
-            players = new ArrayList<Player>();
-            players.add(player);
-
-        }
+        players = DataBaseController.getPlayerBD();
 
         Object[][] donnees = new Object[players.size()][4];
         int i = 0;

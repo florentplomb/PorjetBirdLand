@@ -21,7 +21,6 @@ public class ClimbCmd extends Command {
 
     public ClimbCmd() {
     }
-
     /**
      * Allows the player to climb the prison wall to escape, if the player isn't
      * in the escape room , he will be teleported in the random room
@@ -45,13 +44,10 @@ public class ClimbCmd extends Command {
                     if (action.equals("jump")) {
                         if (player.getCurrentRoom().getId().equals("outside")) {
                             if (player.getCurrentRoom().getItem("blanket") != null) {
-                                ScoreView scoreView = null;
-
-                                if (!GameParms.mobileApp) {
+                                                             
                                     DataBaseController.insertDataPlayer(player);
-                                }
-                                    scoreView = new ScoreView(player);
                                 
+                                    ScoreView scoreView = new ScoreView(player);
 
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",

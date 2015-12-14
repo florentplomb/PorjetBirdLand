@@ -17,16 +17,17 @@ public class GameParms {
 
     public static int MAX_WEIGHT = 10;
     
-    public static final String url = "jdbc:derby://localhost:1527/quizz";
+    //public static final String url = "jdbc:derby://localhost:1527/quizz";
+    public static final String URL="jdbc:derby:quizz;create=true";
 
-    public static final String userName = "quizz";
+    public static final String USERNAME = "quizz";
 
-    public static final String password = "1234";
+    public static final String PASSWORD = "1234";
     
     // si on met false , ça doit se connecter à la base de donée pour que le jeux démarre,
     // si on met true , ça passe l'erreur et on peut jouer
     
-    public static  boolean mobileApp = true;
+    public static  boolean mobileApp = false;
     
     // Pas fini
     

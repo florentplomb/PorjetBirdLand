@@ -211,7 +211,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
 
         HashMap<String, Integer> answers = new HashMap<String, Integer>();
 
-        q.setTitle("Quellle est la première émission de télé-réalité française ?");
+        q.setTitle("EN DUR CODE Quellle est la première émission de télé-réalité française ?");
 
         answers.put("Koh-Lanta", 0);
         answers.put("Secret Story", 0);

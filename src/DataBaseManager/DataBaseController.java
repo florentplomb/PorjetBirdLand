@@ -51,7 +51,7 @@ public class DataBaseController {
     private static ListIterator<Integer> itrTabRdm = createItr();
 
    
-     private static final int nbQuestion = getNumberofQuestion();
+     private static  int nbQuestion = 1;
     // Chargement du driver odbc une fois pour toute
 
     static {
@@ -98,6 +98,7 @@ public class DataBaseController {
             }else{
                 System.out.println("Exist");
             }
+            nbQuestion = getNumberofQuestion();
         } catch (Exception e) {
 
             System.out.println(e.getMessage());

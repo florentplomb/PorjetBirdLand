@@ -54,7 +54,11 @@ public class Game {
         engine.InitItemView();
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
+        
 
+            if (GameParms.mobileApp) {
+            
+   
         GameListener remoteJavaView = new GameViewProxy(engine);
         // calls the run method of GameViewProxy
         ((Thread) remoteJavaView).start(); 
@@ -64,6 +68,8 @@ public class Game {
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+             }
 
 //*******************************************************************************************
     }

@@ -49,14 +49,18 @@ public class ClimbCmd extends Command {
 
                                 if (!GameParms.mobileApp) {
                                     DataBaseController.insertDataPlayer(player);
-                                    
-                                    scoreView = new ScoreView(player);
                                 }
+                                    scoreView = new ScoreView(player);
+                                
 
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",
                                         "You are escaped!! Enjoy your life...", JOptionPane.PLAIN_MESSAGE, icon);
-                                scoreView.dispose();
+                                
+                                 
+                                     scoreView.dispose();
+                                
+                                                             
                                 System.exit(0);
                                 return true;
                             } else {

@@ -83,16 +83,16 @@ public class Game {
          * The first parameter is the description of the room and the second parameter is the path of the picture of the room.
          * If you want to have your own pictures, you should put them in the Resource Packages/images folder.
          */
-        mainCell = new Room("Player's cell, the cell where the escape starts", "/images/mainCell.jpg","mainCell");
-        cellEast1 = new Room("First east cell", "/images/cellule1.jpg","cellEast1");
-        cellEast2 = new Room("Second east cell", "/images/cellule3.jpg","cellEast2");
-        cellWest1 = new Room("First west cell", "/images/cellule2.jpg","cellEast3");
-        cellWest2 = new Room("Second west cell", "/images/cellule4.jpg","cellWest2");
-        mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/mainCorridorBegin.jpg","mainCorridorBegin");
-        mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","mainCorridorMiddle");
-        outside = new Room("outside!", "/images/outside.jpg","outside");
-        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarme.jpg","alarmRoom");
-        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","liberty wall");
+        mainCell = new Room("Player's cell, the cell where the escape starts", "/images/mainCell.jpg","/plan/mainCell.png","mainCell");
+        cellEast1 = new Room("First east cell", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
+        cellEast2 = new Room("Second east cell", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
+        cellWest1 = new Room("First west cell", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
+        cellWest2 = new Room("Second west cell", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
+        mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/mainCorridorBegin.jpg","/plan/begin.png","mainCorridorBegin");
+        mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
+        outside = new Room("outside!", "/images/outside.jpg","/plan/outside.png","outside");
+        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarme.jpg","/plan/alarm.png","alarmRoom");
+        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","liberty wall");
         
         rooms.add(outsideEscape);
         rooms.add(alarmRoom);

@@ -204,7 +204,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      *
      * @param roomImageName the name of the image of the room to be displayed
      */
-    public void gameStateModified(String roomImageName) {
+    public void gameStateModified(String roomImageName, String mapImageName) {
 
         // Tests if game is over, and disables the text field if it's the case.
         if (engine.isFinished()) {
@@ -221,7 +221,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         setPlayerStats();
         setRoomImage(roomImageName);
         setPlayerImage();
-        setMapImage();
+        setMapImage(mapImageName);
 
         // Updates images and lists displayed in the GUI.
         // IMPORTANT: Fields of the GUI must have been set to new values before.
@@ -733,5 +733,9 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void gameStateModified(String roomImageName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

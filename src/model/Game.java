@@ -1,6 +1,7 @@
 package model;
 
 import communication.GameViewProxy;
+import controller.GameParms;
 import controller.Parser;
 import iphone.IOSGameViewProxy;
 import java.util.ArrayList;
@@ -53,7 +54,11 @@ public class Game {
         engine.InitItemView();
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
+        
 
+            if (GameParms.mobileApp) {
+            
+   
         GameListener remoteJavaView = new GameViewProxy(engine);
         // calls the run method of GameViewProxy
         ((Thread) remoteJavaView).start(); 
@@ -63,6 +68,8 @@ public class Game {
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+             }
 
 //*******************************************************************************************
     }
@@ -130,9 +137,12 @@ public class Game {
    
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
-        mainCell.addItem(Alarm.getInstance());
-        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/echelle.gif"));
-        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/echelle.gif"));
+       
+ 
+        mainCell.addItem(new Blanket ("blanket", "You have to use to escape ",5,true,"/images/blanket.jpg"));
+        mainCell.addItem(new Ladder("ladder", "You can climb on ladder",8,true,"/images/ladder.jpg"));
+        alarmRoom.addItem(Alarm.getInstance());
+        
        
                 
         // Set start room of guardian
@@ -146,8 +156,8 @@ public class Game {
 
     // Initialize the first room.
     private void setFirstOutput() {
-        engine.appendToOutputString("Welcome to the World of Zuul!\n");
-        engine.appendToOutputString("World of Zuul is a great adventure game.\n");
+        engine.appendToOutputString("Welcome to PrisonBreak!\n");
+        engine.appendToOutputString("PrisonBreak is a great adventure game.\n");
         engine.appendToOutputString("Type 'help' if you need help.\n");
     }
     

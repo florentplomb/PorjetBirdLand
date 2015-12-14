@@ -7,6 +7,7 @@ package DataBaseManager;
 
 
 //import java.sql.*;
+import controller.GameParms;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +17,8 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.ListIterator;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Player;
 
 //import ch.modele.Question;
@@ -30,11 +33,11 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz";
+    private static final String url = GameParms.url;
 
-    private static final String userName = "quizz";
+    private static final String userName = GameParms.userName;
 
-    private static final String password = "1234";
+    private static final String password = GameParms.password;
     /**
      * System out style :)
      */
@@ -56,6 +59,30 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+public static void getConnection(){
+        final String url = "jdbc:derby://localhost:1527/quizz";
+
+     final String userName = "quizz";
+
+   final String password = "1234";
+   
+    Connection con = null;
+   
+            try {
+            // Connection � la base de donn�es
+            con = DriverManager.getConnection(url, userName, password);
+            Statement requete = con.createStatement();}
+            catch (Exception e){
+                JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+                
+                System.exit(0);
+            }
+           
+    
+}
 
     private static ListIterator<Integer> createItr() {
 
@@ -102,7 +129,11 @@ public class DataBaseController {
             itrTabRdm.remove();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+         //   System.out.println(e.getMessage());
+           
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+
         }
         // fermeture de la connection à la base de donnée ainsi que de toutes 
         //les ressources qui lui sont associées ! (ResultSet, Statement)
@@ -138,7 +169,7 @@ public class DataBaseController {
 
     public static boolean insertNamePlayer(String name) {
         Connection con = null;
-        boolean success = false;
+        boolean dejaInscrit = false;
 
         try {
             // Connection � la base de donn�es
@@ -146,46 +177,19 @@ public class DataBaseController {
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incr�ment� il NE FAUT PAS le d�finir ;-)
           
-
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
             // Parcours de l'ensemble de r�sultats
-            boolean dejaInscrit = false;
+            
             while (ensembleResultats.next() && !dejaInscrit) {
                 if (name.equals(ensembleResultats.getString("PLAYER"))) {
                     dejaInscrit = true;
                 }
 
             }
-            // fermeture de la connection � la base de donn�es ainsi que de toutes
-            //les ressources qui lui sont associ�es ! (ResultSet, Statement)
-
-            if (dejaInscrit) {
-
-                System.out.println("Already reigster");
-
-            } else {
-                int nbPlayerAdd = requete.executeUpdate(
-                        "INSERT INTO GAME"
-                        + "(PLAYER,MOVE,POINT) VALUES "
-                        + "('" + name.toUpperCase() + "', " + 0 + "," + 0 + ")",
-                        Statement.RETURN_GENERATED_KEYS);
-                System.out.println(nbPlayerAdd + " is added");
-                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
-                Integer playerName = null;
-
-                // Comme il n'y a eu qu'un seul insert, on peut faire un if au lieu d'un while
-                if (ensembleTuplesAjoutes.next()) {
-                    playerName = ensembleTuplesAjoutes.getInt(1);
-                }
-                System.out.println("L'id du nouveau tuple est : " + playerName);
-                ensembleTuplesAjoutes = null;
-                success = true;
-
-            }
 
             try {
                 con.close();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
@@ -193,7 +197,7 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
 
-        return success;
+        return dejaInscrit;
     }
     
        public static void insertDataPlayer(Player player) {
@@ -203,19 +207,26 @@ public class DataBaseController {
             // Connection � la base de donn�es
             con = DriverManager.getConnection(url, userName, password);
             Statement requete = con.createStatement();
-            int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
-                    + "SET point = " + player.getPoint() +", move = "+player.getMove()
-                    + "WHERE player = '" + player.getName().toUpperCase()+"'");
             
-            System.out.println(nombrePersonnesModifiees + " player modified");
+             int nbPlayerAdd = requete.executeUpdate(
+                        "INSERT INTO GAME"
+                        + "(PLAYER,MOVE,POINT) VALUES "
+                        + "('" + player.getName().toUpperCase() + "',"+ player.getMove() + "," + player.getPoint() + ")",
+                        Statement.RETURN_GENERATED_KEYS);
+                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
+                Integer playerName = null;
+                        
+           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         try {
             con.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+          //  System.out.println(e.getMessage());
         }
     }
 public static ArrayList<Player> getPlayerBD() {
@@ -248,10 +259,13 @@ public static ArrayList<Player> getPlayerBD() {
         try {
             con.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+        JOptionPane.ERROR_MESSAGE);
+          //  System.out.println(e.getMessage());
         }
 
         return players;
     }
+
 
 }

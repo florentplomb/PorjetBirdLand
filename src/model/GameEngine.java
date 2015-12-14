@@ -88,7 +88,8 @@ public class GameEngine implements Model {
     public void notifyGameListeners() {
         for (GameListener gl : gameListeners) {
             String imageName = getPlayer().getCurrentRoom().getImageName();
-            gl.gameStateModified(imageName);
+            String mapName = getPlayer().getCurrentRoom().getMapName();
+            gl.gameStateModified(imageName, mapName);
         }
     }
 

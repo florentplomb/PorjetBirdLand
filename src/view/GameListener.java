@@ -17,4 +17,6 @@ public interface GameListener {
      * @param roomImageName is the name of the current room
      */
     void gameStateModified(String roomImageName);
+
+    public void gameStateModified(String imageName, String mapName);
 }

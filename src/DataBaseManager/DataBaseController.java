@@ -8,9 +8,13 @@ package DataBaseManager;
 
 //import java.sql.*;
 import controller.GameParms;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,11 +37,7 @@ public class DataBaseController {
     /**
      * DB Connection data
      */
-    private static final String url = GameParms.url;
-
-    private static final String userName = GameParms.userName;
-
-    private static final String password = GameParms.password;
+    private static final String url = GameParms.URL;
     /**
      * System out style :)
      */
@@ -54,35 +54,47 @@ public class DataBaseController {
 
     static {
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
     
-    
-public static void getConnection(){
-        final String url = "jdbc:derby://localhost:1527/quizz";
-
-     final String userName = "quizz";
-
-   final String password = "1234";
-   
-    Connection con = null;
-   
+    public static void initBD(Connection con){
+        try{
+                BufferedReader in = new BufferedReader(new FileReader(new File("DB-PrisonBreak.sql")));
+                String line;
+                PreparedStatement ps;
+                while ((line = in.readLine()) != null)
+                {
+                // Afficher le contenu du fichier
+                  System.out.println (line);
+                  //prisonBreakSQL = prisonBreakSQL+"\n"+line;
+                  ps = con.prepareStatement(line);
+                  ps.execute();
+                }
+                //System.out.println(prisonBreakSQL);
+                in.close();
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                System.out.println ("Le fichier n'a pas �t� trouv�");
+            }
+    }    
+    public static void getConnection(){
+        Connection con = null;
+    //initBD();
             try {
-            // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
-            Statement requete = con.createStatement();}
+                // Connection � la base de donn�es
+                con = DriverManager.getConnection(url);
+                initBD(con);
+            }
             catch (Exception e){
+                System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-        JOptionPane.ERROR_MESSAGE);
-                
+                JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
-           
-    
-}
+    }
 
     private static ListIterator<Integer> createItr() {
 
@@ -114,10 +126,10 @@ public static void getConnection(){
         try {
             // Connection à la base de données
 
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet QuestionSet = requete.executeQuery("SELECT QUESTION.TITLE AS Qtitle, ANSWER.TITLE AS Atitle,"
-                    + " ISCORRECT FROM QUIZZ.QUESTION INNER JOIN QUIZZ.ANSWER ON QUESTION.ID = QUESTION_ID WHERE QUESTION.ID =" + itrTabRdm.next() + "");
+                    + " ISCORRECT FROM QUESTION INNER JOIN ANSWER ON QUESTION.ID = QUESTION_ID WHERE QUESTION.ID =" + itrTabRdm.next() + "");
             // Parcours de l'ensemble de résultats
             HashMap<String, Integer> answers = new HashMap<String, Integer>();
             QuestionSet.next();
@@ -129,11 +141,10 @@ public static void getConnection(){
             itrTabRdm.remove();
 
         } catch (Exception e) {
-         //   System.out.println(e.getMessage());
-           
-            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
-        JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error"+e.getMessage());
 
+           // JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+            //JOptionPane.ERROR_MESSAGE);
         }
         // fermeture de la connection à la base de donnée ainsi que de toutes 
         //les ressources qui lui sont associées ! (ResultSet, Statement)
@@ -149,7 +160,7 @@ public static void getConnection(){
         Connection con = null;
         int nbrQuestion = 1;
         try {
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet countQuestion = requete.executeQuery("SELECT COUNT(" + 1 + ") FROM question");
 
@@ -173,7 +184,7 @@ public static void getConnection(){
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incr�ment� il NE FAUT PAS le d�finir ;-)
           
@@ -205,7 +216,7 @@ public static void getConnection(){
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             
              int nbPlayerAdd = requete.executeUpdate(
@@ -238,7 +249,7 @@ public static ArrayList<Player> getPlayerBD() {
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME ORDER BY MOVE ");
             // Parcours de l'ensemble de r�sultats

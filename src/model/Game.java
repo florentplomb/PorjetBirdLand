@@ -89,7 +89,7 @@ public class Game {
         mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
         outside = new Room("outside!", "/images/outside.jpg","/plan/outside.png","outside");
         alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarme.jpg","/plan/alarm.png","alarmRoom");
-        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","liberty wall");
+        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","libertyWall");
         
         rooms.add(outsideEscape);
 

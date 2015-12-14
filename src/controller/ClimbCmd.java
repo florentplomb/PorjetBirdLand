@@ -42,7 +42,7 @@ public class ClimbCmd extends Command {
                 if (climbedObject.equals("ladder") && player.getCurrentRoom().getItem("ladder") != null) {
 
                     if (action.equals("jump")) {
-                        if (player.getCurrentRoom().getId().equals("outside")) {
+                        if (player.getCurrentRoom().getId().equals("libertyWall")) {
                             if (player.getCurrentRoom().getItem("blanket") != null) {
                                                              
                                     DataBaseController.insertDataPlayer(player);

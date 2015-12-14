@@ -102,6 +102,7 @@ public class GameEngine implements Model {
         outputString += commandLine + "\n";
 
         Command command = parser.getCommand(commandLine);
+        
         //  System.out.println(command.getSecondWord());
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
@@ -118,36 +119,44 @@ public class GameEngine implements Model {
                 }
             }
             if (command instanceof GoCmd) {
+                notifyGameListeners();
                 guardian01.setNextRoom();
                 // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
+                    notifyGameListeners();
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
+                        notifyGameListeners();
                         interpretCommand("drop bananapeel");
                         appendToOutputString("You used the bananpeel to skip the guardian.. \n");
                         gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
 
                     } else {
                         gv.enable(false);
+                        notifyGameListeners();
                         new QuizzUserInterface(this, player);
                     }
                 }
             } else if (command instanceof TakeCmd) {
+                notifyGameListeners();
                 TakeCmd c = (TakeCmd) command;
                 if (c.getTakeOk()) {
+                    notifyGameListeners();
                     gv.setPlayerItems(((TakeCmd) command).getLastTake());
                     c.setTakeOff();
                 }
             } else if (command instanceof DropCmd) {
+                notifyGameListeners();
                 DropCmd c = (DropCmd) command;
                 if (c.getDropCmdOK()) {
+                    notifyGameListeners();
                     gv.removePlayerItem(c.getDropItem());
                     gv.setRoomItems();
                 }
 
             }
         }
-        notifyGameListeners();
+        
     }
 
     // Set enable/disabled the view 

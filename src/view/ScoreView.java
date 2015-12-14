@@ -6,7 +6,6 @@
 package view;
 
 import DataBaseManager.DataBaseController;
-import controller.GameParams;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -16,7 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import model.Player;
 
 /**
- *
+ * This class allow to display the score tab
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class ScoreView extends JFrame {

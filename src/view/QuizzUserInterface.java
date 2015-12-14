@@ -86,13 +86,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.setVisible(true);
 
     }
-
-//    public void setPositionQuizz(GameEngine ge) {
-//        Point pGameView = ge.getGameView().getPanel().getLocationOnScreen();
-//        x = pGameView.getX();
-//        y = pGameView.getY();
-//        gvWidth = ge.getGameView().getPanel().getSize().getWidth();
-//    }
+ 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();

@@ -43,7 +43,7 @@ public class LoginView extends JDialog {
         this.setModal(true);
         this.text4user = new JLabel("Enter your player's name.");
 
-        this.alreadyRegister = new JLabel("This name alraedy exists please choose another one.");
+        this.alreadyRegister = new JLabel("This name already exists please choose another one.");
 
         this.alreadyRegister.setForeground(Color.red);
         this.alreadyRegister.setVisible(false);

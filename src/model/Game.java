@@ -53,19 +53,15 @@ public class Game {
 //******************* CODE FOR IPHONE PART OF THE PROJECT ***********************************      
 //******************* opens sockets for possible remote Java views      
 
-       
-
-            GameListener remoteJavaView = new GameViewProxy(engine);
-            // calls the run method of GameViewProxy
-            ((Thread) remoteJavaView).start();
-            try {
-                //opens sockets for possible remote iOS views
-                GameListener remoteiOSView = new IOSGameViewProxy(engine, player);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        
+        GameListener remoteJavaView = new GameViewProxy(engine);
+        // calls the run method of GameViewProxy
+        ((Thread) remoteJavaView).start();
+        try {
+            //opens sockets for possible remote iOS views
+            GameListener remoteiOSView = new IOSGameViewProxy(engine, player);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 //*******************************************************************************************
     }
@@ -79,18 +75,17 @@ public class Game {
          * The first parameter is the description of the room and the second parameter is the path of the picture of the room.
          * If you want to have your own pictures, you should put them in the Resource Packages/images folder.
          */
+        mainCell = new Room("in the player's cell, the cell where the escape starts.", "/images/mainCell.jpg", "/plan/mainCell.png", "mainCell");
+        cellEast1 = new Room("in the first cell.", "/images/cellule1.jpg", "/plan/cell1.png", "cellEast1");
+        cellEast2 = new Room("in the third cell.", "/images/cellule3.jpg", "/plan/cell3.png", "cellEast2");
+        cellWest1 = new Room("in the second cell.", "/images/cellule2.jpg", "/plan/cell2.png", "cellEast3");
+        cellWest2 = new Room("in the fourth cell.", "/images/cellule4.jpg", "/plan/cell4.png", "cellWest2");
+        mainCorridorBegin = new Room("in the beginin of the main corridor, the prison backbone.", "/images/mainCorridorBegin.jpg", "/plan/begin.png", "mainCorridorBegin");
+        mainCorridorMiddle = new Room("in the middle of the main corridor.", "/images/mainCorridorMiddle.jpg", "/plan/middle.png", "mainCorridorMiddle");
+        outside = new Room("outside!", "/images/outside.jpg", "/plan/outside.png", "outside");
+        alarmRoom = new Room("a little enclosure to outside, next to the alarm button.", "/images/alarme.jpg", "/plan/alarm.png", "alarmRoom");
+        outsideEscape = new Room("in front of the liberty wall! ", "/images/murEscape.jpg", "/plan/escape.png", "libertyWall");
 
-        mainCell = new Room("in the player's cell, the cell where the escape starts.", "/images/mainCell.jpg","/plan/mainCell.png","mainCell");
-        cellEast1 = new Room("in the first cell.", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
-        cellEast2 = new Room("in the third cell.", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
-        cellWest1 = new Room("in the second cell.", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
-        cellWest2 = new Room("in the fourth cell.", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
-        mainCorridorBegin = new Room("in the beginin of the main corridor, the prison backbone.", "/images/mainCorridorBegin.jpg","/plan/begin.png","mainCorridorBegin");
-        mainCorridorMiddle = new Room("in the middle of the main corridor." , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
-        outside = new Room("outside!", "/images/outside.jpg","/plan/outside.png","outside");
-        alarmRoom = new Room("a little enclosure to outside, next to the alarm button.", "/images/alarme.jpg","/plan/alarm.png","alarmRoom");
-        outsideEscape = new Room("in front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","libertyWall");
-        
         rooms.add(outsideEscape);
         rooms.add(alarmRoom);
         rooms.add(outside);
@@ -110,7 +105,6 @@ public class Game {
         mainCorridorBegin.setExit("east", cellEast1);
         mainCorridorBegin.setExit("west", cellWest1);
 
-        
         mainCorridorMiddle.setExit("north", outside);
 
         mainCorridorMiddle.setExit("south", mainCorridorBegin);
@@ -122,33 +116,26 @@ public class Game {
         cellWest1.setExit("east", mainCorridorBegin);
         cellWest2.setExit("east", mainCorridorMiddle);
 
-        
         outside.setExit("south", mainCorridorMiddle);
         outside.setExit("east", alarmRoom);
         outside.setExit("west", outsideEscape);
-        
+
         alarmRoom.setExit("west", outside);
-        
+
         outsideEscape.setExit("east", outside);
-        
-        
-   
 
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
 
-        Blanket b =  new Blanket("blanket", "You have to use it to escape. ", GameParams.WEIGHT_BLANKET, true, "/images/blanket.jpg");
+        Blanket b = new Blanket("blanket", "You have to use it to escape. ", GameParams.WEIGHT_BLANKET, true, "/images/blanket.jpg");
         Ladder l = new Ladder("ladder", "You can climb the ladder.", GameParams.WEIGHT_LADDER, true, "/images/ladder.jpg");
 
-    
         alarmRoom.addItem(Alarm.getInstance());
-        
-        if (GameParams.DEMOGAME) {
+
+        if (GameParams.DemoGame()) {
             cellEast1.addItem(b);
             cellWest2.addItem(l);
-            
-        }
-        else{
+        } else {
             this.getRandomRooms().addItem(b);
             this.getRandomRooms().addItem(l);
         }
@@ -156,9 +143,9 @@ public class Game {
     }
 
     private void createGuardian() {
-      
-           guardian01 = new Guardian("Joe", rooms.get(4)); 
-        
+
+        guardian01 = new Guardian("Joe", rooms.get(4));
+
     }
 
     // Initialize the first room.

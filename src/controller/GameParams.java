@@ -15,7 +15,7 @@ package controller;
  */
 public class GameParams {
 
-    public static int MAX_WEIGHT = 10;
+    public static final int MAX_WEIGHT = 60;
     
         /**
      * If true , the game don't use the random function to initialise the item's
@@ -23,7 +23,8 @@ public class GameParams {
      * and the guardian is fixed (he doesn't move) in the mainCorridorMiddle.
      *
      */
-    public static final boolean DEMOGAME = true;
+    
+    private static final boolean DEMOGAME = true;
 
     /**
      * The url  of the database
@@ -45,4 +46,17 @@ public class GameParams {
      */
     public static final int WEIGHT_BANANA = 1;
 
+    /**
+     * @return the flo
+     */
+    public static boolean DemoGame() {
+        return DEMOGAME;
+    }
+
+    public GameParams() {
+        
+    }
+
+    
+    
 }

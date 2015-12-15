@@ -41,7 +41,7 @@ public class LoginView extends JDialog {
     public LoginView() {
 
         this.setModal(true);
-        this.text4user = new JLabel("Enter your name.");
+        this.text4user = new JLabel("Enter your player name.");
 
         this.alreadyRegister = new JLabel("This name alraedy exists please choose another one.");
 
@@ -49,7 +49,7 @@ public class LoginView extends JDialog {
         this.alreadyRegister.setVisible(false);
 
         this.setTitle("Login");
-        this.setSize(300, 300);
+        this.setSize(350, 300);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         this.setLocationRelativeTo(null);

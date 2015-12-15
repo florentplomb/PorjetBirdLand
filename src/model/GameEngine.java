@@ -24,6 +24,7 @@ import view.QuizzUserInterface;
  * evaluates and executes the commands that the parser returns.
  */
 public class GameEngine implements Model {
+    
 
     private String outputString;
     private boolean finished;
@@ -33,10 +34,12 @@ public class GameEngine implements Model {
     private Guardian guardian01;
     private GameView gv;
 
+
     //Constructor
     public GameEngine(Parser parser, Player player, Guardian guardian01) {
         outputString = new String();
         finished = false;
+        
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
@@ -91,7 +94,7 @@ public class GameEngine implements Model {
             gl.gameStateModified(imageName, mapName);
         }
     }
-    
+
     public void notifyGameListenersWithGuardian() {
         for (GameListener gl : gameListeners) {
             String imageName = getPlayer().getCurrentRoom().getImageName();
@@ -108,9 +111,9 @@ public class GameEngine implements Model {
     public void interpretCommand(String commandLine) {
         clearOutputString();
         outputString += commandLine + "\n";
-        
+
         Command command = parser.getCommand(commandLine);
-        
+
         //  System.out.println(command.getSecondWord());
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
@@ -128,13 +131,15 @@ public class GameEngine implements Model {
             }
             if (command instanceof GoCmd) {
                 
-                 if (!GameParams.DEMOGAME) {
+                if (!GameParams.DemoGame()) {
                     guardian01.setNextRoom();
                 }
-
+                                   
                 notifyGameListeners();
- 
-                 appendToOutputString("\n The guardian is " +guardian01.getCurrentRoom().getDescription());
+               
+           
+
+                appendToOutputString("\n The guardian is " + guardian01.getCurrentRoom().getDescription());
 
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     notifyGameListeners();
@@ -170,17 +175,15 @@ public class GameEngine implements Model {
 
             }
         }
-       notifyGameListeners();
+        notifyGameListeners();
     }
 
     // Set enable/disabled the view 
-
     public void setGV(boolean b) {
         gv.enable(b);
     }
 
     // Initialise players items to view
-
     public void InitItemView() {
         System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
@@ -190,7 +193,6 @@ public class GameEngine implements Model {
     }
 
     // retrun the current game view
-
     public GameView getGameView() {
         return gv;
     }

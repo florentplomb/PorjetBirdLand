@@ -36,6 +36,7 @@ public class BackCmd extends Command {
             Room lastRoom = previousRoom.get(previousRoom.size() - 1);
             player.setCurrentRoom(lastRoom);
             previousRoom.remove(previousRoom.size() - 1);
+             player.setMove(1);
         }
 
         return false;

@@ -15,7 +15,7 @@ package controller;
  */
 public class GameParams {
 
-    public static final int MAX_WEIGHT = 60;
+    public static final int MAX_WEIGHT = 10;
     
         /**
      * If true , the game don't use the random function to initialise the item's

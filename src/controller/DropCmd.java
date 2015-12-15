@@ -33,14 +33,14 @@ public class DropCmd extends Command {
             Transportable item = (Transportable) player.getItem(itemName);
             t = item;
             if (item == null) {
-                appendToOutputString("This item doesn't exist");
+                appendToOutputString("This item doesn't exist.");
             } else {
                 dropCmdOK = true;
                 player.removeItem(item.getNAME());
                 if (item.isIMMORTAL()) {
                     player.getCurrentRoom().addItem(item);
                 }
-                appendToOutputString("You just dropped the " + item.toString() + " in " + player.getCurrentRoom().getDescription() + ".\n");
+                appendToOutputString("You just dropped the " + item.toString() + " in " + player.getCurrentRoom().getDescription() + "\n");
             }
 
         } else {

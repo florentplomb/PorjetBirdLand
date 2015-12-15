@@ -80,16 +80,16 @@ public class Game {
          * If you want to have your own pictures, you should put them in the Resource Packages/images folder.
          */
 
-        mainCell = new Room("Player's cell, the cell where the escape starts", "/images/mainCell.jpg","/plan/mainCell.png","mainCell");
-        cellEast1 = new Room("First  cell", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
-        cellEast2 = new Room("third cell", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
-        cellWest1 = new Room("second  cell", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
-        cellWest2 = new Room("fourth  cell", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
-        mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/mainCorridorBegin.jpg","/plan/begin.png","mainCorridorBegin");
-        mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
+        mainCell = new Room("in the player's cell, the cell where the escape starts.", "/images/mainCell.jpg","/plan/mainCell.png","mainCell");
+        cellEast1 = new Room("in the first cell.", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
+        cellEast2 = new Room("in the third cell.", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
+        cellWest1 = new Room("in the second cell.", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
+        cellWest2 = new Room("in the fourth cell.", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
+        mainCorridorBegin = new Room("in the beginin of the main corridor, the prison backbone.", "/images/mainCorridorBegin.jpg","/plan/begin.png","mainCorridorBegin");
+        mainCorridorMiddle = new Room("in the middle of the main corridor." , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
         outside = new Room("outside!", "/images/outside.jpg","/plan/outside.png","outside");
-        alarmRoom = new Room("A little enclosure outside, with the alarm button", "/images/alarme.jpg","/plan/alarm.png","alarmRoom");
-        outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","libertyWall");
+        alarmRoom = new Room("a little enclosure to outside, next to the alarm button.", "/images/alarme.jpg","/plan/alarm.png","alarmRoom");
+        outsideEscape = new Room("in front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","libertyWall");
         
         rooms.add(outsideEscape);
         rooms.add(alarmRoom);
@@ -136,9 +136,11 @@ public class Game {
 
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
-        
-        Blanket b =  new Blanket("blanket", "You have to use to escape ", GameParams.WEIGHT_BLANKET, true, "/images/blanket.jpg");
-        Ladder l = new Ladder("ladder", "You can climb on ladder", GameParams.WEIGHT_LADDER, true, "/images/ladder.jpg");
+
+        Blanket b =  new Blanket("blanket", "You have to use it to escape. ", GameParams.WEIGHT_BLANKET, true, "/images/blanket.jpg");
+        Ladder l = new Ladder("ladder", "You can climb the ladder.", GameParams.WEIGHT_LADDER, true, "/images/ladder.jpg");
+
+    
         alarmRoom.addItem(Alarm.getInstance());
         
         if (GameParams.DEMOGAME) {
@@ -161,9 +163,9 @@ public class Game {
 
     // Initialize the first room.
     private void setFirstOutput() {
-        engine.appendToOutputString("Welcome to PrisonBreak!\n");
-        engine.appendToOutputString("PrisonBreak is a great adventure game.\n");
-        engine.appendToOutputString("Type 'help' if you need help.\n");
+        engine.appendToOutputString("Welcome to Prison Break!\n");
+        engine.appendToOutputString("Prison Break is a great adventure game.\n");
+        engine.appendToOutputString("Type 'help' if you need it.\n");
     }
 
     public static Room getRandomRooms() {

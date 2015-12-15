@@ -131,12 +131,16 @@ public class GameEngine implements Model {
                  if (!GameParams.DEMOGAME) {
                     guardian01.setNextRoom();
                 }
+<<<<<<< HEAD
                 notifyGameListeners();
                 
                  appendToOutputString("\n The guardian is in " +guardian01.getCurrentRoom().getDescription());
+=======
+                 appendToOutputString("\n The guardian is " +guardian01.getCurrentRoom().getDescription());
+>>>>>>> a3d76a9795ec664b48bc40c9fa56fcddeab4f324
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     notifyGameListeners();
-                    appendToOutputString("\n Guardian is HERE \n");
+                    appendToOutputString("\n There is the guardian! \n");
                     if (player.getItem("bananapeel") != null) {
                         notifyGameListeners();
                         interpretCommand("drop bananapeel");

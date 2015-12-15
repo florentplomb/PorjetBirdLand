@@ -43,7 +43,7 @@ public class TakeCmd extends Command {
                     Transportable itemTrans = (Transportable) item;
                     lastTake = itemTrans;
                     if (itemTrans.getWEIGHT() + player.getWeightItems() > GameParams.MAX_WEIGHT) {
-                        appendToOutputString("You can't carry this object because your maximum weight will be exceeded");
+                        appendToOutputString("You can't carry this object because your maximum weight will be exceeded.");
                     } else {
                         takeOK = true;
                         player.addItem(itemTrans);
@@ -52,7 +52,7 @@ public class TakeCmd extends Command {
                     }
 
                 } else {
-                    appendToOutputString("This item is fixed you can't take it");
+                    appendToOutputString("This item is fixed you can't take it.");
                 }
 
             }

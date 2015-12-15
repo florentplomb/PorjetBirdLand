@@ -81,10 +81,10 @@ public class Game {
          */
 
         mainCell = new Room("Player's cell, the cell where the escape starts", "/images/mainCell.jpg","/plan/mainCell.png","mainCell");
-        cellEast1 = new Room("First east cell", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
-        cellEast2 = new Room("Second east cell", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
-        cellWest1 = new Room("First west cell", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
-        cellWest2 = new Room("Second west cell", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
+        cellEast1 = new Room("First  cell", "/images/cellule1.jpg","/plan/cell1.png","cellEast1");
+        cellEast2 = new Room("third cell", "/images/cellule3.jpg","/plan/cell3.png","cellEast2");
+        cellWest1 = new Room("second  cell", "/images/cellule2.jpg","/plan/cell2.png","cellEast3");
+        cellWest2 = new Room("fourth  cell", "/images/cellule4.jpg","/plan/cell4.png","cellWest2");
         mainCorridorBegin = new Room("Beginin of the main corridor, the prison backbone", "/images/mainCorridorBegin.jpg","/plan/begin.png","mainCorridorBegin");
         mainCorridorMiddle = new Room("Middle of the main corridor" , "/images/mainCorridorMiddle.jpg","/plan/middle.png","mainCorridorMiddle");
         outside = new Room("outside!", "/images/outside.jpg","/plan/outside.png","outside");

@@ -133,7 +133,7 @@ public class GameEngine implements Model {
                 // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     notifyGameListeners();
-                    appendToOutputString("\n Guardian is HERE \n");
+                    appendToOutputString("\n There is a guardian! \n");
                     if (player.getItem("bananapeel") != null) {
                         notifyGameListeners();
                         interpretCommand("drop bananapeel");

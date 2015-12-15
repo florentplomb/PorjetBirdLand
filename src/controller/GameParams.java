@@ -16,20 +16,19 @@ package controller;
 public class GameParams {
 
     public static int MAX_WEIGHT = 10;
+    
+        /**
+     * If true , the game don't use the random function to initialise the item's
+     * room (the room is defined: blanket in cellEast1 and ladder in cellWest2)
+     * and the guardian is fixed (he doesn't move) in the mainCorridorMiddle.
+     *
+     */
+    public static final boolean DEMOGAME = false;
 
     /**
      * The url  of the database
      */
     public static final String URL = "jdbc:derby:quizz;create=true";
-
-    /**
-     * If true , the game don't use the random function to initialise the item's
-     * room (the room is defined: blanket in cellEast1 and ladder in cellWest2)
-     * and the guardian is fixed (he doesn't move) in the mainCorridorMiddle.
-     *
-     *
-     */
-    public static final boolean DEMOGAME = false;
 
     /**
      * The weight of the ladder

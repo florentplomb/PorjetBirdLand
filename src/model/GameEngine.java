@@ -127,11 +127,12 @@ public class GameEngine implements Model {
                 }
             }
             if (command instanceof GoCmd) {
-                notifyGameListeners();
                 
                  if (!GameParams.DEMOGAME) {
                     guardian01.setNextRoom();
                 }
+                notifyGameListeners();
+                
                  appendToOutputString("\n The guardian is in " +guardian01.getCurrentRoom().getDescription());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     notifyGameListeners();

@@ -101,15 +101,14 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * @param t
      */
     public void setPlayerItems(Transportable t) {
-        System.out.println("setPlayerItems");
+       
         boolean notInsert = true;
         for (String key : itemsKeys.keySet()) {
             if (itemsKeys.get(key) == null) {
                 if (notInsert) {
                     itemsKeys.replace(key, t);
                     notInsert = false;
-                    System.out.println("Insert OK");
-                    System.out.println(t.getURL());
+ 
                     setItemImage(key, getClass().getResource(t.getURL()));
                 }
             }
@@ -126,7 +125,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     if (itemsKeys.get(key) != null) {
                         if (itemsKeys.get(key).equals(t)) {
                             itemsKeys.replace(key, null);
-                            System.out.println("Remove OK");
+                           
                             deleteItemImage(key);
                             removeOK = true;
                         }
@@ -554,8 +553,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     private void deleteItemImage(String key) {
-        System.out.println("deleteItemImage");
-        System.out.println(key);
+        
+       
         ImageIcon icon = new ImageIcon("/images/blanc.gif");
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
@@ -563,8 +562,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void setItemImage(String key, URL itemImageURL) {
-        System.out.println("setItemImage");
-        System.out.println(itemImageURL);
+       
+        
         ImageIcon icon = new ImageIcon(itemImageURL);
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
@@ -664,7 +663,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 //==============================================================================
 
     public void alarmeOn() {
-        System.out.println("Je sonne");
+       
         mainPanel.setBackground(Color.red);
 
         //GameViewAlert alert = new GameViewAlert(mainPanel);
@@ -672,7 +671,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void alarmeOff() {
-        System.out.println("Je sonne");
+       
         Color color = UIManager.getColor ( "Panel.background" );
         mainPanel.setBackground(color);
     }
@@ -683,7 +682,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (inputBox.getText().length() == 0) {
             String input;
-            System.out.println("keycode " + e.getKeyCode());
+            
             switch (e.getKeyCode()) {
                 case 37:
                     input = "go west";

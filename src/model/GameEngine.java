@@ -129,16 +129,16 @@ public class GameEngine implements Model {
                     }
                 }
             }
-            if (command instanceof GoCmd) {
-                
-                if (!GameParams.DemoGame()) {
-                    guardian01.setNextRoom();
-                }
-                                   
+            if (command instanceof GoCmd) {      
+      
+// pas oublier de remettre le if pour la demo                
+//                if (!GameParams.DemoGame()) {
+//                    guardian01.setNextRoom();
+//                }
+                                
+                guardian01.setNextRoom();
+                                               
                 notifyGameListeners();
-               
-           
-
                 appendToOutputString("\n The guardian is " + guardian01.getCurrentRoom().getDescription());
 
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {

@@ -162,4 +162,8 @@ public class SimpleRemoteView extends javax.swing.JFrame implements GameListener
     private void go(String direction) {
         engine.interpretCommand("go " + direction);
     }
+
+    public void gameStateModified(String imageName, String mapName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

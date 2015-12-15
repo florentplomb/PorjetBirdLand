@@ -41,9 +41,9 @@ public class LoginView extends JDialog {
     public LoginView() {
 
         this.setModal(true);
-        this.text4user = new JLabel("Enter your name");
+        this.text4user = new JLabel("Enter your name.");
 
-        this.alreadyRegister = new JLabel("This name alraedy exist please choice an other");
+        this.alreadyRegister = new JLabel("This name alraedy exists please choose another one.");
 
         this.alreadyRegister.setForeground(Color.red);
         this.alreadyRegister.setVisible(false);
@@ -88,7 +88,7 @@ public class LoginView extends JDialog {
                     sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());
                 }
                 if (!sucess) {
-                    System.out.println("Sucess");
+               
                     playerName = jtf.getText();
                     close();
                // start(playerName);
@@ -98,7 +98,6 @@ public class LoginView extends JDialog {
 
                 }
             } catch (Exception ex) {
-
                 System.out.println(ex);
             }
 

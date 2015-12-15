@@ -61,14 +61,30 @@ public class Room {
         return exits.get(direction);
     }
 
-    // Return a string describing the room's image name
+    
+    
+    /**
+     * Return a string describing the room's image name
+     * @return the image name
+     */
     public String getImageName() {
         return imageName;
     }
+    /**
+     * Return a string describing the map image name
+     * @return the map image name
+     */
     
     public String getMapName(){
         return mapName;
     }
+    
+    /**
+     * Return a specific item in the room
+     * @param it the item name
+     * @return the item
+     */
+    
     
     public Item getItem(String it){
        if(items.containsKey(it)){
@@ -76,9 +92,17 @@ public class Room {
        }
         return null;
     }
+    /**
+     * Add a item to a room
+     * @param item the added item
+     */
      public void addItem(Item item) {
         items.put(item.getNAME().toLowerCase(), item);
     }
+     /**
+      * Remove item to a room
+      * @param it the name of removed item
+      */
      public void removeItem(String it) {
         items.remove(it);
     }

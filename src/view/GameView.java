@@ -312,8 +312,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         roomItems = new JList();
         listScroller3 = new JScrollPane();
         listScroller3.getViewport().add(roomItems);
-        listScroller3.setPreferredSize(new Dimension(100, 80));
-        listScroller3.setMinimumSize(new Dimension(100, 80));
+        listScroller3.setPreferredSize(new Dimension(125, 80));
+        listScroller3.setMinimumSize(new Dimension(125, 80));
 
         roomlistPanel.add(listScroller3);
         roomlistPanel.setBorder(BorderFactory.createCompoundBorder(

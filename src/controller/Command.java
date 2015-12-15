@@ -1,4 +1,4 @@
-package controller;
+    package controller;
 
 import model.Player;
 
@@ -30,6 +30,7 @@ public abstract class Command {
         outputString = new String();
     }
 
+    
     /*
      * Return the second word of this command. If no second word was entered,
      * the result is null.

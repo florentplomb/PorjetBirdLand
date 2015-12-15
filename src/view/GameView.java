@@ -40,7 +40,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     private GameEngine engine;
     private ArrayList<String> keys = new ArrayList<String>();
     private HashMap<String, Transportable> itemsKeys = new HashMap<String, Transportable>();
-    private HashMap<String, JLabel> itemsLabel = new HashMap<String,JLabel>();
+    private HashMap<String, JLabel> itemsLabel = new HashMap<String, JLabel>();
 
     /**
      * Quizz variables
@@ -70,33 +70,34 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
         roomImage = null;
         playerImage = null;
-    
+
         createGUI();
 
         engine.addGameListener(this);
 
         // 'auto-invoke' method at start up since nothing has yet been displayed
-
     }
 
     /**
-     * Sets the list of room itemsURL. If you want to show itemsURL of current room,
- you should modify this method.
+     * Sets the list of room itemsURL. If you want to show itemsURL of current
+     * room, you should modify this method.
      */
-    private void setRoomItems() {
+    public void setRoomItems() {
         myRoomItems.clear();
         Room room = engine.getPlayer().getCurrentRoom();
-        if(!room.getAllItems().values().isEmpty()){
+        if (!room.getAllItems().values().isEmpty()) {
             for (Item item : room.getAllItems().values()) {
                 myRoomItems.add(item.getNAME());
             }
-        }else
+        } else {
             myRoomItems.add("none");
+        }
     }
 
     /**
      * Sets the list of player itemsURL. If you want to show the itemsURL of the
- player, you should modify this method.
+     * player, you should modify this method.
+     *
      * @param t
      */
     public void setPlayerItems(Transportable t) {
@@ -104,21 +105,35 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         boolean notInsert = true;
         for (String key : itemsKeys.keySet()) {
             if (itemsKeys.get(key) == null) {
-                if(notInsert){
+                if (notInsert) {
                     itemsKeys.replace(key, t);
-                    notInsert =false;
+                    notInsert = false;
                     System.out.println("Insert OK");
-                    setItemImage(key,getClass().getResource(t.getURL()));
+                    System.out.println(t.getURL());
+                    setItemImage(key, getClass().getResource(t.getURL()));
                 }
             }
         }
     }
-    
-    public void removePlayerItem(String key){
-        System.out.println("removePlayerItem");
-        itemsKeys.replace(key, null);
-        System.out.println("Remove OK");
-        deleteItemImage(key);
+
+    public void removePlayerItem(Transportable t) {
+       
+        boolean removeOK = false;
+        if (itemsKeys.containsValue(t)) {
+           
+            for (String key : itemsKeys.keySet()) {
+                if (!removeOK) {
+                    if (itemsKeys.get(key) != null) {
+                        if (itemsKeys.get(key).equals(t)) {
+                            itemsKeys.replace(key, null);
+                            System.out.println("Remove OK");
+                            deleteItemImage(key);
+                            removeOK = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -127,7 +142,9 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      */
     private void setPlayerStats() {
         myPlayerStats.clear();
-        myPlayerStats.add("none");
+        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +" Kg");
+        myPlayerStats.add("Moves: " + engine.getPlayer().getMove());
+        myPlayerStats.add("Points: " + engine.getPlayer().getPoint());
     }
 
     /**
@@ -142,21 +159,16 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * the player picture, you should modify this method.
      */
     private void setPlayerImage() {
-        playerImage = getClass().getResource("/images/knight.gif");
+        playerImage = getClass().getResource("/images/prisoner.jpg");
     }
 
-    private void setMapImage() {
-        mapImage = getClass().getResource("/images/map.gif");
+    private void setMapImage(String mapImageName) {
+        mapImage = getClass().getResource(mapImageName);
     }
 
-    public void setMainPan(){
+    public void setMainPan() {
         mainPanel.setVisible(false);
     }
-  
-    
-    
-    
-
 
 // ==================LISTENERS' METHODS==============================
     /**
@@ -166,13 +178,12 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
-            // no need to check the type of action at the moment.
+        // no need to check the type of action at the moment.
         // there is only one possible action: text entry
         processCommand();
 
         Object source = e.getSource();
 
-  
     }
 
     /**
@@ -194,12 +205,13 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      *
      * @param roomImageName the name of the image of the room to be displayed
      */
-    public void gameStateModified(String roomImageName) {
+    public void gameStateModified(String roomImageName, String mapImageName) {
 
         // Tests if game is over, and disables the text field if it's the case.
         if (engine.isFinished()) {
             enable(false);
         }
+        
 
         // Clears the text displayed and then gets the new data in the Engine.
         clearLog();
@@ -210,7 +222,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         setPlayerStats();
         setRoomImage(roomImageName);
         setPlayerImage();
-        setMapImage();
+        setMapImage(mapImageName);
 
         // Updates images and lists displayed in the GUI.
         // IMPORTANT: Fields of the GUI must have been set to new values before.
@@ -222,9 +234,9 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         updateLists();
 
     }
-    
-      public JPanel getPanel() {
-       return this.mainPanel;
+
+    public JPanel getPanel() {
+        return this.mainPanel;
     }
 //==============================================================================
 //  << NO NEED TO READ THE FOLLOWING CODE >> << MODIFY AT YOUR OWN RISK >>
@@ -237,7 +249,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     //ROOM
     private JPanel roomPanel;
     private JLabel mapLabel, globalMapLabel;
-    
+
     private JPanel roomlistPanel;
     private JScrollPane listScroller3;
     private JList roomItems;
@@ -266,7 +278,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 // ==================METHODS==============================
     /**
      * initializes all components of the GUI
-     */  
+     */
     private void createGUI() {
         myFrame = new JFrame("PRISON BREAK");
 
@@ -294,8 +306,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 
         //Global MAP
         globalMapLabel = new JLabel();
-        globalMapLabel.setPreferredSize(new Dimension(150, 150));
-        globalMapLabel.setMinimumSize(new Dimension(150, 150));
+        globalMapLabel.setPreferredSize(new Dimension(200, 300));
+        globalMapLabel.setMinimumSize(new Dimension(200, 300));
 
         roomItems = new JList();
         listScroller3 = new JScrollPane();
@@ -384,8 +396,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         c.gridy = 1;
         System.out.println(itemsLabel.values().size());
         for (JLabel item : itemsLabel.values()) {
-            item.setPreferredSize(new Dimension(50, 100));
-            item.setMinimumSize(new Dimension(50, 100));
+            item.setPreferredSize(new Dimension(80, 100));
+            item.setMinimumSize(new Dimension(80, 100));
             item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
             playerInformationPanel.add(item, c);
             c.gridx++;
@@ -454,7 +466,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         playerPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder(" PLAYER "),
+                BorderFactory.createTitledBorder(engine.getPlayer().getName().toUpperCase()),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         dialogPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -479,7 +491,6 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         inputBox.requestFocus();
     }
 
-    
     /**
      * Udates the Jlists in the GUI with the content of the three arrayList
      * fields.
@@ -541,14 +552,14 @@ public class GameView implements ActionListener, GameListener, KeyListener {
             myFrame.pack();
         }
     }
-    
-    private void deleteItemImage(String key){
+
+    private void deleteItemImage(String key) {
         System.out.println("deleteItemImage");
         System.out.println(key);
         ImageIcon icon = new ImageIcon("/images/blanc.gif");
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-        (itemsLabel.get(key)).setIcon(new ImageIcon(newimg)); 
+        (itemsLabel.get(key)).setIcon(new ImageIcon(newimg));
     }
 
     public void setItemImage(String key, URL itemImageURL) {
@@ -558,40 +569,40 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         (itemsLabel.get(key)).setIcon(new ImageIcon(newimg));
-        
+
         /*
-        if (itemsURL.isEmpty()) {
-            System.out.println("image not found");
-        } else {
-            System.out.println("Image found");
-            System.out.println(itemsURL.size());
-            for (URL url : itemsURL) {
-                System.out.println(url);
-                ImageIcon icon = new ImageIcon(url);
-                Image image = icon.getImage();
-                Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-                JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
-                itemsLabel.add(itemLabel);
-            }
-            for (int i = itemsURL.size(); i < 4; i++) {
-                ImageIcon icon = new ImageIcon("/images/blanc.gif");
-                Image image = icon.getImage();
-                Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-                JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
-                itemsLabel.add(itemLabel);
-            }
-            for (JLabel item : itemsLabel) {
-                item.setPreferredSize(new Dimension(50, 100));
-                item.setMinimumSize(new Dimension(50, 100));
-                item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-                playerInformationPanel.add(item, c);
-                c.gridx++;
-        }
-            myFrame.pack();
-        }
-        */
+         if (itemsURL.isEmpty()) {
+         System.out.println("image not found");
+         } else {
+         System.out.println("Image found");
+         System.out.println(itemsURL.size());
+         for (URL url : itemsURL) {
+         System.out.println(url);
+         ImageIcon icon = new ImageIcon(url);
+         Image image = icon.getImage();
+         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+         JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
+         itemsLabel.add(itemLabel);
+         }
+         for (int i = itemsURL.size(); i < 4; i++) {
+         ImageIcon icon = new ImageIcon("/images/blanc.gif");
+         Image image = icon.getImage();
+         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+         JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
+         itemsLabel.add(itemLabel);
+         }
+         for (JLabel item : itemsLabel) {
+         item.setPreferredSize(new Dimension(50, 100));
+         item.setMinimumSize(new Dimension(50, 100));
+         item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+         playerInformationPanel.add(item, c);
+         c.gridx++;
+         }
+         myFrame.pack();
+         }
+         */
     }
-    
+
     private void initKeys() {
         if (itemsKeys.isEmpty()) {
             itemsKeys.put("H", null);
@@ -599,7 +610,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
             itemsKeys.put("K", null);
         }
     }
-    private void initLabels(){
+
+    private void initLabels() {
         ImageIcon icon = new ImageIcon("/images/blanc.gif");
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
@@ -658,14 +670,12 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         //GameViewAlert alert = new GameViewAlert(mainPanel);
         //alert.start();
     }
+
     public void alarmeOff() {
         System.out.println("Je sonne");
-        mainPanel.setBackground(Color.white);
-
-        //GameViewAlert alert = new GameViewAlert(mainPanel);
-        //alert.start();
+        Color color = UIManager.getColor ( "Panel.background" );
+        mainPanel.setBackground(color);
     }
-
 
     public void keyTyped(KeyEvent e) {
     }
@@ -673,7 +683,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (inputBox.getText().length() == 0) {
             String input;
-            System.out.println("keycode "+e.getKeyCode());
+            System.out.println("keycode " + e.getKeyCode());
             switch (e.getKeyCode()) {
                 case 37:
                     input = "go west";
@@ -692,30 +702,41 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     engine.interpretCommand(input);
                     break;
                 case 72:
-                    input = "drop " + itemsKeys.get("H").toString();
-                    removePlayerItem("H");
-                    engine.interpretCommand(input);
+                    if (itemsKeys.get("H") != null) {
+                        input = "drop " + itemsKeys.get("H").toString();
+                        removePlayerItem(itemsKeys.get("H"));
+                        engine.interpretCommand(input);
+                    }
+
                     break;
                 case 74:
+                    if (itemsKeys.get("J") != null) {
                     input = "drop " + itemsKeys.get("J").toString();
-                    removePlayerItem("J");
+                    removePlayerItem(itemsKeys.get("J"));
                     engine.interpretCommand(input);
+                    }
                     break;
                 case 75:
+                    if (itemsKeys.get("K") != null) {
                     input = "drop " + itemsKeys.get("K").toString();
-                    removePlayerItem("J");
+                    removePlayerItem(itemsKeys.get("K"));
                     engine.interpretCommand(input);
+                    }
                     break;
                 default:
                     input = "";
                     break;
             }
-            
+
             inputBox.setText("");
         }
     }
 
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void gameStateModified(String roomImageName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

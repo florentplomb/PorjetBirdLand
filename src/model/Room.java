@@ -22,15 +22,17 @@ public class Room {
     // stores exits of this room.
     private HashMap<String, Room> exits;
     private String imageName;
+    private String mapName;
     private HashMap<String, Item>  items = new HashMap<String, Item>();
 
     /*
      * Create a new room described "description" with a given image. Firstly, it
      * has no exits.
      */
-    public Room(String description, String imageName, String id) {
+    public Room(String description, String imageName,String mapName, String id) {
         this.description = description;
         this.imageName = imageName;
+        this.mapName = mapName;
         this.id = id;
         exits = new HashMap<String, Room>();
 
@@ -62,6 +64,10 @@ public class Room {
     // Return a string describing the room's image name
     public String getImageName() {
         return imageName;
+    }
+    
+    public String getMapName(){
+        return mapName;
     }
     
     public Item getItem(String it){

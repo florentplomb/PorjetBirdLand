@@ -1,17 +1,26 @@
 package PrisonBreak;
 
-import DataBaseManager.DataBaseController;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Game;
 import view.LoginView;
-import view.ScoreView;
 
 public class PrisonBreak {
 
     //The game started from the method
     public static void main(String[] args) {
-       
+        try {
+            
+            DataBaseManager.DataBaseController.getConnection();
+        } catch (ExceptionInInitializerError e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed.", "Connection failed",
+                    JOptionPane.ERROR_MESSAGE);              
+                        System.exit(0);
+                    
+        }
+
         LoginView login = new LoginView();
-        String playerName = login.getPlayerName();
-        
+        Game game = new Game(login.getPlayerName());
+
     }
 }

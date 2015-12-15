@@ -2,14 +2,14 @@ package model;
 
 import controller.Command;
 import controller.DropCmd;
+import controller.GameParams;
 import controller.GoCmd;
 import controller.Parser;
 import controller.TakeCmd;
 import controller.UseCmd;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import model.item.Alarm;
-import model.item.Item;
+import model.item.BananaPeel;
 import model.item.Transportable;
 import view.GameListener;
 import view.GameView;
@@ -50,10 +50,8 @@ public class GameEngine implements Model {
 
     public void setGv(GameView gv) {
         this.gv = gv;
-             
+
     }
-    
-    
 
     // Returns the current OutputString.
     public void appendToOutputString(String myString) {
@@ -86,11 +84,20 @@ public class GameEngine implements Model {
     }
 
     // Notifies all game listeners of game modifications.
-
     public void notifyGameListeners() {
         for (GameListener gl : gameListeners) {
             String imageName = getPlayer().getCurrentRoom().getImageName();
-            gl.gameStateModified(imageName);
+            String mapName = getPlayer().getCurrentRoom().getMapName();
+            gl.gameStateModified(imageName, mapName);
+        }
+    }
+    
+    public void notifyGameListenersWithGuardian() {
+        for (GameListener gl : gameListeners) {
+            String imageName = getPlayer().getCurrentRoom().getImageName();
+            String mapName = getPlayer().getCurrentRoom().getMapName();
+            imageName = imageName.substring(0, imageName.length() - 4) + "G" + imageName.substring(imageName.length() - 4, imageName.length());
+            gl.gameStateModified(imageName, mapName);
         }
     }
 
@@ -101,8 +108,9 @@ public class GameEngine implements Model {
     public void interpretCommand(String commandLine) {
         clearOutputString();
         outputString += commandLine + "\n";
-
+        
         Command command = parser.getCommand(commandLine);
+        
         //  System.out.println(command.getSecondWord());
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
@@ -117,43 +125,70 @@ public class GameEngine implements Model {
                         gv.alarmeOff();
                     }
                 }
-
             }
-            if(command instanceof GoCmd){
-                guardian01.setNextRoom();
-               // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+            if (command instanceof GoCmd) {
+                notifyGameListeners();
+                
+                 if (!GameParams.DEMOGAME) {
+                    guardian01.setNextRoom();
+                }
+                 appendToOutputString("\n The guardian is in " +guardian01.getCurrentRoom().getDescription());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
+                    notifyGameListeners();
                     appendToOutputString("\n Guardian is HERE \n");
                     if (player.getItem("bananapeel") != null) {
-                       interpretCommand("drop bananapeel");
-                       appendToOutputString("You used the bananpeal to skip the guardian.. \n");
-                       gv.removePlayerItem("H");
-                       //player.removeItem("bananapeel");
-                    }else{
-                      gv.enable(false);
-                     new QuizzUserInterface(this,player);
-                    }     
+                        notifyGameListeners();
+                        interpretCommand("drop bananapeel");
+                        appendToOutputString("You used the bananpeel to skip the guardian.. \n");
+                        gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
+
+                    } else {
+                        gv.enable(false);
+                        notifyGameListenersWithGuardian();
+                        new QuizzUserInterface(this, player);
+                    }
                 }
-            }else if(command instanceof TakeCmd){
-                gv.setPlayerItems(((TakeCmd)command).getLastTake());
+            } else if (command instanceof TakeCmd) {
+                notifyGameListeners();
+                TakeCmd c = (TakeCmd) command;
+                if (c.getTakeOk()) {
+                    notifyGameListeners();
+                    gv.setPlayerItems(((TakeCmd) command).getLastTake());
+                    c.setTakeOff();
+                }
+            } else if (command instanceof DropCmd) {
+                notifyGameListeners();
+                DropCmd c = (DropCmd) command;
+                if (c.getDropCmdOK()) {
+                    notifyGameListeners();
+                    gv.removePlayerItem(c.getDropItem());
+                    gv.setRoomItems();
+                }
+
             }
         }
-        notifyGameListeners();
+       notifyGameListeners();
     }
+
+    // Set enable/disabled the view 
 
     public void setGV(boolean b) {
         gv.enable(b);
     }
-    
-    public void InitItemView(){
+
+    // Initialise players items to view
+
+    public void InitItemView() {
         System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
             gv.setPlayerItems(t);
             System.out.println(t.getNAME());
         }
     }
-    
-    public GameView getGameView(){
+
+    // retrun the current game view
+
+    public GameView getGameView() {
         return gv;
     }
 }

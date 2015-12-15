@@ -5,55 +5,110 @@
  */
 package DataBaseManager;
 
-
 //import java.sql.*;
+import controller.GameParams;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.ListIterator;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Player;
 
-//import ch.modele.Question;
-//import ch.modele.Answer;
-//import java.util.ArrayList;
 /**
+ * Implementaion of the DataBaseController This class allow to connect and
+ * perfrom querys to the integrated database.
  *
  * @author Florent Plomb <plombf at gmail.com>
+ *
  */
 public class DataBaseController {
 
     /**
      * DB Connection data
      */
-    private static final String url = "jdbc:derby://localhost:1527/quizz";
+    private static final String url = GameParams.URL;
 
-    private static final String userName = "quizz";
-
-    private static final String password = "1234";
-    /**
-     * System out style :)
-     */
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
     /**
      * Random question engin
      */
     private static ListIterator<Integer> itrTabRdm = createItr();
 
-    private static final int nbQuestion = getNumberofQuestion();
-             // Chargement du driver odbc une fois pour toute
+    private static int nbQuestion = 1;
+    // Chargement du driver odbc une fois pour toute
 
     static {
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Allows to initialiase the database in function of the DB-PrsionBreak.sql
+     * file
+     *
+     * @param con connection DB
+     *
+     *
+     */
+    public static void initBD(Connection con) throws IOException, SQLException {
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(new File("resources/bd/DB-PrisonBreak.sql")));
+            String line;
+            PreparedStatement ps;
+            while ((line = in.readLine()) != null) {
+                // Afficher le contenu du fichier
+                System.out.println(line);
+                //prisonBreakSQL = prisonBreakSQL+"\n"+line;
+                ps = con.prepareStatement(line);
+                ps.execute();
+            }
+            //System.out.println(prisonBreakSQL);
+            in.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Check if the connection is avaible
+     */
+    public static void getConnection() {
+        Connection con = null;
+        DatabaseMetaData metas;
+
+        try {
+            // Connection � la base de donn�es
+            con = DriverManager.getConnection(url);
+            Statement requete = con.createStatement();
+            metas = con.getMetaData();
+            ResultSet tables = metas.getTables(con.getCatalog(), null, "GAME", null);
+            if (!tables.next()) {
+                System.out.println("exist pas");
+                initBD(con);
+            } else {
+                System.out.println("Exist");
+            }
+            nbQuestion = getNumberofQuestion();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
 
@@ -75,6 +130,11 @@ public class DataBaseController {
         return tabNumbers;
     }
 
+    /**
+     * Get a new question in the database
+     *
+     * @return a random question
+     */
     public static Question getQuestion() {
 
         Question q = new Question();
@@ -87,10 +147,10 @@ public class DataBaseController {
         try {
             // Connection à la base de données
 
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet QuestionSet = requete.executeQuery("SELECT QUESTION.TITLE AS Qtitle, ANSWER.TITLE AS Atitle,"
-                    + " ISCORRECT FROM QUIZZ.QUESTION INNER JOIN QUIZZ.ANSWER ON QUESTION.ID = QUESTION_ID WHERE QUESTION.ID =" + itrTabRdm.next() + "");
+                    + " ISCORRECT FROM QUESTION INNER JOIN ANSWER ON QUESTION.ID = QUESTION_ID WHERE QUESTION.ID =" + itrTabRdm.next() + "");
             // Parcours de l'ensemble de résultats
             HashMap<String, Integer> answers = new HashMap<String, Integer>();
             QuestionSet.next();
@@ -102,10 +162,9 @@ public class DataBaseController {
             itrTabRdm.remove();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error" + e.getMessage());
         }
-        // fermeture de la connection à la base de donnée ainsi que de toutes 
-        //les ressources qui lui sont associées ! (ResultSet, Statement)
+
         try {
             con.close();
         } catch (SQLException e) {
@@ -118,7 +177,7 @@ public class DataBaseController {
         Connection con = null;
         int nbrQuestion = 1;
         try {
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet countQuestion = requete.executeQuery("SELECT COUNT(" + 1 + ") FROM question");
 
@@ -136,56 +195,36 @@ public class DataBaseController {
         return nbrQuestion;
     }
 
-    public static boolean insertNamePlayer(String name) {
+    /**
+     * Allows to check if the name of a new player is already use
+     *
+     * @param name of the new player
+     * @return true if the name already exist
+     */
+
+    public static boolean checkIfexist(String name) {
         Connection con = null;
-        boolean success = false;
+        boolean dejaInscrit = false;
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             // Rappel : Comme l'id est un champ auto incr�ment� il NE FAUT PAS le d�finir ;-)
-          
 
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME");
             // Parcours de l'ensemble de r�sultats
-            boolean dejaInscrit = false;
+
             while (ensembleResultats.next() && !dejaInscrit) {
                 if (name.equals(ensembleResultats.getString("PLAYER"))) {
                     dejaInscrit = true;
                 }
 
             }
-            // fermeture de la connection � la base de donn�es ainsi que de toutes
-            //les ressources qui lui sont associ�es ! (ResultSet, Statement)
-
-            if (dejaInscrit) {
-
-                System.out.println("Already reigster");
-
-            } else {
-                int nbPlayerAdd = requete.executeUpdate(
-                        "INSERT INTO GAME"
-                        + "(PLAYER,MOVE,POINT) VALUES "
-                        + "('" + name.toUpperCase() + "', " + 0 + "," + 0 + ")",
-                        Statement.RETURN_GENERATED_KEYS);
-                System.out.println(nbPlayerAdd + " is added");
-                ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
-                Integer playerName = null;
-
-                // Comme il n'y a eu qu'un seul insert, on peut faire un if au lieu d'un while
-                if (ensembleTuplesAjoutes.next()) {
-                    playerName = ensembleTuplesAjoutes.getInt(1);
-                }
-                System.out.println("L'id du nouveau tuple est : " + playerName);
-                ensembleTuplesAjoutes = null;
-                success = true;
-
-            }
 
             try {
                 con.close();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
@@ -193,41 +232,58 @@ public class DataBaseController {
             System.out.println(e.getMessage());
         }
 
-        return success;
+        return dejaInscrit;
     }
-    
-       public static void insertDataPlayer(Player player) {
-          Connection con = null;
+
+    /**
+     * Insert the new player in the database
+     *
+     * @param player new player
+     */
+
+    public static void insertDataPlayer(Player player) {
+        Connection con = null;
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
-            int nombrePersonnesModifiees = requete.executeUpdate("UPDATE game "
-                    + "SET point = " + player.getPoint() +", move = "+player.getMove()
-                    + "WHERE player = '" + player.getName().toUpperCase()+"'");
-            
-            System.out.println(nombrePersonnesModifiees + " player modified");
+
+            int nbPlayerAdd = requete.executeUpdate(
+                    "INSERT INTO GAME"
+                    + "(PLAYER,MOVE,POINT) VALUES "
+                    + "('" + player.getName().toUpperCase() + "'," + player.getMove() + "," + player.getPoint() + ")",
+                    Statement.RETURN_GENERATED_KEYS);
+            ResultSet ensembleTuplesAjoutes = requete.getGeneratedKeys();
+            Integer playerName = null;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         try {
             con.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+                    JOptionPane.ERROR_MESSAGE);
+            //  System.out.println(e.getMessage());
         }
     }
-public static ArrayList<Player> getPlayerBD() {
+
+    /**
+     * Get all data of the game table to display the score.
+     *
+     * @return List of all games
+     */
+    public static ArrayList<Player> getPlayerBD() {
 
         ArrayList<Player> players = new ArrayList<Player>();
-
 
         Connection con = null;
 
         try {
             // Connection � la base de donn�es
-            con = DriverManager.getConnection(url, userName, password);
+            con = DriverManager.getConnection(url);
             Statement requete = con.createStatement();
             ResultSet ensembleResultats = requete.executeQuery("SELECT * FROM GAME ORDER BY MOVE ");
             // Parcours de l'ensemble de r�sultats
@@ -243,12 +299,12 @@ public static ArrayList<Player> getPlayerBD() {
             players = null;
         }
 
-        // fermeture de la connection � la base de donn�e ainsi que de toutes 
-        //les ressources qui lui sont associ�es ! (ResultSet, Statement)
         try {
             con.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed", "DataBase",
+                    JOptionPane.ERROR_MESSAGE);
+
         }
 
         return players;

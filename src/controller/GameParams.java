@@ -47,9 +47,10 @@ public class GameParams {
     public static final int WEIGHT_BANANA = 1;
 
     /**
-     * @return the flo
+     * Return the state of demo game
+     * @return the boolean
      */
-    public static boolean DemoGame() {
+    public static boolean demoGame() {
         return DEMOGAME;
     }
 

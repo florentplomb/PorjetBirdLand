@@ -132,7 +132,7 @@ public class Game {
 
         alarmRoom.addItem(Alarm.getInstance());
 
-        if (GameParams.DemoGame()) {
+        if (GameParams.demoGame()) {
             cellEast1.addItem(b);
             cellWest2.addItem(l);
         } else {

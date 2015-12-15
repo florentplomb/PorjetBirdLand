@@ -42,7 +42,7 @@ public class UseCmd extends Command {
 
                     }
                 } else {
-                    appendToOutputString("You can use this object, try to take it");
+                    appendToOutputString("You can use this object, try to take it.");
                 }
             }
 

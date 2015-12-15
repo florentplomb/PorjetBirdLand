@@ -30,7 +30,7 @@ public class GoCmd extends Command {
                  player.setMove(1);
                 //POUR TESTER 
                 //nextRoom.addItem(new Ladder("Ladder", "Ladder", 1, true, "/images/echelle.gif"));
-                appendToOutputString("You are " + nextRoom.getDescription() + ".\n");
+                appendToOutputString("You are " + nextRoom.getDescription() + "\n");
                 int i = 0;
                 //Waits for a while
                 while (i < 100000) {

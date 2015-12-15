@@ -29,7 +29,7 @@ public class BackCmd extends Command {
         boolean check = previousRoom.isEmpty();
 
         if (check == true) {
-            appendToOutputString("There is no way back");
+            appendToOutputString("There is no way back.");
 
         } else {
 

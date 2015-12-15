@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Mon Dec 14 20:42:32 CET 2015:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0151-a204-08b8-000006da5fb0 
-dans le répertoire de base de données C:\Users\Florent\Dropbox\Master\POO\PrisonBreak\quizz  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@60e53b93
-
+Tue Dec 15 11:38:43 CET 2015:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446) : instance a816c00e-0151-a538-8370-00000e767738 
+dans le répertoire de base de données /Users/Matthieu/Documents/HEC/HEC/POO/PrisonBreak/quizz avec le chargeur de classe sun.misc.Launcher$AppClassLoader@49476842
+Chargé de file:/Applications/NetBeans/glassfish-4.1/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_65-b17
-user.dir=C:\Users\Florent\Dropbox\Master\POO\PrisonBreak
-os.name=Windows 8.1
-os.arch=amd64
-os.version=6.3
+java.runtime.version=1.8.0_40-b27
+user.dir=/Users/Matthieu/Documents/HEC/HEC/POO/PrisonBreak
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.10.5
 derby.system.home=null
-Chargeur de classe de la base de données démarré - derby.database.classpath=''
+Chargeur de classe de la base de données démarré - derby.database.classpath = ''

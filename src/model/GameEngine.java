@@ -114,7 +114,7 @@ public class GameEngine implements Model {
 
         Command command = parser.getCommand(commandLine);
 
-        //  System.out.println(command.getSecondWord());
+     
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
         } else {

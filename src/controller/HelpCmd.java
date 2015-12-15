@@ -45,7 +45,7 @@ public class HelpCmd extends Command {
                 + "object should be written as a second word. Ex: take ladder.\n"
                 + "- drop: it allows the player to drop a transported object in the current room. The object"
                 + "should be written as a second word. Ex: drop ladder.\n"
-                + "- climb: when the player is transporting the ladder, he can climbed at any moment."
+                + "- climb: when the player is in the room with a ladder, he can climbed at any moment."
                 + "Two scenarios can happen:\n 1) the player is in the right room and uses the ladder to"
                 + "escape\n 2) the player is not in the right room and by climbing the ladder, he his"
                 + "teleported to a random room.\n This command has to be followed by these two words:"

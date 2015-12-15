@@ -18,7 +18,7 @@ public class GameParams {
     public static int MAX_WEIGHT = 10;
 
     /**
-     *
+     * The url  of the database
      */
     public static final String URL = "jdbc:derby:quizz;create=true";
 

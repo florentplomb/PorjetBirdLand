@@ -2,15 +2,12 @@ package view;
 
 import DataBaseManager.Question;
 import DataBaseManager.DataBaseController;
-import controller.ClimbCmd;
-import controller.GameParams;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.border.Border;
 import model.GameEngine;

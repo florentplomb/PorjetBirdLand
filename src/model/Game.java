@@ -92,10 +92,9 @@ public class Game {
         outsideEscape = new Room("In front of the liberty wall! ", "/images/murEscape.jpg","/plan/escape.png","libertyWall");
         
         rooms.add(outsideEscape);
-
         rooms.add(alarmRoom);
         rooms.add(outside);
-        rooms.add(mainCorridorMiddle);
+        rooms.add(mainCorridorBegin);
         rooms.add(mainCorridorMiddle);
         rooms.add(cellEast1);
         rooms.add(cellEast2);
@@ -138,11 +137,11 @@ public class Game {
         // the player starts from room **outside**.
         player.setCurrentRoom(mainCell);
         
-        Blanket b =  new Blanket("blanket", "You have to use to escape ", 5, true, "/images/blanket.jpg");
-        Ladder l = new Ladder("ladder", "You can climb on ladder", 8, true, "/images/ladder.jpg");
+        Blanket b =  new Blanket("blanket", "You have to use to escape ", GameParams.WEIGHT_BLANKET, true, "/images/blanket.jpg");
+        Ladder l = new Ladder("ladder", "You can climb on ladder", GameParams.WEIGHT_LADDER, true, "/images/ladder.jpg");
         alarmRoom.addItem(Alarm.getInstance());
         
-        if (GameParams.DemoGame) {
+        if (GameParams.DEMOGAME) {
             cellEast1.addItem(b);
             cellWest2.addItem(l);
             
@@ -152,16 +151,11 @@ public class Game {
             this.getRandomRooms().addItem(l);
         }
 
-        // Set start room of guardian
     }
 
     private void createGuardian() {
-        if (GameParams.DemoGame) {
+      
            guardian01 = new Guardian("Joe", rooms.get(4)); 
-        }
-        else{
-            guardian01 = new Guardian("Joe", getRandomRooms()); 
-        }
         
     }
 

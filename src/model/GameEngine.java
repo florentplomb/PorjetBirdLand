@@ -2,15 +2,14 @@ package model;
 
 import controller.Command;
 import controller.DropCmd;
+import controller.GameParams;
 import controller.GoCmd;
 import controller.Parser;
 import controller.TakeCmd;
 import controller.UseCmd;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import model.item.Alarm;
 import model.item.BananaPeel;
-import model.item.Item;
 import model.item.Transportable;
 import view.GameListener;
 import view.GameView;
@@ -129,8 +128,11 @@ public class GameEngine implements Model {
             }
             if (command instanceof GoCmd) {
                 notifyGameListeners();
-                guardian01.setNextRoom();
-                // appendToOutputString("\n"+guardian01.getCurrentRoom().getId());
+                
+                 if (!GameParams.DEMOGAME) {
+                    guardian01.setNextRoom();
+                }
+                 appendToOutputString("\n The guardian is in " +guardian01.getCurrentRoom().getDescription());
                 if (guardian01.getCurrentRoom().getId().equals(player.getCurrentRoom().getId())) {
                     notifyGameListeners();
                     appendToOutputString("\n Guardian is HERE \n");

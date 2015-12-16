@@ -102,14 +102,14 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      * @param t
      */
     public void setPlayerItems(Transportable t) {
-       
+
         boolean notInsert = true;
         for (String key : itemsKeys.keySet()) {
             if (itemsKeys.get(key) == null) {
                 if (notInsert) {
                     itemsKeys.replace(key, t);
                     notInsert = false;
- 
+
                     setItemImage(key, getClass().getResource(t.getURL()));
                 }
             }
@@ -117,16 +117,16 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void removePlayerItem(Transportable t) {
-       
+
         boolean removeOK = false;
         if (itemsKeys.containsValue(t)) {
-           
+
             for (String key : itemsKeys.keySet()) {
                 if (!removeOK) {
                     if (itemsKeys.get(key) != null) {
                         if (itemsKeys.get(key).equals(t)) {
                             itemsKeys.replace(key, null);
-                           
+
                             deleteItemImage(key);
                             removeOK = true;
                         }
@@ -142,7 +142,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      */
     private void setPlayerStats() {
         myPlayerStats.clear();
-        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +"/"+GameParams.MAX_WEIGHT+" Unit(s)" );
+        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() + "/" + GameParams.MAX_WEIGHT + " Unit(s)");
         myPlayerStats.add("Moves: " + engine.getPlayer().getMove());
         myPlayerStats.add("Points: " + engine.getPlayer().getPoint());
     }
@@ -211,7 +211,6 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         if (engine.isFinished()) {
             enable(false);
         }
-        
 
         // Clears the text displayed and then gets the new data in the Engine.
         clearLog();
@@ -554,8 +553,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     private void deleteItemImage(String key) {
-        
-       
+
         ImageIcon icon = new ImageIcon("/images/blanc.gif");
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
@@ -563,8 +561,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void setItemImage(String key, URL itemImageURL) {
-       
-        
+
         ImageIcon icon = new ImageIcon(itemImageURL);
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
@@ -664,7 +661,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
 //==============================================================================
 
     public void alarmeOn() {
-       
+
         mainPanel.setBackground(Color.red);
 
         //GameViewAlert alert = new GameViewAlert(mainPanel);
@@ -672,8 +669,8 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void alarmeOff() {
-       
-        Color color = UIManager.getColor ( "Panel.background" );
+
+        Color color = UIManager.getColor("Panel.background");
         mainPanel.setBackground(color);
     }
 
@@ -683,7 +680,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         if (inputBox.getText().length() == 0) {
             String input;
-            
+
             switch (e.getKeyCode()) {
                 case 37:
                     input = "go west";
@@ -711,16 +708,16 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     break;
                 case 74:
                     if (itemsKeys.get("J") != null) {
-                    input = "drop " + itemsKeys.get("J").toString();
-                    removePlayerItem(itemsKeys.get("J"));
-                    engine.interpretCommand(input);
+                        input = "drop " + itemsKeys.get("J").toString();
+                        removePlayerItem(itemsKeys.get("J"));
+                        engine.interpretCommand(input);
                     }
                     break;
                 case 75:
                     if (itemsKeys.get("K") != null) {
-                    input = "drop " + itemsKeys.get("K").toString();
-                    removePlayerItem(itemsKeys.get("K"));
-                    engine.interpretCommand(input);
+                        input = "drop " + itemsKeys.get("K").toString();
+                        removePlayerItem(itemsKeys.get("K"));
+                        engine.interpretCommand(input);
                     }
                     break;
                 default:
@@ -728,12 +725,11 @@ public class GameView implements ActionListener, GameListener, KeyListener {
                     break;
             }
 
-            inputBox.setText("");
         }
     }
 
     public void keyReleased(KeyEvent e) {
-
+        inputBox.setText("");
     }
 
     public void gameStateModified(String roomImageName) {

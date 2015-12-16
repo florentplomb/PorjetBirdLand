@@ -12,11 +12,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import model.Game;
 
 /**
@@ -27,7 +30,7 @@ import model.Game;
 public class LoginView extends JDialog {
 
     private JPanel container = new JPanel();
-    private JFormattedTextField jtf = new JFormattedTextField();
+    private JTextField jtf = new JTextField();
     private JButton b = new JButton("OK");
     private JLabel text4user;
     private JLabel alreadyRegister;
@@ -60,6 +63,21 @@ public class LoginView extends JDialog {
         jtf.setFont(police);
         jtf.setPreferredSize(new Dimension(150, 30));
         jtf.setForeground(Color.BLUE);
+        jtf.addKeyListener(new KeyListener() {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+               System.out.println(e.getKeyCode());
+               if(e.getKeyCode()==10){
+                    start();    
+               }
+            }
+
+            public void keyReleased(KeyEvent e) {
+            }
+        });
         b.addActionListener(new BoutonListener());
         text4user.setBackground(Color.lightGray);
         top.add(jtf);
@@ -77,12 +95,26 @@ public class LoginView extends JDialog {
         return playerName;
     }
 
-    class BoutonListener implements ActionListener {
+    class BoutonListener implements ActionListener, KeyListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {                   
+            start();     
+        }
 
-            try {
+        public void keyTyped(KeyEvent e) {
+        }
+
+        public void keyPressed(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
+        }
+
+    }
+    
+    private void start(){
+               try {
                 boolean sucess = true;
                 if (!jtf.getText().isEmpty()) {
                     sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());
@@ -91,7 +123,7 @@ public class LoginView extends JDialog {
                
                     playerName = jtf.getText();
                     close();
-               // start(playerName);
+              
 
                 } else {
                     alreadyRegister.setVisible(true);
@@ -101,15 +133,15 @@ public class LoginView extends JDialog {
                 System.out.println(ex);
             }
 
-        }
     }
+    
 
     private void close() {
         this.dispose();
     }
+    
+   
 
-    private void start(String playerName) {
-        Game game = new Game(playerName);
-    }
+ 
 
 }

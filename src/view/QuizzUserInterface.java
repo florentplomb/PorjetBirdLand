@@ -44,7 +44,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.countScore = 0;
         this.setTitle("QUIZZ");
         this.setLocationRelativeTo(null);
-        this.setSize(400, 250);
+        this.setSize(500, 250);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //Container pane = getContentPane();
@@ -67,7 +67,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.two = new JButton("2");
         this.three = new JButton("3");
         this.for4 = new JButton("4");
-        this.quit =  new JButton("Exit Game");
+        this.quit =  new JButton("surrend");
 
         this.newQuestion();
 

@@ -22,7 +22,7 @@ import model.item.Alarm;
  */
 public class QuizzUserInterface extends JDialog implements ActionListener {
 
-    private JButton one, two, three, for4;
+    private JButton one, two, three, for4 ,quit;
     private HashMap<Integer, Integer> answers;
     private JTextArea score, desire;
     private String currentScore, printQ;
@@ -56,7 +56,9 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
 
         desire = new JTextArea(printQ);
         desire.setLineWrap(true);
+        desire.setEditable(false);
         score = new JTextArea(currentScore);
+        score.setEditable(false);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         score.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder()));
@@ -65,10 +67,12 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.two = new JButton("2");
         this.three = new JButton("3");
         this.for4 = new JButton("4");
+        this.quit =  new JButton("Exit Game");
 
         this.newQuestion();
 
         one.addActionListener(this);
+        quit.addActionListener(this);
         two.addActionListener(this);
         three.addActionListener(this);
         for4.addActionListener(this);
@@ -79,6 +83,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         questionPanel.add(two);
         questionPanel.add(three);
         questionPanel.add(for4);
+        questionPanel.add(quit);
         this.setContentPane(mainPanel);
         this.setVisible(true);
 
@@ -87,6 +92,10 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+        
+        if (source == quit) {
+            System.exit(0);
+        }
 
         if (source == one && answers.get(1) == 1) {
             this.win();

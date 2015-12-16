@@ -16,11 +16,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import model.Game;
 
 /**
  * Implementaion of the Login View
@@ -69,7 +67,7 @@ public class LoginView extends JDialog {
             }
 
             public void keyPressed(KeyEvent e) {
-               System.out.println(e.getKeyCode());
+              
                if(e.getKeyCode()==10){
                     start();    
                }
@@ -135,13 +133,8 @@ public class LoginView extends JDialog {
 
     }
     
-
     private void close() {
         this.dispose();
-    }
-    
-   
-
- 
+    }    
 
 }

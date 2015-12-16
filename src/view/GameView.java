@@ -142,7 +142,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
      */
     private void setPlayerStats() {
         myPlayerStats.clear();
-        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +"/"+GameParams.MAX_WEIGHT+"Kg" );
+        myPlayerStats.add("Weight: " + engine.getPlayer().getWeightItems().toString() +"/"+GameParams.MAX_WEIGHT+" Unit(s)" );
         myPlayerStats.add("Moves: " + engine.getPlayer().getMove());
         myPlayerStats.add("Points: " + engine.getPlayer().getPoint());
     }

@@ -146,7 +146,6 @@ public class GameEngine implements Model {
                     notifyGameListeners();
                     appendToOutputString("\n There is the guardian! \n");
                     if (player.getItem("bananapeel") != null) {
-                        notifyGameListeners();
                         interpretCommand("drop bananapeel");
                         appendToOutputString("You used the bananpeel to skip the guardian.. \n");
                         gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
@@ -173,7 +172,6 @@ public class GameEngine implements Model {
                     gv.removePlayerItem(c.getDropItem());
                     gv.setRoomItems();
                 }
-
             }
         }
         notifyGameListeners();

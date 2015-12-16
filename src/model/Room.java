@@ -15,6 +15,7 @@ import model.item.Item;
  *
  * @author Michael Kolling and David J. Barnes
  */
+
 public class Room {
 
     private String description;
@@ -23,13 +24,13 @@ public class Room {
     private HashMap<String, Room> exits;
     private String imageName;
     private String mapName;
-    private HashMap<String, Item>  items = new HashMap<String, Item>();
+    private HashMap<String, Item> items = new HashMap<String, Item>();
 
     /*
      * Create a new room described "description" with a given image. Firstly, it
      * has no exits.
      */
-    public Room(String description, String imageName,String mapName, String id) {
+    public Room(String description, String imageName, String mapName, String id) {
         this.description = description;
         this.imageName = imageName;
         this.mapName = mapName;
@@ -61,59 +62,65 @@ public class Room {
         return exits.get(direction);
     }
 
-    
-    
     /**
      * Return a string describing the room's image name
+     *
      * @return the image name
      */
     public String getImageName() {
         return imageName;
     }
+
     /**
      * Return a string describing the map image name
+     *
      * @return the map image name
      */
-    
-    public String getMapName(){
+
+    public String getMapName() {
         return mapName;
     }
-    
+
     /**
      * Return a specific item in the room
+     *
      * @param it the item name
      * @return the item
      */
-    
-    
-    public Item getItem(String it){
-       if(items.containsKey(it)){
-             return items.get(it);
-       }
+    public Item getItem(String it) {
+        if (items.containsKey(it)) {
+            return items.get(it);
+        }
         return null;
     }
+
     /**
      * Add a item to a room
+     *
      * @param item the added item
      */
-     public void addItem(Item item) {
+    public void addItem(Item item) {
         items.put(item.getNAME().toLowerCase(), item);
     }
-     /**
-      * Remove item to a room
-      * @param it the name of removed item
-      */
-     public void removeItem(String it) {
+
+    /**
+     * Remove item to a room
+     *
+     * @param it the name of removed item
+     */
+    public void removeItem(String it) {
         items.remove(it);
     }
-    public HashMap<String, Item> getAllItems(){
+
+    public HashMap<String, Item> getAllItems() {
         return items;
     }
+
     /**
      * @return the id
      */
     public String getId() {
         return id;
     }
-    
+
 }

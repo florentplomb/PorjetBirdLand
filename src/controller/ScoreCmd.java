@@ -10,16 +10,18 @@ import view.ScoreView;
 
 /**
  * Implementation of *Score* Command.
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
 class ScoreCmd extends Command {
 
-
     public ScoreCmd() {
 
     }
+
     /**
      * Allows the players to display the score view
+     *
      * @param player the current player
      * @return always false
      */

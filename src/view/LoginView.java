@@ -67,10 +67,10 @@ public class LoginView extends JDialog {
             }
 
             public void keyPressed(KeyEvent e) {
-              
-               if(e.getKeyCode()==10){
-                    start();    
-               }
+
+                if (e.getKeyCode() == 10) {
+                    start();
+                }
             }
 
             public void keyReleased(KeyEvent e) {
@@ -96,8 +96,8 @@ public class LoginView extends JDialog {
     class BoutonListener implements ActionListener, KeyListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {                   
-            start();     
+        public void actionPerformed(ActionEvent e) {
+            start();
         }
 
         public void keyTyped(KeyEvent e) {
@@ -110,31 +110,30 @@ public class LoginView extends JDialog {
         }
 
     }
-    
-    private void start(){
-               try {
-                boolean sucess = true;
-                if (!jtf.getText().isEmpty()) {
-                    sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());
-                }
-                if (!sucess) {
-               
-                    playerName = jtf.getText();
-                    close();
-              
 
-                } else {
-                    alreadyRegister.setVisible(true);
-
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
+    private void start() {
+        try {
+            boolean sucess = true;
+            if (!jtf.getText().isEmpty()) {
+                sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());
             }
+            if (!sucess) {
+
+                playerName = jtf.getText();
+                close();
+
+            } else {
+                alreadyRegister.setVisible(true);
+
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 
     }
-    
+
     private void close() {
         this.dispose();
-    }    
+    }
 
 }

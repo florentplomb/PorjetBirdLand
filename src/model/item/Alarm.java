@@ -44,5 +44,4 @@ public class Alarm extends Fixed {
 
     }
 
-   
 }

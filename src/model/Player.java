@@ -102,7 +102,6 @@ public class Player {
     /**
      * Return item with name
      */
-
     public Item getItem(String itemName) {
         return items.get(itemName);
     }
@@ -112,13 +111,14 @@ public class Player {
      *
      * @return
      */
-
     public ArrayList<Transportable> getAllItems() {
         return new ArrayList<Transportable>(items.values());
     }
+
     /**
      * Return the weight of player's items
-     * @return 
+     *
+     * @return
      */
 
     public Integer getWeightItems() {
@@ -130,8 +130,10 @@ public class Player {
         }
         return weight;
     }
+
     /**
      * Add point of quizz
+     *
      * @param point point added
      */
 

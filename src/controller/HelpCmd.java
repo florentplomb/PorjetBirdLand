@@ -54,7 +54,7 @@ public class HelpCmd extends Command {
                 + "- use: allows the player to use fixed objects (the alarm's button).";
 
         JOptionPane.showMessageDialog(new JFrame(), help, "Help command",
-                JOptionPane.INFORMATION_MESSAGE,null);
+                JOptionPane.INFORMATION_MESSAGE, null);
 
         // appends all command words to output string.
         for (String commands : commandWords) {

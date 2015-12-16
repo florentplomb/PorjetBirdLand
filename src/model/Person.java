@@ -32,6 +32,7 @@ public abstract class Person {
 
     /**
      * Return the person's name
+     *
      * @return the name
      */
     public String getName() {
@@ -39,28 +40,27 @@ public abstract class Person {
     }
 
     /**
-     *Return the list of person's items
+     * Return the list of person's items
+     *
      * @return list of item
      */
-
     public ArrayList<Item> getItem() {
         return this.items;
     }
 
     /**
-     *Set the current room of person
-     * 
+     * Set the current room of person
+     *
      */
-
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
     }
 
     /**
      * Get the current room of person
+     *
      * @return the current room
      */
-
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
@@ -69,7 +69,6 @@ public abstract class Person {
      *
      * @return
      */
-
     public void setItem(Item item) {
         items.add(item);
     }

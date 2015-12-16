@@ -12,12 +12,14 @@ import model.item.Item;
 
 /**
  * Implementation of *Use* Command.
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class UseCmd extends Command {
 
     /**
      * Allow the player to use the fixed object present in the rooms,
+     *
      * @param player the current player
      * @return always false
      */

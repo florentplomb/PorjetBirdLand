@@ -21,10 +21,8 @@ public class Blanket extends Transportable {
      * player drop it.
      * @param URL the picture url.
      */
-
     public Blanket(String name, String description, int weight, boolean immortal, String URL) {
         super(name, description, weight, immortal, URL);
     }
-
 
 }

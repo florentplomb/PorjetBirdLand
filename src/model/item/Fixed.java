@@ -6,15 +6,17 @@
 package model.item;
 
 /**
- *Implementation of Fixed model. This class represent the fixed
- * objects which can be present in the game rooms
+ * Implementation of Fixed model. This class represent the fixed objects which
+ * can be present in the game rooms
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
 public abstract class Fixed extends Item {
+
     /**
-     * 
+     *
      * @param name The item's name
-     * @param description The item's description 
+     * @param description The item's description
      */
 
     public Fixed(String name, String description) {

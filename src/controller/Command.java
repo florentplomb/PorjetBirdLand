@@ -1,4 +1,4 @@
-    package controller;
+package controller;
 
 import model.Player;
 
@@ -6,9 +6,9 @@ import model.Player;
  * This class is an abstract superclass for all command classes in the game.
  * Each user command is inherited from this abstract class.
  *
- * Objects of class Command can have two optional argument words (a second and a third word
- * entered on the command line). If the command had only one word, the second
- * and the third words are *null*.
+ * Objects of class Command can have two optional argument words (a second and a
+ * third word entered on the command line). If the command had only one word,
+ * the second and the third words are *null*.
  *
  * Objects of class Command can have Output (in response of the execution of a
  * command).
@@ -30,7 +30,6 @@ public abstract class Command {
         outputString = new String();
     }
 
-    
     /*
      * Return the second word of this command. If no second word was entered,
      * the result is null.
@@ -46,12 +45,12 @@ public abstract class Command {
     public String getThirdWord() {
         return thirdWord;
     }
-    
+
     // Check whether a second word was entered for this command.
     public boolean hasSecondWord() {
         return secondWord != null;
     }
-    
+
     // Check whether a third word was entered for this command.
     public boolean hasThirdWord() {
         return thirdWord != null;
@@ -72,7 +71,7 @@ public abstract class Command {
     public void setThirdWord(String thirdWord) {
         this.thirdWord = thirdWord;
     }
-    
+
     // Clear the outputString
     public void clearOutputString() {
         outputString = "";

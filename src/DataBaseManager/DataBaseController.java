@@ -75,7 +75,7 @@ public class DataBaseController {
                 ps = con.prepareStatement(line);
                 ps.execute();
             }
-           
+
             in.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -99,7 +99,7 @@ public class DataBaseController {
             if (!tables.next()) {
                 System.out.println("Initialisation BD");
                 initBD(con);
-            } 
+            }
             nbQuestion = getNumberofQuestion();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -198,7 +198,6 @@ public class DataBaseController {
      * @param name of the new player
      * @return true if the name already exist
      */
-
     public static boolean checkIfexist(String name) {
         Connection con = null;
         boolean dejaInscrit = false;
@@ -237,7 +236,6 @@ public class DataBaseController {
      *
      * @param player new player
      */
-
     public static void insertDataPlayer(Player player) {
         Connection con = null;
 

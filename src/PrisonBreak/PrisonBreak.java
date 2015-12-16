@@ -10,13 +10,13 @@ public class PrisonBreak {
     //The game started from the method
     public static void main(String[] args) {
         try {
-            
+
             DataBaseManager.DataBaseController.getConnection();
         } catch (ExceptionInInitializerError e) {
             JOptionPane.showMessageDialog(new JFrame(), "Connecion data base failed.", "Connection failed",
-                    JOptionPane.ERROR_MESSAGE);              
-                        System.exit(0);
-                    
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+
         }
 
         LoginView login = new LoginView();

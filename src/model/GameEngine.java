@@ -1,5 +1,6 @@
 package model;
 
+import controller.BackCmd;
 import controller.Command;
 import controller.DropCmd;
 import controller.GameParams;
@@ -114,7 +115,7 @@ public class GameEngine implements Model {
 
         Command command = parser.getCommand(commandLine);
 
-        //  System.out.println(command.getSecondWord());
+     
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
         } else {
@@ -129,7 +130,7 @@ public class GameEngine implements Model {
                     }
                 }
             }
-            if (command instanceof GoCmd) {      
+            if (command instanceof GoCmd || command instanceof BackCmd) {      
       
 // pas oublier de remettre le if pour la demo                
 //                if (!GameParams.DemoGame()) {
@@ -145,7 +146,6 @@ public class GameEngine implements Model {
                     notifyGameListeners();
                     appendToOutputString("\n There is the guardian! \n");
                     if (player.getItem("bananapeel") != null) {
-                        notifyGameListeners();
                         interpretCommand("drop bananapeel");
                         appendToOutputString("You used the bananpeel to skip the guardian.. \n");
                         gv.removePlayerItem(new BananaPeel("BananaPeel", "BananaPeel", 1, false, "/images/banana.jpg"));
@@ -172,7 +172,6 @@ public class GameEngine implements Model {
                     gv.removePlayerItem(c.getDropItem());
                     gv.setRoomItems();
                 }
-
             }
         }
         notifyGameListeners();
@@ -185,10 +184,9 @@ public class GameEngine implements Model {
 
     // Initialise players items to view
     public void InitItemView() {
-        System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
             gv.setPlayerItems(t);
-            System.out.println(t.getNAME());
+         
         }
     }
 

@@ -22,7 +22,7 @@ public class LookCmd extends Command{
       public boolean execute(Player player) {
          
         clearOutputString();     
-        appendToOutputString("You are +" +player.getCurrentRoom().getDescription());
+        appendToOutputString("You are " +player.getCurrentRoom().getDescription());
          
 
         return false;

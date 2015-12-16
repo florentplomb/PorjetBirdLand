@@ -72,11 +72,10 @@ public class DataBaseController {
             while ((line = in.readLine()) != null) {
                 // Afficher le contenu du fichier
                 System.out.println(line);
-                //prisonBreakSQL = prisonBreakSQL+"\n"+line;
                 ps = con.prepareStatement(line);
                 ps.execute();
             }
-            //System.out.println(prisonBreakSQL);
+           
             in.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -98,11 +97,9 @@ public class DataBaseController {
             metas = con.getMetaData();
             ResultSet tables = metas.getTables(con.getCatalog(), null, "GAME", null);
             if (!tables.next()) {
-                System.out.println("exist pas");
+                System.out.println("Initialisation BD");
                 initBD(con);
-            } else {
-                System.out.println("Exist");
-            }
+            } 
             nbQuestion = getNumberofQuestion();
         } catch (Exception e) {
             System.out.println(e.getMessage());

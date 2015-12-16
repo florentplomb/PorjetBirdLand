@@ -186,10 +186,9 @@ public class GameEngine implements Model {
 
     // Initialise players items to view
     public void InitItemView() {
-        System.out.println("InitItemView");
         for (Transportable t : player.getAllItems()) {
             gv.setPlayerItems(t);
-            System.out.println(t.getNAME());
+         
         }
     }
 

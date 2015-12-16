@@ -23,7 +23,7 @@ public class GameParams {
      * and the guardian is fixed (he doesn't move) in the mainCorridorMiddle.
      *
      */
-    private static final boolean DEMOGAME = true;
+    private static final boolean DEMOGAME = false;
 
     /**
      * The url of the database

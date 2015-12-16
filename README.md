@@ -9,11 +9,11 @@ En vous déplaçant, vous aller rencontrer des guardiens qui voudront vous enfer
 
 #### Credits :
 
-#UNIL - HEC 2015
+UNIL - HEC 2015
 
 Développeurs :
 
-Matthieu Harbich
-Florent Plomb
-Onur Erdogan
-Bryan Cornelius
+###### Matthieu Harbich
+###### Florent Plomb
+###### Onur Erdogan
+###### Bryan Cornelius

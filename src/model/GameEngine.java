@@ -1,5 +1,6 @@
 package model;
 
+import controller.BackCmd;
 import controller.Command;
 import controller.DropCmd;
 import controller.GameParams;
@@ -129,7 +130,7 @@ public class GameEngine implements Model {
                     }
                 }
             }
-            if (command instanceof GoCmd) {      
+            if (command instanceof GoCmd || command instanceof BackCmd) {      
       
 // pas oublier de remettre le if pour la demo                
 //                if (!GameParams.DemoGame()) {

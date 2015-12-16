@@ -21,6 +21,7 @@ public class ClimbCmd extends Command {
 
     public ClimbCmd() {
     }
+
     /**
      * Allows the player to climb the prison wall to escape, if the player isn't
      * in the escape room , he will be teleported in the random room
@@ -44,24 +45,22 @@ public class ClimbCmd extends Command {
                     if (action.equals("jump")) {
                         if (player.getCurrentRoom().getId().equals("libertyWall")) {
                             if (player.getCurrentRoom().getItem("blanket") != null) {
-                                                             
-                                    DataBaseController.insertDataPlayer(player);
-                                
-                                    ScoreView scoreView = new ScoreView(player);
+
+                                DataBaseController.insertDataPlayer(player);
+
+                                ScoreView scoreView = new ScoreView(player);
 
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",
                                         "You are free! Enjoy life...", JOptionPane.PLAIN_MESSAGE, icon);
-                                
-                                 
-                                     scoreView.dispose();
-                                
-                                                             
+                                scoreView.dispose();
                                 System.exit(0);
                                 return true;
                             } else {
+                                ScoreView scoreView = new ScoreView(player);
                                 JOptionPane.showMessageDialog(null, "You forgot the blanket you die on the barbed.",
                                         "Game Over", JOptionPane.PLAIN_MESSAGE, null);
+                                scoreView.dispose();
                                 System.exit(0);
 
                             }

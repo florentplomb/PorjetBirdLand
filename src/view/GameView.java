@@ -729,7 +729,7 @@ public class GameView implements ActionListener, GameListener, KeyListener {
     }
 
     public void keyReleased(KeyEvent e) {
-        inputBox.setText("");
+       
     }
 
     public void gameStateModified(String roomImageName) {

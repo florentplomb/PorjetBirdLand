@@ -6,7 +6,6 @@
 package view;
 
 import DataBaseManager.DataBaseController;
-import controller.GameParams;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,18 +41,16 @@ public class LoginView extends JDialog {
     public LoginView() {
 
         this.setModal(true);
-        this.text4user = new JLabel("Enter your name");
+        this.text4user = new JLabel("Enter your player name.");
 
-        this.alreadyRegister = new JLabel("This name alraedy exist please choice an other");
+        this.alreadyRegister = new JLabel("This name alraedy exists please choose another one.");
 
         this.alreadyRegister.setForeground(Color.red);
         this.alreadyRegister.setVisible(false);
 
         this.setTitle("Login");
-        this.setSize(300, 300);
+        this.setSize(350, 300);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        
-        
 
         this.setLocationRelativeTo(null);
         container.setBackground(Color.white);
@@ -79,47 +76,40 @@ public class LoginView extends JDialog {
     public String getPlayerName() {
         return playerName;
     }
-    
-
 
     class BoutonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-                      
-          try{
-            boolean sucess = true;
-            if (!jtf.getText().isEmpty()) {
-                    sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());       
-            }
-            if (!sucess) {
-                System.out.println("Sucess");
-                playerName = jtf.getText();
-                close();
+
+            try {
+                boolean sucess = true;
+                if (!jtf.getText().isEmpty()) {
+                    sucess = DataBaseController.checkIfexist(jtf.getText().toUpperCase());
+                }
+                if (!sucess) {
+               
+                    playerName = jtf.getText();
+                    close();
                // start(playerName);
-              
-            } else {
-                alreadyRegister.setVisible(true);
-         
+
+                } else {
+                    alreadyRegister.setVisible(true);
+
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
-          }
-          catch (Exception ex){
-              System.out.println("hooo");
-          }
-          finally{
-              System.out.println("sadadsads = ");
-          }
-            
-            
+
         }
     }
 
     private void close() {
         this.dispose();
     }
-    
-   private void start(String playerName){
-       Game game = new Game(playerName);
-   }
+
+    private void start(String playerName) {
+        Game game = new Game(playerName);
+    }
 
 }

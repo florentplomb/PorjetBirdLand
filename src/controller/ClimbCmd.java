@@ -51,7 +51,7 @@ public class ClimbCmd extends Command {
 
                                 ImageIcon icon = new ImageIcon(ClimbCmd.class.getResource("/images/winner.jpg"));
                                 JOptionPane.showMessageDialog(null, "",
-                                        "You are escaped!! Enjoy your life...", JOptionPane.PLAIN_MESSAGE, icon);
+                                        "You are free! Enjoy life...", JOptionPane.PLAIN_MESSAGE, icon);
                                 
                                  
                                      scoreView.dispose();
@@ -60,13 +60,13 @@ public class ClimbCmd extends Command {
                                 System.exit(0);
                                 return true;
                             } else {
-                                JOptionPane.showMessageDialog(null, "Game over",
-                                        "You forgot the blanket you die on the barbed", JOptionPane.PLAIN_MESSAGE, null);
+                                JOptionPane.showMessageDialog(null, "You forgot the blanket you die on the barbed.",
+                                        "Game Over", JOptionPane.PLAIN_MESSAGE, null);
                                 System.exit(0);
 
                             }
                         } else {
-                            appendToOutputString("Wow... You were teleported to a random room of the game ");
+                            appendToOutputString("Wow... You were teleported to a random room of the game.");
                             player.setCurrentRoom(Game.getRandomRooms());
                         }
 
@@ -74,11 +74,11 @@ public class ClimbCmd extends Command {
                         appendToOutputString("If you climb the ladder, then you have to jump. ");
                     }
                 } else {
-                    appendToOutputString("Climb on what??, if you carry a ladder , drop it and try again ;) ");
+                    appendToOutputString("Climb on what? If you carry a ladder, drop it and try again ;) ");
                 }
 
             } else {
-                appendToOutputString("You have to climb the ladder and jump => 'climb ladder jump'");
+                appendToOutputString("You have to climb the ladder and jump => 'climb ladder jump'.");
             }
 
         } else {

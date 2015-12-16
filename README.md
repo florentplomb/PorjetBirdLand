@@ -6,3 +6,14 @@ Le but du jeu est de s'échapper de prison. Vous êtes prisonnier, et vous avez 
 
 #### Les obstacles:
 En vous déplaçant, vous aller rencontrer des guardiens qui voudront vous enfermer à vie! Ceux-ci feront une alerte et vous poserons des questions de culture générale sur les médias. 
+
+#### Credits :
+
+#UNIL - HEC 2015
+
+Développeurs :
+
+Matthieu Harbich
+Florent Plomb
+Onur Erdogan
+Bryan Cornelius

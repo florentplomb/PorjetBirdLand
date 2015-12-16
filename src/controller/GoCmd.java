@@ -21,13 +21,13 @@ public class GoCmd extends Command {
         if (hasSecondWord()) {
             String direction = getSecondWord();
             Room nextRoom = player.getCurrentRoom().getExit(direction);
-           
+
             if (nextRoom == null) {
                 appendToOutputString("There is no door!");
             } else {
                 player.addPreviousRoom(player.getCurrentRoom());
                 player.setCurrentRoom(nextRoom);
-                 player.setMove(1);
+                player.setMove(1);
                 //POUR TESTER 
                 //nextRoom.addItem(new Ladder("Ladder", "Ladder", 1, true, "/images/echelle.gif"));
                 appendToOutputString("You are " + nextRoom.getDescription() + "\n");

@@ -25,7 +25,6 @@ import view.QuizzUserInterface;
  * evaluates and executes the commands that the parser returns.
  */
 public class GameEngine implements Model {
-    
 
     private String outputString;
     private boolean finished;
@@ -35,12 +34,11 @@ public class GameEngine implements Model {
     private Guardian guardian01;
     private GameView gv;
 
-
     //Constructor
     public GameEngine(Parser parser, Player player, Guardian guardian01) {
         outputString = new String();
         finished = false;
-        
+
         this.parser = parser;
         this.player = player;
         this.guardian01 = guardian01;
@@ -115,7 +113,6 @@ public class GameEngine implements Model {
 
         Command command = parser.getCommand(commandLine);
 
-     
         if (command == null) {
             appendToOutputString("I don't know what you mean...");
         } else {
@@ -130,15 +127,12 @@ public class GameEngine implements Model {
                     }
                 }
             }
-            if (command instanceof GoCmd || command instanceof BackCmd) {      
-      
-// pas oublier de remettre le if pour la demo                
-//                if (!GameParams.DemoGame()) {
-//                    guardian01.setNextRoom();
-//                }
-                                
-                guardian01.setNextRoom();
-                                               
+            if (command instanceof GoCmd || command instanceof BackCmd) {
+
+                if (!GameParams.demoGame()) {
+                    guardian01.setNextRoom();
+                }
+
                 notifyGameListeners();
                 appendToOutputString("\n The guardian is " + guardian01.getCurrentRoom().getDescription());
 
@@ -186,7 +180,7 @@ public class GameEngine implements Model {
     public void InitItemView() {
         for (Transportable t : player.getAllItems()) {
             gv.setPlayerItems(t);
-         
+
         }
     }
 

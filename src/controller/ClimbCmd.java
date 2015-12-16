@@ -58,7 +58,7 @@ public class ClimbCmd extends Command {
                                 return true;
                             } else {
                                 ScoreView scoreView = new ScoreView(player);
-                                JOptionPane.showMessageDialog(null, "You forgot the blanket you die on the barbed.",
+                                JOptionPane.showMessageDialog(null, "You forgot the blanket, you died on the barbwire.",
                                         "Game Over", JOptionPane.PLAIN_MESSAGE, null);
                                 scoreView.dispose();
                                 System.exit(0);

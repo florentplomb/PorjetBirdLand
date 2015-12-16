@@ -16,6 +16,7 @@ import model.Player;
 
 /**
  * This class allow to display the score tab
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class ScoreView extends JFrame {

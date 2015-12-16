@@ -22,7 +22,7 @@ import model.item.Alarm;
  */
 public class QuizzUserInterface extends JDialog implements ActionListener {
 
-    private JButton one, two, three, for4 ,quit;
+    private JButton one, two, three, for4, quit;
     private HashMap<Integer, Integer> answers;
     private JTextArea score, desire;
     private String currentScore, printQ;
@@ -44,7 +44,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.countScore = 0;
         this.setTitle("QUIZZ");
         this.setLocationRelativeTo(null);
-        this.setSize(400, 250);
+        this.setSize(500, 250);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //Container pane = getContentPane();
@@ -67,7 +67,7 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.two = new JButton("2");
         this.three = new JButton("3");
         this.for4 = new JButton("4");
-        this.quit =  new JButton("Exit Game");
+        this.quit = new JButton("surrend");
 
         this.newQuestion();
 
@@ -88,11 +88,11 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
         this.setVisible(true);
 
     }
- 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source == quit) {
             System.exit(0);
         }
@@ -171,15 +171,15 @@ public class QuizzUserInterface extends JDialog implements ActionListener {
 
         int cptAnswer = 0;
 
-            for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
-                cptAnswer++;
-                printQ += cptAnswer + ") " + entry.getKey() + "\n";
-                answers.put(cptAnswer, entry.getValue());
-                if (entry.getValue() == 1) {
-                    // result.setAnswer(entry.getKey());
-                }
+        for (Map.Entry<String, Integer> entry : q.getAnswers().entrySet()) {
+            cptAnswer++;
+            printQ += cptAnswer + ") " + entry.getKey() + "\n";
+            answers.put(cptAnswer, entry.getValue());
+            if (entry.getValue() == 1) {
+                // result.setAnswer(entry.getKey());
             }
-        
+        }
+
         desire.setText(printQ);
     }
 

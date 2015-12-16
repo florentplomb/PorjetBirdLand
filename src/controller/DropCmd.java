@@ -17,8 +17,7 @@ import model.item.Transportable;
 /**
  * Allows the player to drop an item of his inventory
  *
- * @param player the current player
- * @return always false
+ *
  */
 public class DropCmd extends Command {
 

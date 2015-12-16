@@ -11,6 +11,7 @@ import model.item.Transportable;
 
 /**
  * Implementation of *Take* Command.
+ *
  * @author Florent Plomb <plombf at gmail.com>
  */
 public class TakeCmd extends Command {
@@ -43,7 +44,7 @@ public class TakeCmd extends Command {
                     Transportable itemTrans = (Transportable) item;
                     lastTake = itemTrans;
                     if (itemTrans.getWEIGHT() + player.getWeightItems() > GameParams.MAX_WEIGHT) {
-                        appendToOutputString("You can't carry this object ( "+itemTrans.getNAME()+" "+itemTrans.getWEIGHT()+" units ) because your maximum weight will be exceeded.");
+                        appendToOutputString("You can't carry this object ( " + itemTrans.getNAME() + " " + itemTrans.getWEIGHT() + " units ) because your maximum weight will be exceeded.");
                     } else {
                         takeOK = true;
                         player.addItem(itemTrans);

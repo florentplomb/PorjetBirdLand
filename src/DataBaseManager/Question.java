@@ -3,24 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package DataBaseManager;
 
 import java.util.HashMap;
 
 /**
- * Implementaion of the Question model
- * This class allow to format questions from the database
- *@author Florent Plomb <plombf at gmail.com>
+ * Implementaion of the Question model This class allow to format questions from
+ * the database
+ *
+ * @author Florent Plomb <plombf at gmail.com>
  */
 public class Question {
-    
+
     private String title;
     private HashMap<String, Integer> answers;
- // Constructor
+
+    // Constructor
+
     public Question() {
     }
-    
+
     /**
      * @return the title
      */

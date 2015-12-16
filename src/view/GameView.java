@@ -567,37 +567,6 @@ public class GameView implements ActionListener, GameListener, KeyListener {
         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         (itemsLabel.get(key)).setIcon(new ImageIcon(newimg));
 
-        /*
-         if (itemsURL.isEmpty()) {
-         System.out.println("image not found");
-         } else {
-         System.out.println("Image found");
-         System.out.println(itemsURL.size());
-         for (URL url : itemsURL) {
-         System.out.println(url);
-         ImageIcon icon = new ImageIcon(url);
-         Image image = icon.getImage();
-         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-         JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
-         itemsLabel.add(itemLabel);
-         }
-         for (int i = itemsURL.size(); i < 4; i++) {
-         ImageIcon icon = new ImageIcon("/images/blanc.gif");
-         Image image = icon.getImage();
-         Image newimg = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-         JLabel itemLabel = new JLabel(new ImageIcon(newimg), JLabel.CENTER);
-         itemsLabel.add(itemLabel);
-         }
-         for (JLabel item : itemsLabel) {
-         item.setPreferredSize(new Dimension(50, 100));
-         item.setMinimumSize(new Dimension(50, 100));
-         item.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-         playerInformationPanel.add(item, c);
-         c.gridx++;
-         }
-         myFrame.pack();
-         }
-         */
     }
 
     private void initKeys() {

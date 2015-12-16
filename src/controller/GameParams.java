@@ -24,7 +24,7 @@ public class GameParams {
      *
      */
     
-    private static final boolean DEMOGAME = true;
+    private static final boolean DEMOGAME = false;
 
     /**
      * The url  of the database

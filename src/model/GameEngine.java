@@ -132,12 +132,12 @@ public class GameEngine implements Model {
             }
             if (command instanceof GoCmd || command instanceof BackCmd) {      
       
-// pas oublier de remettre le if pour la demo                
-//                if (!GameParams.DemoGame()) {
-//                    guardian01.setNextRoom();
-//                }
+              
+               if (!GameParams.demoGame()) {
+                   guardian01.setNextRoom();
+               }
                                 
-                guardian01.setNextRoom();
+       
                                                
                 notifyGameListeners();
                 appendToOutputString("\n The guardian is " + guardian01.getCurrentRoom().getDescription());

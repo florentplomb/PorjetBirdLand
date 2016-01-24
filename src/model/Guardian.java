@@ -23,6 +23,7 @@ public class Guardian extends Person {
      */
     public Guardian(String name, Room currentRoom) {
         super(name, currentRoom);
+        this.getCurrentRoom();
     }
 
     /**
